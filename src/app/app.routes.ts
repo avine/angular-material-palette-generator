@@ -1,9 +1,14 @@
 import { Routes } from '@angular/router';
-import { ColorGenDemoComponent } from './shared/color-gen-demo/color-gen-demo.component';
+import { DemoComponent } from './demo/demo.component';
+import { PaletteGenComponent } from './shared/palette-gen';
 
 export const routes: Routes = [
   {
     path: '',
-    component: ColorGenDemoComponent
-  }
+    component: PaletteGenComponent,
+  },
+  {
+    path: 'demo',
+    component: DemoComponent,
+  },
 ];

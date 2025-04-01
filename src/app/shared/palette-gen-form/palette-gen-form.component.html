@@ -1,4 +1,4 @@
-<div class="app-color-gen-form__snapshots">
+<div class="app-palette-gen-form__snapshots">
   @let noMoreSnapshots = snapshots().length >= maxSnapshots;
 
   @if (hasSelectedSnapshot()) {
@@ -35,7 +35,7 @@
   }
 </div>
 
-<form [formGroup]="form" class="app-color-gen-form__form">
+<form [formGroup]="form" class="app-palette-gen-form__form">
   <mat-form-field appearance="outline" style="width: 11rem">
     <mat-label>Color in hexadecimal</mat-label>
     <input [formControl]="form.controls.color" matInput />
@@ -54,27 +54,18 @@
     <mat-error>Invalid</mat-error>
   </mat-form-field>
 
-  <mat-form-field appearance="outline" style="width: 11rem">
-    <mat-label>Easing</mat-label>
-    <mat-select [formControl]="form.controls.easing">
-      @for (name of easingFuncNames; track name) {
-        <mat-option [value]="name">{{ name }}</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
-
-  <mat-checkbox [formControl]="form.controls.reverse" class="app-color-gen-form__align">Reverse</mat-checkbox>
-
-  <mat-checkbox [formControl]="form.controls.neutral" class="app-color-gen-form__align">Neutral</mat-checkbox>
-
-  <app-color-gen-bezier [formControl]="form.controls.cubicBezier" [canvasSize]="200" [lineColor]="css.rgbColor()" />
+  <app-cubic-bezier-control [formControl]="form.controls.params" [canvasSize]="200" [lineColor]="css.rgbColor()" />
   <app-css-var-observer cssVarName="--mat-sys-on-surface" #css="appCssVarObserver" />
+
+  <mat-checkbox [formControl]="form.controls.reverse" class="app-palette-gen-form__align">Reverse</mat-checkbox>
+
+  <mat-checkbox [formControl]="form.controls.neutral" class="app-palette-gen-form__align">Neutral</mat-checkbox>
 
   <button
     type="button"
     mat-icon-button
     aria-label="Settings"
-    class="app-color-gen-form__align"
+    class="app-palette-gen-form__align"
     (click)="openSettings()"
   >
     <mat-icon>settings</mat-icon>

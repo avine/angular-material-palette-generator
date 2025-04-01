@@ -1,13 +1,13 @@
-<canvas #canvas [width]="canvasSize()" [height]="canvasSize()" class="app-color-gen-bezier__canvas"></canvas>
+<canvas #canvas [width]="canvasSize()" [height]="canvasSize()" class="app-cubic-bezier-control__canvas"></canvas>
 
 <button
-  class="app-color-gen-bezier__point gbl-button-less"
+  class="app-cubic-bezier-control__point gbl-button-less"
   [disabled]="disabled()"
   matRipple
   [matRippleCentered]="true"
   [matRippleUnbounded]="true"
   cdkDrag
-  cdkDragBoundary=".app-color-gen-bezier"
+  cdkDragBoundary=".app-cubic-bezier-control"
   [cdkDragDisabled]="disabled()"
   (cdkDragEnded)="updateParam('p1')"
   #p1
@@ -16,13 +16,13 @@
 </button>
 
 <button
-  class="app-color-gen-bezier__point gbl-button-less"
+  class="app-cubic-bezier-control__point gbl-button-less"
   [disabled]="disabled()"
   matRipple
   [matRippleCentered]="true"
   [matRippleUnbounded]="true"
   cdkDrag
-  cdkDragBoundary=".app-color-gen-bezier"
+  cdkDragBoundary=".app-cubic-bezier-control"
   [cdkDragDisabled]="disabled()"
   (cdkDragEnded)="updateParam('p2')"
   #p2

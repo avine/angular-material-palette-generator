@@ -1,17 +1,17 @@
 @for (config of colorMap(); track $index) {
   <div
-    class="app-color-gen-preview__config"
-    [class.app-color-gen-preview__config--mirror]="mirrorView()"
+    class="app-palette-gen-preview__config"
+    [class.app-palette-gen-preview__config--mirror]="mirrorView()"
     [style.backgroundColor]="config.color"
   >
-    <span class="app-color-gen-preview__percent">{{ config.percentage }}:</span>
-    <span class="app-color-gen-preview__color">{{ config.color }}</span>
+    <span class="app-palette-gen-preview__percent">{{ config.percentage }}:</span>
+    <span class="app-palette-gen-preview__color">{{ config.color }}</span>
   </div>
 }
 
 <button
-  class="app-color-gen-preview__action"
-  [class.app-color-gen-preview__action--mirror]="mirrorView()"
+  class="app-palette-gen-preview__action"
+  [class.app-palette-gen-preview__action--mirror]="mirrorView()"
   mat-icon-button
   matTooltip="Copy Sass map to clipboard"
   [matTooltipPosition]="mirrorView() ? 'right' : 'left'"
@@ -22,7 +22,7 @@
 
 @if (mirrorView()) {
   <button
-    class="app-color-gen-preview__action app-color-gen-preview__action--2 app-color-gen-preview__action--mirror"
+    class="app-palette-gen-preview__action app-palette-gen-preview__action--2 app-palette-gen-preview__action--mirror"
     mat-icon-button
     matTooltip="Close mirror view"
     matTooltipPosition="right"
@@ -32,7 +32,7 @@
   </button>
 } @else {
   <button
-    class="app-color-gen-preview__action app-color-gen-preview__action--2"
+    class="app-palette-gen-preview__action app-palette-gen-preview__action--2"
     mat-icon-button
     matTooltip="Open mirror view"
     matTooltipPosition="left"

@@ -11,15 +11,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { filter, map, startWith, tap } from 'rxjs';
-import { CssColorObserverComponent } from '../../css-var-observer/css-var-observer.component';
-import { addFormControlErrors, removeFormControlErrors } from '../../form-control-errors';
-import { ColorGenBezierComponent } from '../color-gen-bezier/color-gen-bezier.component';
-import { easingFuncNames } from '../color-gen-demo.constants';
-import { ColorGenFormValue } from './color-gen-form.types';
-import { hexColorValidator, RANGE_ERROR_KEY, rangeValidatorFactory } from './color-gen-form.validator';
+import { CssColorObserverComponent } from '../css-var-observer/css-var-observer.component';
+import { CubicBezierControlComponent } from '../cubic-bezier-control';
+import { addFormControlErrors, removeFormControlErrors } from '../form-control-errors';
+import { PaletteGenFormValue } from './palette-gen-form.types';
+import { hexColorValidator, RANGE_ERROR_KEY, rangeValidatorFactory } from './palette-gen-form.validator';
 
 @Component({
-  selector: 'app-color-gen-form',
+  selector: 'app-palette-gen-form',
   imports: [
     ReactiveFormsModule,
     MatButtonModule,
@@ -31,10 +30,10 @@ import { hexColorValidator, RANGE_ERROR_KEY, rangeValidatorFactory } from './col
     MatSelectModule,
     MatTooltipModule,
     CssColorObserverComponent,
-    ColorGenBezierComponent,
+    CubicBezierControlComponent,
   ],
-  templateUrl: './color-gen-form.component.html',
-  styleUrl: './color-gen-form.component.scss',
+  templateUrl: './palette-gen-form.component.html',
+  styleUrl: './palette-gen-form.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
 export class ColorGenFormComponent {
@@ -45,26 +44,22 @@ export class ColorGenFormComponent {
       color: ['#666666', [Validators.required, hexColorValidator]],
       start: [0, [Validators.required]],
       end: [100, [Validators.required]],
-      easing: ['linear', [Validators.required]],
+      params: [{ p1x: 0, p1y: 0, p2x: 1, p2y: 1 }],
       reverse: [false],
       neutral: [false],
-
-      cubicBezier: [{ p1x: 0, p1y: 0, p2x: 1, p2y: 1 }],
     },
     { validators: [rangeValidatorFactory()] },
   );
 
-  formValueChange = outputFromObservable<ColorGenFormValue | undefined>(
+  formValueChange = outputFromObservable<PaletteGenFormValue | undefined>(
     this.form.statusChanges.pipe(
       takeUntilDestroyed(),
       startWith(this.form.valid ? 'VALID' : 'INVALID'),
       filter((status) => status === 'VALID'),
-      map(() => this.form.value as ColorGenFormValue),
+      map(() => this.form.value as PaletteGenFormValue),
       tap((formValue) => this.store(formValue)),
     ),
   );
-
-  easingFuncNames = easingFuncNames;
 
   constructor() {
     this.initRangeErrorHandler();
@@ -120,12 +115,12 @@ export class ColorGenFormComponent {
 
   // ----- storage -----
 
-  private store(formValue: ColorGenFormValue) {
-    this.localStorage?.setItem('app-color-gen-form', JSON.stringify(formValue));
+  private store(formValue: PaletteGenFormValue) {
+    this.localStorage?.setItem('app-palette-gen-form', JSON.stringify(formValue));
   }
 
   private restore() {
-    const value = this.localStorage?.getItem('app-color-gen-form');
+    const value = this.localStorage?.getItem('app-palette-gen-form');
     if (!value) {
       return;
     }
@@ -133,7 +128,7 @@ export class ColorGenFormComponent {
       this.form.setValue(JSON.parse(value));
       this.form.updateValueAndValidity();
     } catch {
-      this.localStorage?.removeItem('app-color-gen-form');
+      this.localStorage?.removeItem('app-palette-gen-form');
       console.error('ColorGenFormComponent: unable to restore value', value);
     }
   }

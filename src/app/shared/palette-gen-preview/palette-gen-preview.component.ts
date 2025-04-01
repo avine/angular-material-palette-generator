@@ -3,24 +3,24 @@ import { booleanAttribute, Component, computed, inject, input, output, ViewEncap
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { materialPalettePercentagesMap } from '../color-gen-demo.constants';
-import { ColorGenFormValue } from '../color-gen-form/color-gen-form.types';
-import { percentageToRgbFactory } from './color-gen-preview.utils';
+import { PaletteGenFormValue } from '../palette-gen-form';
+import { materialPalettePercentagesMap } from '../palette-gen/palette-gen.constants';
+import { percentageToRgbFactory } from './palette-gen-preview.utils';
 
 @Component({
-  selector: 'app-color-gen-preview',
-  host: { class: 'app-color-gen-preview' },
+  selector: 'app-palette-gen-preview',
+  host: { class: 'app-palette-gen-preview' },
   imports: [MatButtonModule, MatIconModule, MatTooltipModule],
-  templateUrl: './color-gen-preview.component.html',
-  styleUrl: './color-gen-preview.component.scss',
+  templateUrl: './palette-gen-preview.component.html',
+  styleUrl: './palette-gen-preview.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
-export class ColorGenPreviewComponent {
+export class PaletteGenPreviewComponent {
   private clipboard = inject(DOCUMENT).defaultView?.navigator.clipboard;
 
   mirrorView = input(false, { transform: booleanAttribute });
 
-  formValue = input.required<ColorGenFormValue | undefined>();
+  formValue = input.required<PaletteGenFormValue | undefined>();
 
   action = output<void>();
 
@@ -30,10 +30,10 @@ export class ColorGenPreviewComponent {
       return [];
     }
 
-    const { color, start, end, /*easing, */ reverse, neutral, cubicBezier } = formValue;
+    const { color, start, end, params, reverse, neutral } = formValue;
 
     const percentagesMap = materialPalettePercentagesMap[neutral ? 'neutral' : 'default'];
-    const percentageToRgb = percentageToRgbFactory({ color /*, easing*/, reverse, cubicBezier });
+    const percentageToRgb = percentageToRgbFactory({ color, params, reverse });
 
     return percentagesMap
       .map((percentage) => ({
@@ -52,7 +52,7 @@ export class ColorGenPreviewComponent {
     this.clipboard?.writeText(`${settings}\n${this.sassMap()}`);
   }
 
-  private stringifyColorGen(formValue: ColorGenFormValue) {
+  private stringifyColorGen(formValue: PaletteGenFormValue) {
     const value = { ...formValue };
     value.color = value.color.toLowerCase();
     return JSON.stringify(value);

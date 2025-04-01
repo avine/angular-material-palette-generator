@@ -1,9 +1,9 @@
-.app-color-gen-bezier {
+.app-cubic-bezier-control {
   position: relative;
   display: block;
-  width: var(--app-color-gen-bezier-canvas-size);
-  height: var(--app-color-gen-bezier-canvas-size);
-  //overflow: hidden;
+  width: var(--app-cubic-bezier-control-canvas-size);
+  height: var(--app-cubic-bezier-control-canvas-size);
+  overflow: hidden;
   border-radius: 0.5rem;
   background-color: var(--mat-sys-surface-container-high);
 
@@ -15,10 +15,12 @@
   }
 
   &__point {
-    position: absolute;
+    position: absolute !important;
     z-index: 2;
-    width: var(--app-color-gen-bezier-point-size);
-    height: var(--app-color-gen-bezier-point-size);
+    top: 0;
+    left: 0;
+    width: var(--app-cubic-bezier-control-point-size);
+    height: var(--app-cubic-bezier-control-point-size);
     border-radius: 99px;
     font-size: 12px;
     line-height: 1em;

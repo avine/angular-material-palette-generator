@@ -8,39 +8,39 @@ import { Theme } from './theme.types';
   providedIn: 'root',
 })
 export class ThemeService {
-  #renderer = inject(RendererFactory2).createRenderer(null, null);
+  private renderer = inject(RendererFactory2).createRenderer(null, null);
 
-  #document = inject(DOCUMENT);
+  private document = inject(DOCUMENT);
 
-  #theme = signal<Theme>(this.#getStorage() ?? this.#getDefault());
+  private _theme = signal<Theme>(this.getStorage() ?? this.getDefault());
 
-  theme = this.#theme.asReadonly();
+  theme = this._theme.asReadonly();
 
   constructor() {
     effect(() => {
-      const theme = this.#theme();
-      this.#applyTheme(theme);
-      this.#setStorage(theme);
+      const theme = this._theme();
+      this.applyTheme(theme);
+      this.setStorage(theme);
     });
   }
 
   switch(theme?: Theme) {
-    this.#theme.update((_theme) => ((theme ?? _theme === 'light') ? 'dark' : 'light'));
+    this._theme.update((_theme) => ((theme ?? _theme === 'light') ? 'dark' : 'light'));
   }
 
-  #applyTheme(theme: Theme) {
-    this.#renderer[theme === 'light' ? 'removeClass' : 'addClass'](this.#document.body, 'gbl-theme-dark');
+  private applyTheme(theme: Theme) {
+    this.renderer[theme === 'light' ? 'removeClass' : 'addClass'](this.document.body, 'gbl-theme-dark');
   }
 
-  #getStorage() {
+  private getStorage() {
     return Cookies.get(THEME_COOKIE_KEY) as Theme | undefined;
   }
 
-  #setStorage(theme: Theme) {
+  private setStorage(theme: Theme) {
     Cookies.set(THEME_COOKIE_KEY, theme);
   }
 
-  #getDefault(): Theme {
-    return this.#document.defaultView?.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  private getDefault(): Theme {
+    return this.document.defaultView?.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
 }

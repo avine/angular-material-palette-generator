@@ -14,30 +14,26 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { MatRippleModule } from '@angular/material/core';
-import CubicBezier from '@mapbox/unitbezier';
-import { ColorGenBezier } from './color-gen-bezier.types';
+import { cubicBezierFactory, CubicBezierParams } from '../cubic-bezier';
 
 @Component({
-  selector: 'app-color-gen-bezier',
+  selector: 'app-cubic-bezier-control',
   host: {
-    class: 'app-color-gen-bezier',
-    '[style.--app-color-gen-bezier-canvas-size]': 'canvasSize() + "px"',
-    '[style.--app-color-gen-bezier-point-size]': 'pointSize() + "px"',
+    class: 'app-cubic-bezier-control',
+    '[style.--app-cubic-bezier-control-canvas-size]': 'canvasSize() + "px"',
+    '[style.--app-cubic-bezier-control-point-size]': 'pointSize() + "px"',
   },
   imports: [CdkDrag, MatRippleModule],
-  templateUrl: './color-gen-bezier.component.html',
-  styleUrl: './color-gen-bezier.component.scss',
+  templateUrl: './cubic-bezier-control.component.html',
+  styleUrl: './cubic-bezier-control.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
-export class ColorGenBezierComponent implements ControlValueAccessor {
+export class CubicBezierControlComponent implements ControlValueAccessor {
   private containerElement: HTMLElement = inject(ElementRef).nativeElement;
 
-  params = model<ColorGenBezier>({ p1x: 0, p1y: 0, p2x: 1, p2y: 1 });
+  params = model<CubicBezierParams>({ p1x: 0, p1y: 0, p2x: 1, p2y: 1 });
 
-  private cubicBezier = computed(() => {
-    const { p1x, p1y, p2x, p2y } = this.params();
-    return new CubicBezier(p1x, p1y, p2x, p2y);
-  });
+  private cubicBezier = computed(() => cubicBezierFactory(this.params()));
 
   private canvasRef = viewChild.required<ElementRef<HTMLCanvasElement>>('canvas');
 
@@ -77,7 +73,7 @@ export class ColorGenBezierComponent implements ControlValueAccessor {
     }
   }
 
-  private positioningPoints(params: ColorGenBezier) {
+  private positioningPoints(params: CubicBezierParams) {
     const baseSize = this.canvasSize() - this.pointSize();
 
     const [p1Drag, p2Drag] = this.cdkDrags();
@@ -135,18 +131,18 @@ export class ColorGenBezierComponent implements ControlValueAccessor {
     ctx.beginPath();
     ctx.moveTo(0, canvasSize);
     for (let step = 0; step <= canvasSize; step += 1) {
-      ctx.lineTo(step, (1 - cubicBezier.solve(step / canvasSize)) * canvasSize);
+      ctx.lineTo(step, (1 - cubicBezier(step / canvasSize)) * canvasSize);
     }
     ctx.stroke();
   }
 
   // ----- ControlValueAccessor -----
 
-  private onChange: (params: ColorGenBezier) => void = () => undefined;
+  private onChange: (params: CubicBezierParams) => void = () => undefined;
 
   private onTouched: () => void = () => undefined;
 
-  registerOnChange(onChange: (params: ColorGenBezier) => undefined): void {
+  registerOnChange(onChange: (params: CubicBezierParams) => undefined): void {
     this.onChange = onChange;
   }
 
@@ -154,7 +150,7 @@ export class ColorGenBezierComponent implements ControlValueAccessor {
     this.onTouched = onTouched;
   }
 
-  writeValue(params: ColorGenBezier | null | undefined): void {
+  writeValue(params: CubicBezierParams | null | undefined): void {
     this.params.set(params ?? { p1x: 0, p1y: 0, p2x: 1, p2y: 1 });
   }
 
