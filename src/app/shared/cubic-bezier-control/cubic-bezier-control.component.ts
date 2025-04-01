@@ -15,6 +15,11 @@ import {
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { MatRippleModule } from '@angular/material/core';
 import { cubicBezierFactory, CubicBezierParams } from '../cubic-bezier';
+import {
+  canvasPointToCubicBezierParam,
+  cubicBezierParamsToPoints,
+  renderCubicBezierToCanvas,
+} from './cubic-bezier-control.utils';
 
 @Component({
   selector: 'app-cubic-bezier-control',
@@ -75,28 +80,21 @@ export class CubicBezierControlComponent implements ControlValueAccessor {
 
   private positioningPoints(params: CubicBezierParams) {
     const baseSize = this.canvasSize() - this.pointSize();
+    const { p1, p2 } = cubicBezierParamsToPoints({ params, baseSize });
 
     const [p1Drag, p2Drag] = this.cdkDrags();
-
-    p1Drag.setFreeDragPosition({
-      x: params.p1x * baseSize,
-      y: baseSize - params.p1y * baseSize,
-    });
-    p2Drag.setFreeDragPosition({
-      x: params.p2x * baseSize,
-      y: baseSize - params.p2y * baseSize,
-    });
+    p1Drag.setFreeDragPosition(p1);
+    p2Drag.setFreeDragPosition(p2);
   }
 
   protected updateParam(p: 'p1' | 'p2') {
-    const container = this.containerElement.getBoundingClientRect();
     const point = this[p]().nativeElement.getBoundingClientRect();
+    const container = this.containerElement.getBoundingClientRect();
     const baseSize = this.canvasSize() - this.pointSize();
 
     this.skipNextParamsEffect = true;
     this.params.update((params) => {
-      const x = Math.round((1000 * (point.x - container.x)) / baseSize) / 1000;
-      const y = Math.round(1000 - (1000 * (point.y - container.y)) / baseSize) / 1000;
+      const { x, y } = canvasPointToCubicBezierParam({ point, container, baseSize });
 
       const newParams = { ...params };
       if (p === 'p1') {
@@ -116,24 +114,13 @@ export class CubicBezierControlComponent implements ControlValueAccessor {
     const ctx = this.canvasContext();
     const canvasSize = this.canvasSize();
     const cubicBezier = this.cubicBezier();
-    const lineColor = this.lineColor();
+    const lineColor = this.lineColor() ?? 'red';
 
     if (!ctx) {
       console.warn('ColorGenBezierComponent: canvas is not supported');
       return;
     }
-
-    ctx.strokeStyle = lineColor ?? 'red';
-    ctx.lineWidth = 3;
-    ctx.lineCap = 'round';
-
-    ctx.clearRect(0, 0, canvasSize, canvasSize);
-    ctx.beginPath();
-    ctx.moveTo(0, canvasSize);
-    for (let step = 0; step <= canvasSize; step += 1) {
-      ctx.lineTo(step, (1 - cubicBezier(step / canvasSize)) * canvasSize);
-    }
-    ctx.stroke();
+    renderCubicBezierToCanvas({ ctx, canvasSize, cubicBezier, lineColor });
   }
 
   // ----- ControlValueAccessor -----
