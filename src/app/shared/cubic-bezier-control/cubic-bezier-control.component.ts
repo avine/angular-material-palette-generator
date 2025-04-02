@@ -25,8 +25,8 @@ import {
   selector: 'app-cubic-bezier-control',
   host: {
     class: 'app-cubic-bezier-control',
+    '[class.app-cubic-bezier-control--disabled]': 'disabled()',
     '[style.--app-cubic-bezier-control-canvas-size]': 'canvasSize() + "px"',
-    '[style.--app-cubic-bezier-control-point-size]': 'pointSize() + "px"',
   },
   imports: [CdkDrag, MatRippleModule],
   templateUrl: './cubic-bezier-control.component.html',
@@ -49,8 +49,6 @@ export class CubicBezierControlComponent implements ControlValueAccessor {
   private p1 = viewChild.required<ElementRef<HTMLElement>>('p1');
 
   private p2 = viewChild.required<ElementRef<HTMLElement>>('p2');
-
-  pointSize = input(24);
 
   lineColor = input<string>();
 
@@ -79,8 +77,8 @@ export class CubicBezierControlComponent implements ControlValueAccessor {
   }
 
   private positioningPoints(params: CubicBezierParams) {
-    const baseSize = this.canvasSize() - this.pointSize();
-    const { p1, p2 } = cubicBezierParamsToPoints({ params, baseSize });
+    const size = this.canvasSize();
+    const { p1, p2 } = cubicBezierParamsToPoints({ params, size });
 
     const [p1Drag, p2Drag] = this.cdkDrags();
     p1Drag.setFreeDragPosition(p1);
@@ -90,11 +88,11 @@ export class CubicBezierControlComponent implements ControlValueAccessor {
   protected updateParam(p: 'p1' | 'p2') {
     const point = this[p]().nativeElement.getBoundingClientRect();
     const container = this.containerElement.getBoundingClientRect();
-    const baseSize = this.canvasSize() - this.pointSize();
+    const size = this.canvasSize();
 
     this.skipNextParamsEffect = true;
     this.params.update((params) => {
-      const { x, y } = canvasPointToCubicBezierParam({ point, container, baseSize });
+      const { x, y } = canvasPointToCubicBezierParam({ point, container, size });
 
       const newParams = { ...params };
       if (p === 'p1') {

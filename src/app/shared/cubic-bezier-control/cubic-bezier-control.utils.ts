@@ -3,21 +3,21 @@ import { CubicBezierParams } from '../cubic-bezier';
 
 export type CubicBezierParamsToPointsConfig = {
   params: CubicBezierParams;
-  baseSize: number;
+  size: number;
 };
 
 export const cubicBezierParamsToPoints = ({
   params: { p1x, p1y, p2x, p2y },
-  baseSize,
+  size,
 }: CubicBezierParamsToPointsConfig): { p1: Point; p2: Point } => {
   return {
     p1: {
-      x: p1x * baseSize,
-      y: baseSize - p1y * baseSize,
+      x: p1x * size,
+      y: size - p1y * size,
     },
     p2: {
-      x: p2x * baseSize,
-      y: baseSize - p2y * baseSize,
+      x: p2x * size,
+      y: size - p2y * size,
     },
   };
 };
@@ -27,12 +27,12 @@ export const cubicBezierParamsToPoints = ({
 export type CanvasPointToCubicBezierParamConfig = {
   point: DOMRect;
   container: DOMRect;
-  baseSize: number;
+  size: number;
 };
 
-export const canvasPointToCubicBezierParam = ({ point, container, baseSize }: CanvasPointToCubicBezierParamConfig) => ({
-  x: Math.round((1000 * (point.x - container.x)) / baseSize) / 1000,
-  y: Math.round(1000 - (1000 * (point.y - container.y)) / baseSize) / 1000,
+export const canvasPointToCubicBezierParam = ({ point, container, size }: CanvasPointToCubicBezierParamConfig) => ({
+  x: Math.round((1000 * (point.x - container.x)) / size) / 1000,
+  y: Math.round(1000 - (1000 * (point.y - container.y)) / size) / 1000,
 });
 
 // --------------------

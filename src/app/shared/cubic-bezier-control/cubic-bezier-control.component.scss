@@ -3,15 +3,19 @@
   display: block;
   width: var(--app-cubic-bezier-control-canvas-size);
   height: var(--app-cubic-bezier-control-canvas-size);
-  overflow: hidden;
-  border-radius: 0.5rem;
-  background-color: rgb(from var(--mat-sys-surface-variant) r g b / 0.24);
+  transition: opacity ease 120ms;
+
+  &--disabled {
+    opacity: 0.5;
+  }
 
   &__canvas {
     position: absolute;
     z-index: 1;
     width: 100%;
     height: 100%;
+    border-radius: 0.25rem;
+    background-color: rgb(from var(--mat-sys-surface-variant) r g b / 0.24);
   }
 
   &__point {
@@ -19,19 +23,22 @@
     z-index: 2;
     top: 0;
     left: 0;
-    width: var(--app-cubic-bezier-control-point-size);
-    height: var(--app-cubic-bezier-control-point-size);
-    border-radius: 99px;
-    font-size: 12px;
-    line-height: 1em;
-    text-align: center;
-    cursor: move;
-    background-color: var(--mat-sys-primary);
-    color: var(--mat-sys-on-primary);
+    width: 0;
+    height: 0;
     transition: transform ease 60ms;
 
-    &:disabled {
-      opacity: 0.33;
+    button {
+      content: '';
+      cursor: move;
+      position: absolute;
+      top: -0.625rem;
+      left: -0.625rem;
+      width: 1.25rem;
+      height: 1.25rem;
+      border-radius: 99px;
+      background-color: var(--mat-sys-primary);
+      color: transparent;
+      user-select: none;
     }
   }
 }
