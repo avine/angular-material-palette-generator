@@ -1,5 +1,6 @@
 import { Point } from '@angular/cdk/drag-drop';
 import { CubicBezierParams } from '../cubic-bezier';
+import { CubicBezierControlColors } from './cubic-bezier-control.types';
 
 export type CubicBezierParamsToPointsConfig = {
   params: CubicBezierParams;
@@ -37,75 +38,55 @@ export const pointToCubicBezierParam = ({ point, container, size }: PointToCubic
 
 // --------------------
 
-export type ClearCanvasConfig = {
-  ctx: CanvasRenderingContext2D;
-  canvasSize: number;
-};
+export class CanvasHandler {
+  constructor(
+    protected ctx: CanvasRenderingContext2D,
+    protected canvasSize: number,
+    protected colors: CubicBezierControlColors,
+  ) {}
 
-export const clearCanvas = ({ ctx, canvasSize }: ClearCanvasConfig) => ctx.clearRect(0, 0, canvasSize, canvasSize);
-
-// --------------------
-
-export type LineToCanvasConfig = {
-  ctx: CanvasRenderingContext2D;
-  canvasSize: number;
-  lineColor: string;
-};
-
-export const renderLineToCanvas = ({ ctx, canvasSize, lineColor }: LineToCanvasConfig) => {
-  ctx.beginPath();
-  ctx.moveTo(0, canvasSize);
-  ctx.lineWidth = 3;
-  ctx.lineCap = 'round';
-  ctx.lineTo(canvasSize, 0);
-  ctx.strokeStyle = lineColor;
-  ctx.stroke();
-};
-
-// --------------------
-
-export type CubicBezierToCanvasConfig = {
-  ctx: CanvasRenderingContext2D;
-  canvasSize: number;
-  curveColor: string;
-  cubicBezier: (x: number) => number;
-};
-
-export const renderCubicBezierToCanvas = ({ ctx, canvasSize, curveColor, cubicBezier }: CubicBezierToCanvasConfig) => {
-  ctx.beginPath();
-  ctx.moveTo(0, canvasSize);
-  ctx.lineWidth = 3;
-  ctx.lineCap = 'round';
-  ctx.setLineDash([]);
-  for (let step = 0; step <= canvasSize; step += 1) {
-    ctx.lineTo(step, (1 - cubicBezier(step / canvasSize)) * canvasSize);
+  clear() {
+    this.ctx.clearRect(0, 0, this.canvasSize, this.canvasSize);
+    return this;
   }
-  ctx.strokeStyle = curveColor;
-  ctx.stroke();
-};
 
-// --------------------
+  line() {
+    this.ctx.beginPath();
+    this.ctx.moveTo(0, this.canvasSize);
+    this.ctx.lineWidth = 3;
+    this.ctx.lineCap = 'round';
+    this.ctx.lineTo(this.canvasSize, 0);
+    this.ctx.strokeStyle = this.colors.lineColor;
+    this.ctx.stroke();
+    return this;
+  }
 
-export type PointSticksToCanvasConfig = {
-  ctx: CanvasRenderingContext2D;
-  canvasSize: number;
-  stickColor: string;
-  params: CubicBezierParams;
-};
+  curve(interpolate: (x: number) => number) {
+    this.ctx.beginPath();
+    this.ctx.moveTo(0, this.canvasSize);
+    this.ctx.lineWidth = 3;
+    this.ctx.lineCap = 'round';
+    for (let step = 0; step <= this.canvasSize; step += 1) {
+      this.ctx.lineTo(step, (1 - interpolate(step / this.canvasSize)) * this.canvasSize);
+    }
+    this.ctx.strokeStyle = this.colors.curveColor;
+    this.ctx.stroke();
+    return this;
+  }
 
-export const renderPointSticksToCanvas = ({ ctx, canvasSize, stickColor, params }: PointSticksToCanvasConfig) => {
-  ctx.beginPath();
+  sticks(params: CubicBezierParams) {
+    this.ctx.beginPath();
+    this.ctx.lineWidth = 1;
+    this.ctx.lineCap = 'round';
 
-  ctx.moveTo(0, canvasSize);
-  ctx.lineWidth = 1;
-  ctx.lineCap = 'round';
-  ctx.lineTo(canvasSize * params.p1x, canvasSize * (1 - params.p1y));
+    this.ctx.moveTo(0, this.canvasSize);
+    this.ctx.lineTo(this.canvasSize * params.p1x, this.canvasSize * (1 - params.p1y));
 
-  ctx.moveTo(canvasSize, 0);
-  ctx.lineWidth = 1;
-  ctx.lineCap = 'round';
-  ctx.lineTo(canvasSize * params.p2x, canvasSize * (1 - params.p2y));
+    this.ctx.moveTo(this.canvasSize, 0);
+    this.ctx.lineTo(this.canvasSize * params.p2x, this.canvasSize * (1 - params.p2y));
 
-  ctx.strokeStyle = stickColor;
-  ctx.stroke();
-};
+    this.ctx.strokeStyle = this.colors.stickColor;
+    this.ctx.stroke();
+    return this;
+  }
+}

@@ -16,14 +16,7 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { MatRippleModule } from '@angular/material/core';
 import { cubicBezierFactory, CubicBezierParams } from '../cubic-bezier';
 import { CubicBezierControlColors } from './cubic-bezier-control.types';
-import {
-  clearCanvas,
-  cubicBezierParamsToPoints,
-  pointToCubicBezierParam,
-  renderCubicBezierToCanvas,
-  renderLineToCanvas,
-  renderPointSticksToCanvas,
-} from './cubic-bezier-control.utils';
+import { CanvasHandler, cubicBezierParamsToPoints, pointToCubicBezierParam } from './cubic-bezier-control.utils';
 
 @Component({
   selector: 'app-cubic-bezier-control',
@@ -46,7 +39,10 @@ export class CubicBezierControlComponent implements ControlValueAccessor {
 
   private canvasRef = viewChild.required<ElementRef<HTMLCanvasElement>>('canvas');
 
-  private canvasContext = computed(() => this.canvasRef().nativeElement.getContext('2d'));
+  private canvasHandler = computed(() => {
+    const ctx = this.canvasRef().nativeElement.getContext('2d');
+    return ctx ? new CanvasHandler(ctx, this.canvasSize(), this.colorMap()) : undefined;
+  });
 
   canvasSize = input(200);
 
@@ -113,20 +109,12 @@ export class CubicBezierControlComponent implements ControlValueAccessor {
   }
 
   private updateCanvas() {
-    const ctx = this.canvasContext();
-    const canvasSize = this.canvasSize();
-    const { lineColor, curveColor, stickColor } = this.colorMap();
-    const cubicBezier = this.cubicBezier();
-    const params = this.params();
-
-    if (!ctx) {
+    const canvasHandler = this.canvasHandler();
+    if (!canvasHandler) {
       console.warn('ColorGenBezierComponent: canvas is not supported');
       return;
     }
-    clearCanvas({ ctx, canvasSize });
-    renderLineToCanvas({ ctx, canvasSize, lineColor });
-    renderCubicBezierToCanvas({ ctx, canvasSize, curveColor, cubicBezier });
-    renderPointSticksToCanvas({ ctx, canvasSize, stickColor, params });
+    canvasHandler.clear().line().curve(this.cubicBezier()).sticks(this.params());
   }
 
   // ----- ControlValueAccessor -----
