@@ -1,0 +1,11 @@
+<button mat-button (click)="themeService.switch()">
+  <mat-icon style="color: var(--mat-sys-primary)">
+    {{ themeService.theme() === 'light' ? 'dark_mode' : 'light_mode' }}
+  </mat-icon>
+
+  @if (themeService.theme() === 'light') {
+    Dark theme
+  } @else {
+    Light theme
+  }
+</button>

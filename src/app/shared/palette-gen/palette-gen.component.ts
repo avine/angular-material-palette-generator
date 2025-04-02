@@ -5,6 +5,7 @@ import { PaletteGenPreviewComponent } from '../palette-gen-preview';
 
 @Component({
   selector: 'app-palette-gen',
+  host: { class: 'app-palette-gen' },
   imports: [ColorGenFormComponent, ColorGenGuideComponent, PaletteGenPreviewComponent],
   templateUrl: './palette-gen.component.html',
   styleUrl: './palette-gen.component.scss',

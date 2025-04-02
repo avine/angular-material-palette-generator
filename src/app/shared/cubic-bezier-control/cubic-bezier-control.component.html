@@ -9,7 +9,7 @@
   cdkDrag
   cdkDragBoundary=".app-cubic-bezier-control"
   [cdkDragDisabled]="disabled()"
-  (cdkDragEnded)="updateParam('p1')"
+  (cdkDragMoved)="updateParam('p1')"
   #p1
 >
   p1
@@ -24,7 +24,7 @@
   cdkDrag
   cdkDragBoundary=".app-cubic-bezier-control"
   [cdkDragDisabled]="disabled()"
-  (cdkDragEnded)="updateParam('p2')"
+  (cdkDragMoved)="updateParam('p2')"
   #p2
 >
   p2

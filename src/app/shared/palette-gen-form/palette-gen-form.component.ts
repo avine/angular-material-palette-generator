@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSliderModule } from '@angular/material/slider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { filter, map, startWith, tap } from 'rxjs';
 import { CssColorObserverComponent } from '../css-var-observer/css-var-observer.component';
@@ -28,6 +29,7 @@ import { hexColorValidator, RANGE_ERROR_KEY, rangeValidatorFactory } from './pal
     MatIconModule,
     MatInputModule,
     MatSelectModule,
+    MatSliderModule,
     MatTooltipModule,
     CssColorObserverComponent,
     CubicBezierControlComponent,

@@ -1,0 +1,22 @@
+@use '@angular/material' as mat;
+
+@use './theme-colors' as theme-colors;
+
+html {
+  color-scheme: light;
+
+  @include mat.theme(
+    (
+      color: (
+        primary: theme-colors.$primary-palette,
+        tertiary: theme-colors.$tertiary-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+}
+
+body.gbl-theme-dark {
+  color-scheme: dark;
+}

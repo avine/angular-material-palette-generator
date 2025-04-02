@@ -1,3 +1,33 @@
+<form [formGroup]="form" class="app-palette-gen-form__form">
+  <mat-form-field appearance="outline" style="width: 11rem">
+    <mat-label>Color</mat-label>
+    <input [formControl]="form.controls.color" matInput placeholder="#666666" />
+    <mat-error>Invalid</mat-error>
+  </mat-form-field>
+
+  <mat-slider min="0" max="100" step="1" discrete style="width: 200px">
+    <input [formControl]="form.controls.start" matSliderStartThumb />
+    <input [formControl]="form.controls.end" matSliderEndThumb />
+  </mat-slider>
+
+  <app-cubic-bezier-control [formControl]="form.controls.params" [canvasSize]="200" [lineColor]="css.rgbColor()" />
+  <app-css-var-observer cssVarName="--mat-sys-primary" #css="appCssVarObserver" />
+
+  <mat-checkbox [formControl]="form.controls.reverse" class="app-palette-gen-form__align">Reverse</mat-checkbox>
+
+  <mat-checkbox [formControl]="form.controls.neutral" class="app-palette-gen-form__align">Neutral</mat-checkbox>
+
+  <button
+    type="button"
+    mat-icon-button
+    aria-label="Settings"
+    class="app-palette-gen-form__align"
+    (click)="openSettings()"
+  >
+    <mat-icon>settings</mat-icon>
+  </button>
+</form>
+
 <div class="app-palette-gen-form__snapshots">
   @let noMoreSnapshots = snapshots().length >= maxSnapshots;
 
@@ -34,43 +64,6 @@
     }
   }
 </div>
-
-<form [formGroup]="form" class="app-palette-gen-form__form">
-  <mat-form-field appearance="outline" style="width: 11rem">
-    <mat-label>Color in hexadecimal</mat-label>
-    <input [formControl]="form.controls.color" matInput />
-    <mat-error>Invalid</mat-error>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline" style="width: 6rem">
-    <mat-label>Start</mat-label>
-    <input [formControl]="form.controls.start" matInput type="number" min="0" max="100" />
-    <mat-error>Invalid</mat-error>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline" style="width: 6rem">
-    <mat-label>End</mat-label>
-    <input [formControl]="form.controls.end" matInput type="number" min="0" max="100" />
-    <mat-error>Invalid</mat-error>
-  </mat-form-field>
-
-  <app-cubic-bezier-control [formControl]="form.controls.params" [canvasSize]="200" [lineColor]="css.rgbColor()" />
-  <app-css-var-observer cssVarName="--mat-sys-on-surface" #css="appCssVarObserver" />
-
-  <mat-checkbox [formControl]="form.controls.reverse" class="app-palette-gen-form__align">Reverse</mat-checkbox>
-
-  <mat-checkbox [formControl]="form.controls.neutral" class="app-palette-gen-form__align">Neutral</mat-checkbox>
-
-  <button
-    type="button"
-    mat-icon-button
-    aria-label="Settings"
-    class="app-palette-gen-form__align"
-    (click)="openSettings()"
-  >
-    <mat-icon>settings</mat-icon>
-  </button>
-</form>
 
 <ng-template #settingsTemplate>
   <div role="heading" aria-level="2" mat-dialog-title>Settings</div>

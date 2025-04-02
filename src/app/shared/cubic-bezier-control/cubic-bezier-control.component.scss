@@ -5,7 +5,7 @@
   height: var(--app-cubic-bezier-control-canvas-size);
   overflow: hidden;
   border-radius: 0.5rem;
-  background-color: var(--mat-sys-surface-container-high);
+  background-color: rgb(from var(--mat-sys-surface-variant) r g b / 0.24);
 
   &__canvas {
     position: absolute;
@@ -28,6 +28,7 @@
     cursor: move;
     background-color: var(--mat-sys-primary);
     color: var(--mat-sys-on-primary);
+    transition: transform ease 60ms;
 
     &:disabled {
       opacity: 0.33;

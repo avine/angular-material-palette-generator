@@ -1,5 +1,3 @@
-<app-palette-gen-form (formValueChange)="formValue.set($event)" />
-
 <div class="app-palette-gen__previews">
   <app-palette-gen-preview [formValue]="formValue()" (action)="formValueMirror.set(formValue())" />
 
@@ -8,4 +6,6 @@
   }
 </div>
 
-<app-palette-gen-guide />
+<app-palette-gen-form class="app-palette-gen__form" (formValueChange)="formValue.set($event)" />
+
+<!--<app-palette-gen-guide />-->
