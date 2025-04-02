@@ -13,7 +13,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { filter, map, startWith, tap } from 'rxjs';
 import { CssColorObserverComponent } from '../css-var-observer/css-var-observer.component';
-import { CubicBezierControlComponent } from '../cubic-bezier-control';
+import { CubicBezierControlColors, CubicBezierControlComponent } from '../cubic-bezier-control';
 import { addFormControlErrors, removeFormControlErrors } from '../form-control-errors';
 import { PaletteGenFormValue } from './palette-gen-form.types';
 import { hexColorValidator, RANGE_ERROR_KEY, rangeValidatorFactory } from './palette-gen-form.validator';
@@ -175,4 +175,18 @@ export class ColorGenFormComponent {
   private get nextSnapshotAlias() {
     return this.snapshotAliasList[this.snapshotAliasIndex++ % this.snapshotAliasList.length];
   }
+
+  // ----- Material colors in RGB (for the canvas configuration) -----
+
+  protected cssVarConfig: CubicBezierControlColors = {
+    lineColor: '--mat-sys-surface-container-high',
+    curveColor: '--mat-sys-on-surface',
+    stickColor: '--mat-sys-primary',
+  };
+
+  protected colorMap = signal<typeof this.cssVarConfig>({
+    lineColor: 'transparent',
+    curveColor: 'transparent',
+    stickColor: 'transparent',
+  });
 }

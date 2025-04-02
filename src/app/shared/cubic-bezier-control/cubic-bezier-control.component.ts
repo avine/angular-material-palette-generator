@@ -15,10 +15,14 @@ import {
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { MatRippleModule } from '@angular/material/core';
 import { cubicBezierFactory, CubicBezierParams } from '../cubic-bezier';
+import { CubicBezierControlColors } from './cubic-bezier-control.types';
 import {
-  canvasPointToCubicBezierParam,
+  clearCanvas,
   cubicBezierParamsToPoints,
+  pointToCubicBezierParam,
   renderCubicBezierToCanvas,
+  renderLineToCanvas,
+  renderPointSticksToCanvas,
 } from './cubic-bezier-control.utils';
 
 @Component({
@@ -34,7 +38,7 @@ import {
   encapsulation: ViewEncapsulation.None,
 })
 export class CubicBezierControlComponent implements ControlValueAccessor {
-  private containerElement: HTMLElement = inject(ElementRef).nativeElement;
+  private container: HTMLElement = inject(ElementRef).nativeElement;
 
   params = model<CubicBezierParams>({ p1x: 0, p1y: 0, p2x: 1, p2y: 1 });
 
@@ -50,11 +54,11 @@ export class CubicBezierControlComponent implements ControlValueAccessor {
 
   private p2 = viewChild.required<ElementRef<HTMLElement>>('p2');
 
-  lineColor = input<string>();
-
-  skipNextParamsEffect = false;
+  colorMap = input<CubicBezierControlColors>({ curveColor: 'black', lineColor: 'black', stickColor: 'black' });
 
   disabled = model(false);
+
+  skipNextParamsEffect = false;
 
   private cdkDrags = viewChildren(CdkDrag);
 
@@ -87,12 +91,12 @@ export class CubicBezierControlComponent implements ControlValueAccessor {
 
   protected updateParam(p: 'p1' | 'p2') {
     const point = this[p]().nativeElement.getBoundingClientRect();
-    const container = this.containerElement.getBoundingClientRect();
+    const container = this.container.getBoundingClientRect();
     const size = this.canvasSize();
 
     this.skipNextParamsEffect = true;
     this.params.update((params) => {
-      const { x, y } = canvasPointToCubicBezierParam({ point, container, size });
+      const { x, y } = pointToCubicBezierParam({ point, container, size });
 
       const newParams = { ...params };
       if (p === 'p1') {
@@ -111,14 +115,18 @@ export class CubicBezierControlComponent implements ControlValueAccessor {
   private updateCanvas() {
     const ctx = this.canvasContext();
     const canvasSize = this.canvasSize();
+    const { lineColor, curveColor, stickColor } = this.colorMap();
     const cubicBezier = this.cubicBezier();
-    const lineColor = this.lineColor() ?? 'red';
+    const params = this.params();
 
     if (!ctx) {
       console.warn('ColorGenBezierComponent: canvas is not supported');
       return;
     }
-    renderCubicBezierToCanvas({ ctx, canvasSize, cubicBezier, lineColor });
+    clearCanvas({ ctx, canvasSize });
+    renderLineToCanvas({ ctx, canvasSize, lineColor });
+    renderCubicBezierToCanvas({ ctx, canvasSize, curveColor, cubicBezier });
+    renderPointSticksToCanvas({ ctx, canvasSize, stickColor, params });
   }
 
   // ----- ControlValueAccessor -----

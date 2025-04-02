@@ -1,47 +1,41 @@
-import {
-  afterRenderEffect,
-  Component,
-  ElementRef,
-  inject,
-  input,
-  output,
-  signal,
-  ViewEncapsulation,
-} from '@angular/core';
-import { ThemeService } from '../theme';
+import { Component, computed, effect, input, output, viewChildren, ViewEncapsulation } from '@angular/core';
+import { CssVarItemObserverDirective } from './css-var-item-observer.directive';
 
 @Component({
-  exportAs: 'appCssVarObserver',
   selector: 'app-css-var-observer',
   host: {
     class: '.app-css-var-observer',
-    '[style.color]': '"var(" + cssVarName() + ")"',
+    '[attr.role]': '"presentation"',
   },
-  template: '',
-  styles: '.app-css-var-observer { position: absolute; left: -99999px }',
+  imports: [CssVarItemObserverDirective],
+  templateUrl: './css-var-observer.component.html',
+  styleUrl: './css-var-observer.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
-export class CssColorObserverComponent {
-  private host: HTMLElement = inject(ElementRef).nativeElement;
+export class CssColorObserverComponent<T extends string> {
+  cssVarConfig = input.required<Record<T, string>>();
 
-  private theme = inject(ThemeService).theme;
+  protected cssVarNames = computed(() => Object.values(this.cssVarConfig()) as string[]);
 
-  cssVarName = input.required<string>();
+  protected cssVarItems = viewChildren(CssVarItemObserverDirective);
 
-  private _rgbColor = signal<string | undefined>(undefined);
+  protected colorMap = computed<Record<T, string>>(() => {
+    const keys = Object.keys(this.cssVarConfig()) as T[];
+    return this.cssVarItems().reduce(
+      (map, item, index) => {
+        const rgbColor = item.rgbColor();
+        if (rgbColor) {
+          map[keys[index]] = rgbColor;
+        }
+        return map;
+      },
+      {} as Record<T, string>,
+    );
+  });
 
-  rgbColor = this._rgbColor.asReadonly();
-
-  rgbColorChange = output<string | undefined>();
+  colorMapChange = output<Record<T, string>>();
 
   constructor() {
-    afterRenderEffect(() => {
-      this.theme();
-      this.cssVarName();
-
-      const rgbColor = this.host.computedStyleMap().get('color')?.toString();
-      this._rgbColor.set(rgbColor);
-      this.rgbColorChange.emit(rgbColor);
-    });
+    effect(() => this.colorMapChange.emit(this.colorMap()));
   }
 }

@@ -10,8 +10,7 @@
     <input [formControl]="form.controls.end" matSliderEndThumb />
   </mat-slider>
 
-  <app-cubic-bezier-control [formControl]="form.controls.params" [canvasSize]="200" [lineColor]="css.rgbColor()" />
-  <app-css-var-observer cssVarName="--mat-sys-primary" #css="appCssVarObserver" />
+  <app-cubic-bezier-control [formControl]="form.controls.params" [canvasSize]="200" [colorMap]="colorMap()" />
 
   <mat-checkbox [formControl]="form.controls.reverse" class="app-palette-gen-form__align">Reverse</mat-checkbox>
 
@@ -89,3 +88,5 @@
     <button mat-flat-button [disabled]="!settingsCtrl.value" (click)="applySettings()">Apply</button>
   </mat-dialog-actions>
 </ng-template>
+
+<app-css-var-observer [cssVarConfig]="cssVarConfig" (colorMapChange)="colorMap.set($event)" />
