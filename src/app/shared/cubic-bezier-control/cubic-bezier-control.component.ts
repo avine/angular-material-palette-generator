@@ -14,9 +14,11 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { MatRippleModule } from '@angular/material/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { cubicBezierFactory, CubicBezierParams } from '../cubic-bezier';
 import { CubicBezierControlColors } from './cubic-bezier-control.types';
 import { CanvasHandler, cubicBezierParamsToPoints, pointToCubicBezierParam } from './cubic-bezier-control.utils';
+import { CubicBezierParamsPipe } from './cubic-bezier-params.pipe';
 
 @Component({
   selector: 'app-cubic-bezier-control',
@@ -25,7 +27,7 @@ import { CanvasHandler, cubicBezierParamsToPoints, pointToCubicBezierParam } fro
     '[class.app-cubic-bezier-control--disabled]': 'disabled()',
     '[style.--app-cubic-bezier-control-canvas-size]': 'canvasSize() + "px"',
   },
-  imports: [CdkDrag, MatRippleModule],
+  imports: [CdkDrag, MatRippleModule, MatTooltipModule, CubicBezierParamsPipe],
   templateUrl: './cubic-bezier-control.component.html',
   styleUrl: './cubic-bezier-control.component.scss',
   encapsulation: ViewEncapsulation.None,
