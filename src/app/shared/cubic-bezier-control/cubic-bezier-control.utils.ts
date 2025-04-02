@@ -50,13 +50,13 @@ export class CanvasHandler {
     return this;
   }
 
-  line() {
+  linear() {
     this.ctx.beginPath();
     this.ctx.moveTo(0, this.canvasSize);
     this.ctx.lineWidth = 3;
     this.ctx.lineCap = 'round';
     this.ctx.lineTo(this.canvasSize, 0);
-    this.ctx.strokeStyle = this.colors.lineColor;
+    this.ctx.strokeStyle = this.colors.linearColor;
     this.ctx.stroke();
     return this;
   }

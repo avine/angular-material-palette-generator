@@ -1,5 +1,5 @@
 export type CubicBezierControlColors = {
+  linearColor: string;
   curveColor: string;
-  lineColor: string;
   stickColor: string;
 };

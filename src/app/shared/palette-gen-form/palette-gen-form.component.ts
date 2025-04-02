@@ -179,13 +179,13 @@ export class ColorGenFormComponent {
   // ----- Material colors in RGB (for the canvas configuration) -----
 
   protected cssVarConfig: CubicBezierControlColors = {
-    lineColor: '--mat-sys-surface-container-high',
-    curveColor: '--mat-sys-on-surface',
+    linearColor: '--mat-sys-surface-container-highest',
+    curveColor: '--mat-sys-on-surface-variant',
     stickColor: '--mat-sys-primary',
   };
 
   protected colorMap = signal<typeof this.cssVarConfig>({
-    lineColor: 'transparent',
+    linearColor: 'transparent',
     curveColor: 'transparent',
     stickColor: 'transparent',
   });

@@ -50,7 +50,7 @@ export class CubicBezierControlComponent implements ControlValueAccessor {
 
   private p2 = viewChild.required<ElementRef<HTMLElement>>('p2');
 
-  colorMap = input<CubicBezierControlColors>({ curveColor: 'black', lineColor: 'black', stickColor: 'black' });
+  colorMap = input<CubicBezierControlColors>({ linearColor: 'black', curveColor: 'black', stickColor: 'black' });
 
   disabled = model(false);
 
@@ -114,7 +114,7 @@ export class CubicBezierControlComponent implements ControlValueAccessor {
       console.warn('ColorGenBezierComponent: canvas is not supported');
       return;
     }
-    canvasHandler.clear().line().curve(this.cubicBezier()).sticks(this.params());
+    canvasHandler.clear().linear().curve(this.cubicBezier()).sticks(this.params());
   }
 
   // ----- ControlValueAccessor -----
