@@ -8,7 +8,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint --fix",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "docs": "ng build --base-href='/angular-material-palette-generator/'",
+    "postdocs": "mv dist/angular-material-palette-generator/browser docs && cp docs/index.html docs/404.html"
   },
   "private": true,
   "dependencies": {
