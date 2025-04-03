@@ -2,9 +2,9 @@ import { Component, computed, inject, signal, ViewEncapsulation } from '@angular
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { PaletteGenService } from '../palette-gen';
 import { PaletteGenFormValue } from '../palette-gen-form';
 import { PaletteGenPreviewComponent } from '../palette-gen-preview';
-import { PaletteGenService } from '../palette-gen/palette-gen.service';
 
 @Component({
   selector: 'app-palette-gen-content',

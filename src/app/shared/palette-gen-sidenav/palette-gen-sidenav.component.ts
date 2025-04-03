@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
+import { PaletteGenService } from '../palette-gen';
 import { ColorGenFormComponent } from '../palette-gen-form';
 import { PaletteGenImportComponent } from '../palette-gen-import';
-import { PaletteGenService } from '../palette-gen/palette-gen.service';
 
 @Component({
   selector: 'app-palette-gen-sidenav',
