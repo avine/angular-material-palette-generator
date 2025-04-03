@@ -36,8 +36,7 @@
 
   tr:not(:first-child) th {
     text-align: end;
+    font-size: 0.85rem;
     color: var(--mat-sys-primary);
-    font-family: monospace;
-    font-weight: normal;
   }
 }

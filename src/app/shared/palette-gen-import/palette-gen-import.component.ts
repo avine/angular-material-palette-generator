@@ -5,21 +5,12 @@ import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dial
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { PaletteGenFormValue } from '../palette-gen-form';
 import { parsePaletteGenFormValue } from '../palette-gen-form/palette-gen-form.utils';
 
 @Component({
   selector: 'app-palette-gen-import',
-  imports: [
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatTooltipModule,
-  ],
+  imports: [ReactiveFormsModule, MatButtonModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule],
   templateUrl: './palette-gen-import.component.html',
   encapsulation: ViewEncapsulation.None,
 })

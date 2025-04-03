@@ -1,22 +1,24 @@
-<app-header class="app-root__header" [(sidenavOpened)]="sidenavOpened" />
+<app-header role="banner" class="app-root__header" [(sidenavOpened)]="sidenavOpened" />
 
 <mat-sidenav-container class="app-root__container" [hasBackdrop]="false">
-  <mat-sidenav-content>
-    <main class="app-root__main">
-      <router-outlet />
-    </main>
-  </mat-sidenav-content>
+  <main class="app-root__main">
+    <router-outlet />
+  </main>
 
   <mat-sidenav
-    class="app-root__sidenav"
     position="end"
     mode="side"
     [(opened)]="sidenavOpened"
     [fixedInViewport]="true"
-    [fixedTopGap]="72"
+    [fixedTopGap]="64"
+    [fixedBottomGap]="72"
   >
     <aside class="app-root__aside">
       <router-outlet name="sidenav" />
     </aside>
   </mat-sidenav>
 </mat-sidenav-container>
+
+<footer class="app-root__footer">
+  <router-outlet name="footer" />
+</footer>

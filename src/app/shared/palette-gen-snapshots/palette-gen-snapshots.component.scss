@@ -1,9 +1,5 @@
 .app-palette-gen-snapshots {
-  &__snapshots {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: space-between;
-    align-items: center;
-  }
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }

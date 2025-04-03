@@ -1,10 +1,14 @@
 .app-palette-gen-content {
-  flex-basis: 65%;
+  &__previews {
+    display: flex;
+    gap: 1px;
 
-  display: flex;
-  gap: 1px;
+    > * {
+      flex-grow: 1;
+    }
+  }
 
-  > * {
-    flex-grow: 1;
+  &__action {
+    margin: 1rem;
   }
 }

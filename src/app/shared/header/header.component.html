@@ -1,9 +1,11 @@
-<h1 class="app-header__title">
-  <mat-icon style="color: var(--mat-sys-primary)">palette</mat-icon>
-  Angular Material Palette Generator
+<h1 class="app-header__title gbl-title-large">
+  <a routerLink="/">
+    <mat-icon>palette</mat-icon>
+    <span>Angular Material Palette Generator</span>
+  </a>
 </h1>
 
-<div>
+<div class="app-header__actions">
   <app-theme-switcher />
 
   <button mat-icon-button (click)="toggleSidenav()"><mat-icon>menu</mat-icon></button>

@@ -1,27 +1,20 @@
 <form [formGroup]="form" class="app-palette-gen-form__form">
-  <mat-form-field appearance="outline" style="width: 200px">
+  <mat-form-field appearance="outline" class="app-palette-gen-form__color">
     <mat-label>Color</mat-label>
     <input [formControl]="form.controls.color" matInput placeholder="#666666" />
     <mat-error>Invalid</mat-error>
   </mat-form-field>
 
-  <mat-slider min="0" max="100" step="1" discrete style="width: 200px; margin: 0 0 1.5rem 0">
+  <mat-slider min="0" max="100" step="1" discrete class="app-palette-gen-form__range">
     <input [formControl]="form.controls.start" matSliderStartThumb />
     <input [formControl]="form.controls.end" matSliderEndThumb />
   </mat-slider>
 
-  <app-cubic-bezier-control
-    [formControl]="form.controls.params"
-    [canvasSize]="200"
-    [colorMap]="colorMap()"
-    style="margin-bottom: 1.5rem"
-  />
+  <app-cubic-bezier-control [formControl]="form.controls.params" [canvasSize]="200" [colorMap]="colorMap()" />
 
-  <div style="display: flex; justify-content: space-between; margin-bottom: 1.5rem">
-    <mat-checkbox [formControl]="form.controls.reverse">Reverse</mat-checkbox>
+  <mat-checkbox [formControl]="form.controls.reverse">Reverse</mat-checkbox>
 
-    <mat-checkbox [formControl]="form.controls.neutral">Neutral</mat-checkbox>
-  </div>
+  <mat-checkbox [formControl]="form.controls.neutral">Neutral</mat-checkbox>
 </form>
 
 <app-css-var-observer [cssVarConfig]="cssVarConfig" (colorMapChange)="colorMap.set($event)" />

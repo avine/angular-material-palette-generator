@@ -1,5 +1,9 @@
 // Note: global styles starts with `.gbl-*`.
 
+:root {
+  --gbl-spacing: 1.5rem;
+}
+
 .gbl-button-less {
   padding: 0;
   border: none;
@@ -8,4 +12,11 @@
   line-height: inherit;
   text-align: inherit;
   font: inherit;
+}
+
+.gbl-monospace {
+  font-family: 'Roboto Mono', monospace;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
 }

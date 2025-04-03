@@ -9,7 +9,9 @@ import { percentageToRgbFactory } from './palette-gen-preview.utils';
 
 @Component({
   selector: 'app-palette-gen-preview',
-  host: { class: 'app-palette-gen-preview' },
+  host: {
+    class: 'app-palette-gen-preview',
+  },
   imports: [MatButtonModule, MatIconModule, MatTooltipModule],
   templateUrl: './palette-gen-preview.component.html',
   styleUrl: './palette-gen-preview.component.scss',
@@ -23,6 +25,8 @@ export class PaletteGenPreviewComponent {
   formValue = input.required<PaletteGenFormValue | undefined>();
 
   action = output<void>();
+
+  compact = input(true);
 
   protected colorMap = computed(() => {
     const formValue = this.formValue();

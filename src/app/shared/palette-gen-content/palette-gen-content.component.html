@@ -1,8 +1,17 @@
-<app-palette-gen-preview
-  [formValue]="service.formValue()"
-  (action)="service.formValueMirror.set(service.formValue())"
-/>
+<div class="app-palette-gen-content__previews">
+  <app-palette-gen-preview [compact]="compact()" [formValue]="service.formValue()" (action)="setMirror()" />
 
-@if (service.formValueMirror(); as mirror) {
-  <app-palette-gen-preview [formValue]="mirror" mirrorView (action)="service.formValueMirror.set(undefined)" />
-}
+  @if (formValueMirror(); as mirror) {
+    <app-palette-gen-preview [compact]="compact()" [formValue]="mirror" mirrorView (action)="unsetMirror()" />
+  }
+</div>
+
+<button
+  class="app-palette-gen-content__action"
+  mat-icon-button
+  [attr.aria-label]="compactAction()"
+  [matTooltip]="compactAction()"
+  (click)="toggleCompact()"
+>
+  <mat-icon>{{ compact() ? 'unfold_more' : 'unfold_less' }}</mat-icon>
+</button>

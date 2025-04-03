@@ -5,28 +5,28 @@
     position: sticky;
     z-index: 2;
     top: 0;
-
     background-color: var(--mat-sys-surface-container);
   }
 
   &__container {
-    --mat-sidenav-container-width: 250px;
+    --mat-sidenav-container-width: calc(200px + 2 * var(--gbl-spacing));
+    --mat-sidenav-container-shape: 0px;
 
     position: relative;
     z-index: 1;
-    height: calc(100% - 72px);
+    height: calc(100% - var(--app-root-header-height) - var(--app-root-footer-height));
   }
 
-  &__main {
-    padding: 1.5rem;
-  }
-
-  &__sidenav {
-  }
-
+  &__main,
   &__aside {
     position: relative;
-    z-index: 1;
-    padding: 1.5rem;
+    padding: 2rem var(--gbl-spacing);
+  }
+
+  &__footer {
+    position: relative;
+    display: block;
+    z-index: 2;
+    background-color: var(--mat-sys-surface-container);
   }
 }
