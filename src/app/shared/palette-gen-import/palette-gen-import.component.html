@@ -1,0 +1,28 @@
+<button type="button" mat-icon-button matTooltip="Import settings" aria-label="Import settings" (click)="openDialog()">
+  <mat-icon>settings</mat-icon>
+</button>
+
+<ng-template #importTemplate>
+  <div role="heading" aria-level="2" mat-dialog-title>Settings</div>
+
+  <mat-dialog-content>
+    <mat-form-field appearance="outline" style="margin-top: 0.25rem; width: 100%">
+      <mat-label>JSON</mat-label>
+      <textarea
+        [formControl]="importCtrl"
+        rows="3"
+        cdkTextareaAutosize
+        cdkAutosizeMaxRows="14"
+        matInput
+        (focus)="importElement.select()"
+        #importElement
+      ></textarea>
+      <mat-error>Invalid settings</mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+    <button mat-flat-button [disabled]="!importCtrl.value" (click)="import()">Import</button>
+  </mat-dialog-actions>
+</ng-template>

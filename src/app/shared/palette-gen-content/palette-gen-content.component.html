@@ -1,0 +1,8 @@
+<app-palette-gen-preview
+  [formValue]="service.formValue()"
+  (action)="service.formValueMirror.set(service.formValue())"
+/>
+
+@if (service.formValueMirror(); as mirror) {
+  <app-palette-gen-preview [formValue]="mirror" mirrorView (action)="service.formValueMirror.set(undefined)" />
+}

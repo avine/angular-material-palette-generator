@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ThemeService } from '../theme/theme.service';
@@ -7,7 +7,7 @@ import { ThemeService } from '../theme/theme.service';
   selector: 'app-theme-switcher',
   imports: [MatButtonModule, MatIconModule],
   templateUrl: './theme-switcher.component.html',
-  styleUrl: './theme-switcher.component.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class ThemeSwitcherComponent {
   protected themeService = inject(ThemeService);

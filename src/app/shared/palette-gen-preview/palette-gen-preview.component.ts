@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PaletteGenFormValue } from '../palette-gen-form';
-import { materialPalettePercentagesMap } from '../palette-gen/palette-gen.constants';
+import { materialPalettePercentagesMap } from './palette-gen-preview.constants';
 import { percentageToRgbFactory } from './palette-gen-preview.utils';
 
 @Component({

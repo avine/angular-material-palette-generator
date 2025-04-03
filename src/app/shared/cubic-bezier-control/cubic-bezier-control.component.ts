@@ -69,7 +69,7 @@ export class CubicBezierControlComponent implements ControlValueAccessor {
         this.skipNextParamsEffect = false;
         return;
       }
-      untracked(() => this.positioningPoints(params));
+      untracked(() => this.updatePoints(params));
     });
 
     const ngControl = inject(NgControl, { optional: true, self: true });
@@ -78,7 +78,7 @@ export class CubicBezierControlComponent implements ControlValueAccessor {
     }
   }
 
-  private positioningPoints(params: CubicBezierParams) {
+  private updatePoints(params: CubicBezierParams) {
     const size = this.canvasSize();
     const { p1, p2 } = cubicBezierParamsToPoints({ params, size });
 

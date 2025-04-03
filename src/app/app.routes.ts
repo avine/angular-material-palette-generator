@@ -1,11 +1,17 @@
 import { Routes } from '@angular/router';
 import { DemoComponent } from './demo/demo.component';
-import { PaletteGenComponent } from './shared/palette-gen';
+import { PaletteGenContentComponent } from './shared/palette-gen-content';
+import { PaletteGenSidenavComponent } from './shared/palette-gen-sidenav';
 
 export const routes: Routes = [
   {
     path: '',
-    component: PaletteGenComponent,
+    component: PaletteGenContentComponent,
+  },
+  {
+    path: '',
+    component: PaletteGenSidenavComponent,
+    outlet: 'sidenav',
   },
   {
     path: 'demo',

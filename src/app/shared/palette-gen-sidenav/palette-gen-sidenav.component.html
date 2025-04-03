@@ -1,0 +1,11 @@
+<app-palette-gen-form
+  class="app-palette-gen__form"
+  [formValue]="service.formValueImport()"
+  (formValueChange)="service.formValue.set($event)"
+/>
+
+<div>
+  <app-palette-gen-import (formValue)="service.formValueImport.set($event)" />
+
+  <app-palette-gen-snapshots [(formValue)]="service.formValue" />
+</div>

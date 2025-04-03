@@ -1,92 +1,27 @@
 <form [formGroup]="form" class="app-palette-gen-form__form">
-  <mat-form-field appearance="outline" style="width: 11rem">
+  <mat-form-field appearance="outline" style="width: 200px">
     <mat-label>Color</mat-label>
     <input [formControl]="form.controls.color" matInput placeholder="#666666" />
     <mat-error>Invalid</mat-error>
   </mat-form-field>
 
-  <mat-slider min="0" max="100" step="1" discrete style="width: 200px">
+  <mat-slider min="0" max="100" step="1" discrete style="width: 200px; margin: 0 0 1.5rem 0">
     <input [formControl]="form.controls.start" matSliderStartThumb />
     <input [formControl]="form.controls.end" matSliderEndThumb />
   </mat-slider>
 
-  <app-cubic-bezier-control [formControl]="form.controls.params" [canvasSize]="200" [colorMap]="colorMap()" />
+  <app-cubic-bezier-control
+    [formControl]="form.controls.params"
+    [canvasSize]="200"
+    [colorMap]="colorMap()"
+    style="margin-bottom: 1.5rem"
+  />
 
-  <mat-checkbox [formControl]="form.controls.reverse" class="app-palette-gen-form__align">Reverse</mat-checkbox>
+  <div style="display: flex; justify-content: space-between; margin-bottom: 1.5rem">
+    <mat-checkbox [formControl]="form.controls.reverse">Reverse</mat-checkbox>
 
-  <mat-checkbox [formControl]="form.controls.neutral" class="app-palette-gen-form__align">Neutral</mat-checkbox>
-
-  <button
-    type="button"
-    mat-icon-button
-    aria-label="Settings"
-    class="app-palette-gen-form__align"
-    (click)="openSettings()"
-  >
-    <mat-icon>settings</mat-icon>
-  </button>
+    <mat-checkbox [formControl]="form.controls.neutral">Neutral</mat-checkbox>
+  </div>
 </form>
-
-<div class="app-palette-gen-form__snapshots">
-  @let noMoreSnapshots = snapshots().length >= maxSnapshots;
-
-  @if (hasSelectedSnapshot()) {
-    <button
-      type="button"
-      aria-label="Remove selected snapshot"
-      matTooltip="Remove selected snapshot"
-      matTooltipPosition="above"
-      mat-icon-button
-      (click)="removeSelectedSnapshot()"
-    >
-      <mat-icon>delete</mat-icon>
-    </button>
-  } @else {
-    <button
-      type="button"
-      aria-label="Take a snapshot"
-      matTooltip="Take a snapshot"
-      matTooltipPosition="above"
-      mat-icon-button
-      [disabled]="this.form.invalid || noMoreSnapshots"
-      (click)="takeSnapshot()"
-    >
-      <mat-icon>{{ noMoreSnapshots ? 'no_photography' : 'add_a_photo' }}</mat-icon>
-    </button>
-  }
-
-  @for (snapshot of snapshots(); track $index) {
-    @if (snapshot.value === formValueSnapshot()) {
-      <button type="button" mat-flat-button (click)="applySnapshot(snapshot.value)">{{ snapshot.alias }}</button>
-    } @else {
-      <button type="button" mat-button (click)="applySnapshot(snapshot.value)">{{ snapshot.alias }}</button>
-    }
-  }
-</div>
-
-<ng-template #settingsTemplate>
-  <div role="heading" aria-level="2" mat-dialog-title>Settings</div>
-
-  <mat-dialog-content>
-    <mat-form-field appearance="outline" style="margin-top: 0.25rem; width: 100%">
-      <mat-label>JSON</mat-label>
-      <textarea
-        [formControl]="settingsCtrl"
-        rows="3"
-        cdkTextareaAutosize
-        cdkAutosizeMaxRows="14"
-        matInput
-        (focus)="settingsElement.select()"
-        #settingsElement
-      ></textarea>
-      <mat-error>Invalid settings</mat-error>
-    </mat-form-field>
-  </mat-dialog-content>
-
-  <mat-dialog-actions>
-    <button mat-button mat-dialog-close>Close</button>
-    <button mat-flat-button [disabled]="!settingsCtrl.value" (click)="applySettings()">Apply</button>
-  </mat-dialog-actions>
-</ng-template>
 
 <app-css-var-observer [cssVarConfig]="cssVarConfig" (colorMapChange)="colorMap.set($event)" />
