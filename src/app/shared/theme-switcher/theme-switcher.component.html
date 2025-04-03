@@ -1,3 +1,3 @@
-<button mat-icon-button (click)="themeService.switch()">
+<button mat-icon-button aria-label="Toggle sidebar" (click)="themeService.switch()">
   <mat-icon>{{ themeService.theme() === 'light' ? 'dark_mode' : 'light_mode' }}</mat-icon>
 </button>

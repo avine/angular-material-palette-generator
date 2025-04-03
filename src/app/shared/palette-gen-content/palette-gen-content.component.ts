@@ -29,7 +29,7 @@ export class PaletteGenContentComponent {
 
   protected compact = signal(false);
 
-  protected compactAction = computed(() => (this.compact() ? 'Expand' : 'Reduce'));
+  protected compactAction = computed(() => (this.compact() ? 'Expand preview' : 'Reduce preview'));
 
   protected toggleCompact() {
     this.compact.update((compact) => !compact);
