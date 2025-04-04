@@ -2,21 +2,6 @@
 
 :root {
   --gbl-spacing: 1.5rem;
-}
 
-.gbl-button-less {
-  padding: 0;
-  border: none;
-  background: none;
-  color: inherit;
-  line-height: inherit;
-  text-align: inherit;
-  font: inherit;
-}
-
-.gbl-monospace {
-  font-family: 'Roboto Mono', monospace;
-  font-optical-sizing: auto;
-  font-weight: normal;
-  font-style: normal;
+  --pl-font-family-monospace: 'Roboto Mono', monospace;
 }

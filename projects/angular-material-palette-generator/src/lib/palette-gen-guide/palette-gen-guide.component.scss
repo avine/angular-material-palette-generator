@@ -36,7 +36,12 @@
 
   tr:not(:first-child) th {
     text-align: end;
-    font-size: 0.85rem;
     color: var(--mat-sys-primary);
+
+    font-size: var(--pl-font-size-monospace, 0.85rem);
+    font-family: var(--pl-font-family-monospace, monospace);
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
   }
 }

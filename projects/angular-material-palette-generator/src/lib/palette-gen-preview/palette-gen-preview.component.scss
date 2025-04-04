@@ -4,7 +4,12 @@
 
   &__config {
     display: flex;
-    font-size: 0.85rem;
+
+    font-size: var(--pl-font-size-monospace, 0.85rem);
+    font-family: var(--pl-font-family-monospace, monospace);
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
 
     &--mirror {
       justify-content: flex-end;

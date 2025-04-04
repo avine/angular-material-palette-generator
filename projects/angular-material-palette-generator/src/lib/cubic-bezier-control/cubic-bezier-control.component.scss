@@ -34,9 +34,15 @@
       left: -0.625rem;
       width: 1.25rem;
       height: 1.25rem;
+
+      padding: 0;
       border-radius: 99px;
-      background-color: var(--mat-sys-primary);
+      border: none;
+      background: var(--mat-sys-primary);
       color: transparent;
+      line-height: inherit;
+      text-align: inherit;
+      font: inherit;
       user-select: none;
     }
   }
