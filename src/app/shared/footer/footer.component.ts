@@ -1,5 +1,6 @@
 import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { PaletteGenService, PaletteGenSnapshotsComponent } from 'angular-material-palette-generator';
+import { libVersion } from '../../lib.version';
 
 @Component({
   selector: 'app-footer',
@@ -11,4 +12,6 @@ import { PaletteGenService, PaletteGenSnapshotsComponent } from 'angular-materia
 })
 export class FooterComponent {
   protected service = inject(PaletteGenService);
+
+  protected libVersion = libVersion;
 }

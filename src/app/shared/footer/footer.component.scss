@@ -1,4 +1,25 @@
 .app-footer {
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--gbl-spacing);
   padding: 0.75rem var(--gbl-spacing);
+
+  &__version {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+
+    font-size: 0.75rem;
+    text-decoration: none;
+    color: var(--mat-sys-outline);
+    transition: color ease 150ms;
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: var(--mat-sys-primary);
+    }
+  }
 }
