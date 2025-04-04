@@ -1,0 +1,43 @@
+<canvas #canvas [width]="canvasSize()" [height]="canvasSize()" class="pl-cubic-bezier-control__canvas"></canvas>
+
+<div
+  class="pl-cubic-bezier-control__point"
+  cdkDrag
+  cdkDragBoundary=".pl-cubic-bezier-control"
+  [cdkDragDisabled]="disabled()"
+  (cdkDragMoved)="updateParam('p1')"
+  #p1
+>
+  <button
+    class="gbl-button-less"
+    matRipple
+    [matRippleCentered]="true"
+    [matRippleUnbounded]="true"
+    [matRippleDisabled]="disabled()"
+    [matTooltip]="params() | cubicBezierParams: 'p1'"
+    matTooltipPosition="left"
+  >
+    p1
+  </button>
+</div>
+
+<div
+  class="pl-cubic-bezier-control__point"
+  cdkDrag
+  cdkDragBoundary=".pl-cubic-bezier-control"
+  [cdkDragDisabled]="disabled()"
+  (cdkDragMoved)="updateParam('p2')"
+  #p2
+>
+  <button
+    class="gbl-button-less"
+    matRipple
+    [matRippleCentered]="true"
+    [matRippleUnbounded]="true"
+    [matRippleDisabled]="disabled()"
+    [matTooltip]="params() | cubicBezierParams: 'p2'"
+    matTooltipPosition="right"
+  >
+    p2
+  </button>
+</div>

@@ -1,5 +1,5 @@
 {
-  "name": "angular-material-palette-generator",
+  "name": "docs",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -10,7 +10,8 @@
     "lint": "ng lint --fix",
     "format": "prettier --write .",
     "docs": "ng build --base-href='/angular-material-palette-generator/'",
-    "postdocs": "mv dist/angular-material-palette-generator/browser docs && cp docs/index.html docs/404.html"
+    "postdocs": "mv dist/docs/browser docs && cp docs/index.html docs/404.html",
+    "build:lib": "ng build angular-material-palette-generator"
   },
   "private": true,
   "dependencies": {
@@ -46,6 +47,7 @@
     "karma-coverage": "~2.2.1",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "ng-packagr": "^19.2.0",
     "prettier": "^3.5.3",
     "prettier-plugin-organize-imports": "^4.1.0",
     "typescript": "~5.8.2",

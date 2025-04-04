@@ -1,6 +1,5 @@
 import { Component, inject, ViewEncapsulation } from '@angular/core';
-import { PaletteGenService } from '../palette-gen';
-import { PaletteGenSnapshotsComponent } from '../palette-gen-snapshots';
+import { PaletteGenService, PaletteGenSnapshotsComponent } from 'angular-material-palette-generator';
 
 @Component({
   selector: 'app-footer',

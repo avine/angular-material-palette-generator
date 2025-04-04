@@ -1,0 +1,44 @@
+@for (config of colorMap(); track $index) {
+  <div
+    class="pl-palette-gen-preview__config gbl-monospace"
+    [class.pl-palette-gen-preview__config--mirror]="mirrorView()"
+    [style.--pl-palette-gen-preview-space]="compact() ? '0rem' : '0.375rem'"
+    [style.backgroundColor]="config.color"
+  >
+    <span class="pl-palette-gen-preview__percent">{{ config.percentage }}:</span>
+    <span class="pl-palette-gen-preview__color">{{ config.color }}</span>
+  </div>
+}
+
+<button
+  class="pl-palette-gen-preview__action"
+  [class.pl-palette-gen-preview__action--mirror]="mirrorView()"
+  mat-icon-button
+  matTooltip="Copy Sass map to clipboard"
+  [matTooltipPosition]="mirrorView() ? 'right' : 'left'"
+  (click)="sassMapToClipboard()"
+>
+  <mat-icon>content_copy</mat-icon>
+</button>
+
+@if (mirrorView()) {
+  <button
+    class="pl-palette-gen-preview__action pl-palette-gen-preview__action--2 pl-palette-gen-preview__action--mirror"
+    mat-icon-button
+    matTooltip="Close mirror view"
+    matTooltipPosition="right"
+    (click)="action.emit()"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+} @else {
+  <button
+    class="pl-palette-gen-preview__action pl-palette-gen-preview__action--2"
+    mat-icon-button
+    matTooltip="Open mirror view"
+    matTooltipPosition="left"
+    (click)="action.emit()"
+  >
+    <mat-icon>compare</mat-icon>
+  </button>
+}

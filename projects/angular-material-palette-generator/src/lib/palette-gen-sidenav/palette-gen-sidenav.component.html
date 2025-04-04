@@ -1,0 +1,7 @@
+<pl-palette-gen-form
+  class="pl-palette-gen__form"
+  [formValue]="service.formValueSetter()"
+  (formValueChange)="service.formValue.set($event)"
+/>
+
+<pl-palette-gen-import (formValue)="service.formValueSetter.set($event)" />

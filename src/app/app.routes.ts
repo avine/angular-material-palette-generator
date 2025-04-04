@@ -1,10 +1,12 @@
 import { Routes } from '@angular/router';
+import {
+  ColorGenGuideComponent,
+  PaletteGenContentComponent,
+  PaletteGenSidenavComponent,
+} from 'angular-material-palette-generator';
 import { ContentDemoComponent } from './content-demo/content-demo.component';
 import { DemoComponent } from './demo/demo.component';
 import { FooterComponent } from './shared/footer/footer.component';
-import { PaletteGenContentComponent } from './shared/palette-gen-content';
-import { ColorGenGuideComponent } from './shared/palette-gen-guide';
-import { PaletteGenSidenavComponent } from './shared/palette-gen-sidenav';
 
 export const routes: Routes = [
   {

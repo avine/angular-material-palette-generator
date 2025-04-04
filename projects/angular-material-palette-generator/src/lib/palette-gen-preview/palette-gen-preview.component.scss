@@ -1,0 +1,51 @@
+.pl-palette-gen-preview {
+  display: block;
+  position: relative;
+
+  &__config {
+    display: flex;
+    font-size: 0.85rem;
+
+    &--mirror {
+      justify-content: flex-end;
+    }
+  }
+
+  &__percent {
+    width: 3rem;
+    padding: var(--pl-palette-gen-preview-space) 0;
+    text-align: end;
+    color: var(--mat-sys-primary);
+    background-color: var(--mat-sys-surface);
+    transition: padding ease 150ms;
+  }
+
+  &__color {
+    padding: var(--pl-palette-gen-preview-space) 1rem var(--pl-palette-gen-preview-space) 0.5rem;
+    background-color: var(--mat-sys-surface);
+    transition: padding ease 150ms;
+  }
+
+  &__action {
+    position: absolute !important;
+    top: 0.5rem;
+    right: 0.5rem;
+    background-color: var(--mat-sys-surface) !important;
+    color: var(--mat-sys-on-surface) !important;
+    opacity: 0.5;
+    transition: opacity ease 150ms;
+
+    &--2 {
+      top: 3.5rem;
+    }
+
+    &--mirror {
+      left: 0.5rem;
+      right: auto;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

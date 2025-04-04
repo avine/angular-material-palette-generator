@@ -1,7 +1,0 @@
-<app-palette-gen-form
-  class="app-palette-gen__form"
-  [formValue]="service.formValueSetter()"
-  (formValueChange)="service.formValue.set($event)"
-/>
-
-<app-palette-gen-import (formValue)="service.formValueSetter.set($event)" />

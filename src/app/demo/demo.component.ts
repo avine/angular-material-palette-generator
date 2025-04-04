@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { CubicBezierControlComponent } from '../shared/cubic-bezier-control';
+import { CubicBezierControlComponent } from 'angular-material-palette-generator';
 
 @Component({
   selector: 'app-demo',
