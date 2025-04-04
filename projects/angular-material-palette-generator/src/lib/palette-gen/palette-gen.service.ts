@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, Signal, signal } from '@angular/core';
 import { PaletteGenFormValue } from '../palette-gen-form';
 
 @Injectable({
@@ -8,4 +8,10 @@ export class PaletteGenService {
   formValue = signal<PaletteGenFormValue | undefined>(undefined);
 
   formValueSetter = signal<PaletteGenFormValue | undefined>(undefined);
+
+  refreshCanvas?: Signal<unknown>;
+
+  refreshCanvasOn(trigger: Signal<unknown>) {
+    this.refreshCanvas = trigger;
+  }
 }

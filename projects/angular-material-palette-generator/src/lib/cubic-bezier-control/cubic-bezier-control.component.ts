@@ -16,8 +16,8 @@ import {
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { MatRippleModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { CssColorObserverComponent } from '../css-var-observer/css-var-observer.component';
 import { cubicBezierFactory, CubicBezierParams } from '../cubic-bezier';
+import { CubicBezierControlColorsComponent } from '../cubic-bezier-control-colors/cubic-bezier-control-colors.component';
 import { CubicBezierControlColors } from './cubic-bezier-control.types';
 import { CanvasHandler, cubicBezierParamsToPoints, pointToCubicBezierParam } from './cubic-bezier-control.utils';
 import { CubicBezierParamsPipe } from './cubic-bezier-params.pipe';
@@ -29,7 +29,7 @@ import { CubicBezierParamsPipe } from './cubic-bezier-params.pipe';
     '[class.pl-cubic-bezier-control--disabled]': 'disabled()',
     '[style.--pl-cubic-bezier-control-canvas-size]': 'canvasSize() + "px"',
   },
-  imports: [CdkDrag, MatRippleModule, MatTooltipModule, CssColorObserverComponent, CubicBezierParamsPipe],
+  imports: [CdkDrag, MatRippleModule, MatTooltipModule, CubicBezierControlColorsComponent, CubicBezierParamsPipe],
   templateUrl: './cubic-bezier-control.component.html',
   styleUrl: './cubic-bezier-control.component.scss',
   encapsulation: ViewEncapsulation.None,

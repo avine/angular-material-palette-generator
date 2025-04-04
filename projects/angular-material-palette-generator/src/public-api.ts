@@ -1,7 +1,6 @@
-export * from './lib/css-var-observer';
-
 export * from './lib/cubic-bezier';
 export * from './lib/cubic-bezier-control';
+export * from './lib/cubic-bezier-control-colors';
 
 export * from './lib/palette-gen';
 export * from './lib/palette-gen-content';

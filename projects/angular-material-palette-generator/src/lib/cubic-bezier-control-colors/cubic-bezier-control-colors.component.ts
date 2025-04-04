@@ -1,23 +1,23 @@
 import { Component, computed, effect, input, output, viewChildren, ViewEncapsulation } from '@angular/core';
-import { CssVarItemObserverDirective } from './css-var-item-observer.directive';
+import { CubicBezierControlColorsDirective } from './cubic-bezier-control-colors.directive';
 
 @Component({
-  selector: 'pl-css-var-observer',
+  selector: 'pl-cubic-bezier-control-colors',
   host: {
-    class: '.pl-css-var-observer',
+    class: '.pl-cubic-bezier-control-colors',
     '[attr.role]': '"presentation"',
   },
-  imports: [CssVarItemObserverDirective],
-  templateUrl: './css-var-observer.component.html',
-  styleUrl: './css-var-observer.component.scss',
+  imports: [CubicBezierControlColorsDirective],
+  templateUrl: './cubic-bezier-control-colors.component.html',
+  styleUrl: './cubic-bezier-control-colors.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
-export class CssColorObserverComponent<T extends string> {
+export class CubicBezierControlColorsComponent<T extends string> {
   cssVarConfig = input.required<Record<T, string>>();
 
   protected cssVarNames = computed(() => Object.values(this.cssVarConfig()) as string[]);
 
-  protected cssVarItems = viewChildren(CssVarItemObserverDirective);
+  protected cssVarItems = viewChildren(CubicBezierControlColorsDirective);
 
   protected colorMap = computed<Record<T, string>>(() => {
     const keys = Object.keys(this.cssVarConfig()) as T[];

@@ -1,7 +1,7 @@
 import { Component, inject, signal, ViewEncapsulation } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterOutlet } from '@angular/router';
-import { CssColorObserverService } from 'angular-material-palette-generator';
+import { PaletteGenService } from 'angular-material-palette-generator';
 import { HeaderComponent } from './shared/header/header.component';
 import { ThemeService } from './shared/theme';
 
@@ -25,6 +25,6 @@ export class AppComponent {
   footerHeight = 64;
 
   constructor() {
-    inject(CssColorObserverService).refreshOn(inject(ThemeService).theme);
+    inject(PaletteGenService).refreshCanvasOn(inject(ThemeService).theme);
   }
 }
