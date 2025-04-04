@@ -3,3 +3,5 @@ export type CubicBezierControlColors = {
   curveColor: string;
   stickColor: string;
 };
+
+export type CubicBezierControlDirection = 'up' | 'right' | 'down' | 'left';

@@ -18,8 +18,14 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { cubicBezierFactory, CubicBezierParams } from '../cubic-bezier';
 import { CubicBezierControlColorsComponent } from '../cubic-bezier-control-colors/cubic-bezier-control-colors.component';
-import { CubicBezierControlColors } from './cubic-bezier-control.types';
-import { CanvasHandler, cubicBezierParamsToPoints, pointToCubicBezierParam } from './cubic-bezier-control.utils';
+import { CubicBezierControlDirectionDirective } from './cubic-bezier-control-direction.directive';
+import { CubicBezierControlColors, CubicBezierControlDirection } from './cubic-bezier-control.types';
+import {
+  CanvasHandler,
+  cubicBezierParamsToPoints,
+  moveCubicBezierParams,
+  pointToCubicBezierParam,
+} from './cubic-bezier-control.utils';
 import { CubicBezierParamsPipe } from './cubic-bezier-params.pipe';
 
 @Component({
@@ -29,7 +35,14 @@ import { CubicBezierParamsPipe } from './cubic-bezier-params.pipe';
     '[class.pl-cubic-bezier-control--disabled]': 'disabled()',
     '[style.--pl-cubic-bezier-control-canvas-size]': 'canvasSize() + "px"',
   },
-  imports: [CdkDrag, MatRippleModule, MatTooltipModule, CubicBezierControlColorsComponent, CubicBezierParamsPipe],
+  imports: [
+    CdkDrag,
+    MatRippleModule,
+    MatTooltipModule,
+    CubicBezierControlColorsComponent,
+    CubicBezierControlDirectionDirective,
+    CubicBezierParamsPipe,
+  ],
   templateUrl: './cubic-bezier-control.component.html',
   styleUrl: './cubic-bezier-control.component.scss',
   encapsulation: ViewEncapsulation.None,
@@ -106,6 +119,12 @@ export class CubicBezierControlComponent implements ControlValueAccessor {
       }
       return newParams;
     });
+    this.onChange(this.params());
+    this.onTouched();
+  }
+
+  protected moveParams(p: 'p1' | 'p2', direction: CubicBezierControlDirection) {
+    this.params.update((params) => moveCubicBezierParams(params, p, direction));
     this.onChange(this.params());
     this.onTouched();
   }

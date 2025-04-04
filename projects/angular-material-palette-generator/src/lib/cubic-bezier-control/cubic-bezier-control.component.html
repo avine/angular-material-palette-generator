@@ -15,6 +15,8 @@
     [matRippleDisabled]="disabled()"
     [matTooltip]="params() | cubicBezierParams: 'p1'"
     matTooltipPosition="left"
+    plCubicBezierControlDirection
+    (direction)="moveParams('p1', $event)"
   >
     p1
   </button>
@@ -35,6 +37,8 @@
     [matRippleDisabled]="disabled()"
     [matTooltip]="params() | cubicBezierParams: 'p2'"
     matTooltipPosition="right"
+    plCubicBezierControlDirection
+    (direction)="moveParams('p2', $event)"
   >
     p2
   </button>

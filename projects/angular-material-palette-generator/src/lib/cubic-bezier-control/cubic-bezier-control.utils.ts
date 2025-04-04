@@ -1,6 +1,6 @@
 import { Point } from '@angular/cdk/drag-drop';
 import { CubicBezierParams } from '../cubic-bezier';
-import { CubicBezierControlColors } from './cubic-bezier-control.types';
+import { CubicBezierControlColors, CubicBezierControlDirection } from './cubic-bezier-control.types';
 
 export type CubicBezierParamsToPointsConfig = {
   params: CubicBezierParams;
@@ -84,3 +84,46 @@ export class CanvasHandler {
     return this;
   }
 }
+
+// --------------------
+
+const movePoint = (
+  { x, y }: { x: number; y: number },
+  direction: CubicBezierControlDirection,
+  delta: number,
+): { x: number; y: number } => {
+  switch (direction) {
+    case 'up':
+      return { x, y: Math.max(0, y - delta) };
+    case 'right':
+      return { x: Math.min(x + delta, 1), y };
+    case 'down':
+      return { x, y: Math.min(y + delta, 1) };
+    case 'left':
+      return { x: Math.max(0, x - delta), y };
+  }
+};
+
+export const moveCubicBezierParams = (
+  { p1x, p1y, p2x, p2y }: CubicBezierParams,
+  p: 'p1' | 'p2',
+  direction: CubicBezierControlDirection,
+  delta = 0.01,
+) => {
+  let x: number;
+  let y: number;
+  if (p === 'p1') {
+    x = p1x;
+    y = p1y;
+  } else {
+    x = p2x;
+    y = p2y;
+  }
+
+  const { x: movedX, y: movedY } = movePoint({ x, y }, direction, delta);
+  if (p === 'p1') {
+    return { p1x: movedX, p1y: movedY, p2x, p2y };
+  } else {
+    return { p1x, p1y, p2x: movedX, p2y: movedY };
+  }
+};
