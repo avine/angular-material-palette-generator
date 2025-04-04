@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, effect, inject, input, signal, ViewEncapsulation } from '@angular/core';
+import { Component, effect, inject, input, ViewEncapsulation } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,8 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { filter, map, startWith, tap } from 'rxjs';
-import { CssColorObserverComponent } from '../css-var-observer/css-var-observer.component';
-import { CubicBezierControlColors, CubicBezierControlComponent } from '../cubic-bezier-control';
+import { CubicBezierControlComponent } from '../cubic-bezier-control';
 import { PaletteGenFormValue } from './palette-gen-form.types';
 import { getPaletteGenForm } from './palette-gen-form.utils';
 
@@ -30,7 +29,6 @@ import { getPaletteGenForm } from './palette-gen-form.utils';
     MatSelectModule,
     MatSliderModule,
     MatTooltipModule,
-    CssColorObserverComponent,
     CubicBezierControlComponent,
   ],
   templateUrl: './palette-gen-form.component.html',
@@ -89,18 +87,4 @@ export class ColorGenFormComponent {
       console.error('ColorGenFormComponent: unable to restore value', value);
     }
   }
-
-  // ----- Material colors in RGB (for the canvas configuration) -----
-
-  protected cssVarConfig: CubicBezierControlColors = {
-    linearColor: '--mat-sys-surface-container-highest',
-    curveColor: '--mat-sys-on-surface-variant',
-    stickColor: '--mat-sys-primary',
-  };
-
-  protected colorMap = signal<typeof this.cssVarConfig>({
-    linearColor: 'transparent',
-    curveColor: 'transparent',
-    stickColor: 'transparent',
-  });
 }

@@ -7,6 +7,7 @@ import {
   inject,
   input,
   model,
+  signal,
   untracked,
   viewChild,
   viewChildren,
@@ -15,6 +16,7 @@ import {
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { MatRippleModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { CssColorObserverComponent } from '../css-var-observer/css-var-observer.component';
 import { cubicBezierFactory, CubicBezierParams } from '../cubic-bezier';
 import { CubicBezierControlColors } from './cubic-bezier-control.types';
 import { CanvasHandler, cubicBezierParamsToPoints, pointToCubicBezierParam } from './cubic-bezier-control.utils';
@@ -27,7 +29,7 @@ import { CubicBezierParamsPipe } from './cubic-bezier-params.pipe';
     '[class.pl-cubic-bezier-control--disabled]': 'disabled()',
     '[style.--pl-cubic-bezier-control-canvas-size]': 'canvasSize() + "px"',
   },
-  imports: [CdkDrag, MatRippleModule, MatTooltipModule, CubicBezierParamsPipe],
+  imports: [CdkDrag, MatRippleModule, MatTooltipModule, CssColorObserverComponent, CubicBezierParamsPipe],
   templateUrl: './cubic-bezier-control.component.html',
   styleUrl: './cubic-bezier-control.component.scss',
   encapsulation: ViewEncapsulation.None,
@@ -51,8 +53,6 @@ export class CubicBezierControlComponent implements ControlValueAccessor {
   private p1 = viewChild.required<ElementRef<HTMLElement>>('p1');
 
   private p2 = viewChild.required<ElementRef<HTMLElement>>('p2');
-
-  colorMap = input<CubicBezierControlColors>({ linearColor: 'black', curveColor: 'black', stickColor: 'black' });
 
   disabled = model(false);
 
@@ -140,4 +140,18 @@ export class CubicBezierControlComponent implements ControlValueAccessor {
   setDisabledState?(disabled: boolean): void {
     this.disabled.set(disabled);
   }
+
+  // ----- Material colors in RGB (for the canvas configuration) -----
+
+  protected cssVarConfig: CubicBezierControlColors = {
+    linearColor: '--mat-sys-surface-container-highest',
+    curveColor: '--mat-sys-on-surface-variant',
+    stickColor: '--mat-sys-primary',
+  };
+
+  protected colorMap = signal<typeof this.cssVarConfig>({
+    linearColor: 'grey',
+    curveColor: 'grey',
+    stickColor: 'grey',
+  });
 }

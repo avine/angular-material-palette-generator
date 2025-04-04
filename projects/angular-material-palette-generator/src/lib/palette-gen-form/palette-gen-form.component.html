@@ -10,11 +10,9 @@
     <input [formControl]="form.controls.end" matSliderEndThumb />
   </mat-slider>
 
-  <pl-cubic-bezier-control [formControl]="form.controls.params" [canvasSize]="200" [colorMap]="colorMap()" />
+  <pl-cubic-bezier-control [formControl]="form.controls.params" [canvasSize]="200" />
 
   <mat-checkbox [formControl]="form.controls.reverse">Reverse</mat-checkbox>
 
   <mat-checkbox [formControl]="form.controls.neutral">Neutral</mat-checkbox>
 </form>
-
-<pl-css-var-observer [cssVarConfig]="cssVarConfig" (colorMapChange)="colorMap.set($event)" />

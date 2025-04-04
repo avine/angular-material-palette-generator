@@ -1,5 +1,5 @@
 import { afterRenderEffect, Directive, ElementRef, inject, input, signal } from '@angular/core';
-// import { ThemeService } from '../theme';
+import { CssColorObserverService } from './css-var-observer.service';
 
 @Directive({
   selector: '[plCssVarItemObserver]',
@@ -10,7 +10,7 @@ import { afterRenderEffect, Directive, ElementRef, inject, input, signal } from 
 export class CssVarItemObserverDirective {
   private host: HTMLElement = inject(ElementRef).nativeElement;
 
-  // private theme = inject(ThemeService).theme;
+  trigger = inject(CssColorObserverService).trigger;
 
   cssVarName = input.required<string>({ alias: 'plCssVarItemObserver' });
 
@@ -18,7 +18,7 @@ export class CssVarItemObserverDirective {
 
   constructor() {
     afterRenderEffect(() => {
-      // this.theme();
+      this.trigger?.();
       this.cssVarName();
 
       const rgbColor = this.host.computedStyleMap().get('color')?.toString();

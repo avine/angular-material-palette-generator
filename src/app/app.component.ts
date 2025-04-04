@@ -1,7 +1,9 @@
-import { Component, signal, ViewEncapsulation } from '@angular/core';
+import { Component, inject, signal, ViewEncapsulation } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterOutlet } from '@angular/router';
+import { CssColorObserverService } from 'angular-material-palette-generator';
 import { HeaderComponent } from './shared/header/header.component';
+import { ThemeService } from './shared/theme';
 
 @Component({
   selector: 'app-root',
@@ -21,4 +23,8 @@ export class AppComponent {
   headerHeight = 64;
 
   footerHeight = 64;
+
+  constructor() {
+    inject(CssColorObserverService).refreshOn(inject(ThemeService).theme);
+  }
 }
