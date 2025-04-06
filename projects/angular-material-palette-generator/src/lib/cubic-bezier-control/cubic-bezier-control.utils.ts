@@ -11,9 +11,10 @@ export const cubicBezierParamsToPoints = ({
   params: { p1x, p1y, p2x, p2y },
   size,
 }: CubicBezierParamsToPointsConfig): { p1: Point; p2: Point } => {
+  const func = (x: number, y: number) => ({ x: x * size, y: y * size });
   return {
-    p1: { x: p1x * size, y: p1y * size },
-    p2: { x: p2x * size, y: p2y * size },
+    p1: func(p1x, p1y),
+    p2: func(p2x, p2y),
   };
 };
 
@@ -25,10 +26,13 @@ export type PointToCubicBezierParamConfig = {
   size: number;
 };
 
-export const pointToCubicBezierParam = ({ point, container, size }: PointToCubicBezierParamConfig) => ({
-  x: Math.round((1000 * (point.x - container.x)) / size) / 1000,
-  y: Math.round((1000 * (point.y - container.y)) / size) / 1000,
-});
+export const pointToCubicBezierParam = ({ point, container, size }: PointToCubicBezierParamConfig) => {
+  const func = (_point: number, _container: number) => Math.round((1000 * (_point - _container)) / size) / 1000;
+  return {
+    x: func(point.x, container.x),
+    y: func(point.y, container.y),
+  };
+};
 
 // --------------------
 
@@ -88,19 +92,21 @@ export class CanvasHandler {
 // --------------------
 
 const movePoint = (
-  { x, y }: { x: number; y: number },
+  [x, y]: [x: number, y: number],
   direction: CubicBezierControlDirection,
   delta: number,
-): { x: number; y: number } => {
+): [x: number, y: number] => {
+  const more = (coord: number) => Math.min(coord + delta, 1);
+  const less = (coord: number) => Math.max(0, coord - delta);
   switch (direction) {
     case 'up':
-      return { x, y: Math.max(0, y - delta) };
+      return [x, less(y)];
     case 'right':
-      return { x: Math.min(x + delta, 1), y };
+      return [more(x), y];
     case 'down':
-      return { x, y: Math.min(y + delta, 1) };
+      return [x, more(y)];
     case 'left':
-      return { x: Math.max(0, x - delta), y };
+      return [less(x), y];
   }
 };
 
@@ -109,21 +115,12 @@ export const moveCubicBezierParams = (
   p: 'p1' | 'p2',
   direction: CubicBezierControlDirection,
   delta = 0.01,
-) => {
-  let x: number;
-  let y: number;
+): CubicBezierParams => {
   if (p === 'p1') {
-    x = p1x;
-    y = p1y;
+    const [x, y] = movePoint([p1x, p1y], direction, delta);
+    return { p1x: x, p1y: y, p2x, p2y };
   } else {
-    x = p2x;
-    y = p2y;
-  }
-
-  const { x: movedX, y: movedY } = movePoint({ x, y }, direction, delta);
-  if (p === 'p1') {
-    return { p1x: movedX, p1y: movedY, p2x, p2y };
-  } else {
-    return { p1x, p1y, p2x: movedX, p2y: movedY };
+    const [x, y] = movePoint([p2x, p2y], direction, delta);
+    return { p1x, p1y, p2x: x, p2y: y };
   }
 };
