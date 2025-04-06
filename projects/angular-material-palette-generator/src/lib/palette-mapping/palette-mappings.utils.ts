@@ -12,7 +12,7 @@ export type PaletteMapping = {
   dark: Record<number, string[]>;
 };
 
-export const paletteMappings: Record<string, PaletteMapping> = Object.fromEntries(
+export const PALETTE_MAPPINGS: Record<string, PaletteMapping> = Object.fromEntries(
   Object.entries(cssPalettes).map(([paletteName, paletteMap]) => {
     const paletteMapping: PaletteMapping = {
       light: {} as Record<number, string[]>,

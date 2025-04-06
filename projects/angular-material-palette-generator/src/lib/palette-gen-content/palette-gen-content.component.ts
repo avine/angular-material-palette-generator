@@ -8,6 +8,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { PaletteGenService } from '../palette-gen';
 import { PaletteGenFormValue } from '../palette-gen-form';
 import { PaletteGenPreviewComponent } from '../palette-gen-preview';
+import { PaletteGenMatchConfig } from '../palette-gen-preview/palette-gen-preview.types';
 
 @Component({
   selector: 'pl-palette-gen-content',
@@ -46,7 +47,11 @@ export class PaletteGenContentComponent {
     this.compact.update((compact) => !compact);
   }
 
-  palette = signal<string | undefined>(undefined);
+  // ----- matchConfig -----
 
-  mode = signal<'light' | 'dark'>('light');
+  protected palette = signal<string | undefined>(undefined);
+
+  protected mode = signal<'light' | 'dark'>('light');
+
+  protected matchConfig = computed<PaletteGenMatchConfig>(() => ({ palette: this.palette(), mode: this.mode() }));
 }

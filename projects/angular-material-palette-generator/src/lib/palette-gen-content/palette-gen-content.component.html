@@ -1,5 +1,6 @@
 <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem">
   <button
+    type="button"
     class="pl-palette-gen-content__action"
     mat-icon-button
     [attr.aria-label]="compactAction()"
@@ -32,8 +33,7 @@
 
 <div class="pl-palette-gen-content__previews">
   <pl-palette-gen-preview
-    [palette]="palette()"
-    [mode]="mode()"
+    [matchConfig]="matchConfig()"
     [compact]="compact()"
     [formValue]="service.formValue()"
     (action)="setMirror()"
