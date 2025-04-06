@@ -4,6 +4,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PaletteGenFormValue } from '../palette-gen-form';
+import { paletteMapping } from '../palette-mapping';
+import { ForgroundColorPipe } from './forground-color.pipe';
 import { materialPalettePercentagesMap } from './palette-gen-preview.constants';
 import { percentageToRgbFactory } from './palette-gen-preview.utils';
 
@@ -12,7 +14,7 @@ import { percentageToRgbFactory } from './palette-gen-preview.utils';
   host: {
     class: 'pl-palette-gen-preview',
   },
-  imports: [MatButtonModule, MatIconModule, MatTooltipModule],
+  imports: [MatButtonModule, MatIconModule, MatTooltipModule, ForgroundColorPipe],
   templateUrl: './palette-gen-preview.component.html',
   styleUrl: './palette-gen-preview.component.scss',
   encapsulation: ViewEncapsulation.None,
@@ -27,6 +29,12 @@ export class PaletteGenPreviewComponent {
   action = output<void>();
 
   compact = input(true);
+
+  protected paletteMapping = paletteMapping;
+
+  palette = input<string>();
+
+  mode = input<'light' | 'dark'>('light');
 
   protected colorMap = computed(() => {
     const formValue = this.formValue();

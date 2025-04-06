@@ -31,6 +31,16 @@
     transition: padding ease 150ms;
   }
 
+  &__name {
+    padding: var(--pl-palette-gen-preview-space) 1rem;
+    transition: padding ease 150ms;
+
+    color: white;
+    &--black {
+      color: black;
+    }
+  }
+
   &__action {
     position: absolute !important;
     top: 0.5rem;

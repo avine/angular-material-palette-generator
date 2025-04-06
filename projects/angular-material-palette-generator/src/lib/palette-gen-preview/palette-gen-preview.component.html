@@ -7,6 +7,17 @@
   >
     <span class="pl-palette-gen-preview__percent">{{ config.percentage }}:</span>
     <span class="pl-palette-gen-preview__color">{{ config.color }}</span>
+
+    @if (palette(); as _palette) {
+      @if (paletteMapping[_palette][mode()][config.percentage]; as colorName) {
+        <span
+          class="pl-palette-gen-preview__name"
+          [class.pl-palette-gen-preview__name--black]="config.color | forgroundColor"
+        >
+          {{ colorName }}
+        </span>
+      }
+    }
   </div>
 }
 

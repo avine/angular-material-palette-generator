@@ -4,11 +4,12 @@
     gap: 1px;
 
     > * {
+      flex-basis: 50%;
       flex-grow: 1;
     }
   }
 
-  &__action {
-    margin: 1rem;
-  }
+  //&__action {
+  //  margin: 1rem;
+  //}
 }
