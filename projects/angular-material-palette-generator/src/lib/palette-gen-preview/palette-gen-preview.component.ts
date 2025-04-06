@@ -4,10 +4,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PaletteGenFormValue } from '../palette-gen-form';
-import { PALETTE_MAPPINGS } from '../palette-mapping';
 import { ForgroundColorPipe } from './forground-color.pipe';
+import { MatchTokensPipe } from './match-tokens.pipe';
 import { materialPalettePercentagesMap } from './palette-gen-preview.constants';
-import { PaletteGenMatchConfig } from './palette-gen-preview.types';
+import { PaletteGenPreviewPaletteMatch } from './palette-gen-preview.types';
 import { percentageToRgbFactory } from './palette-gen-preview.utils';
 
 @Component({
@@ -15,7 +15,7 @@ import { percentageToRgbFactory } from './palette-gen-preview.utils';
   host: {
     class: 'pl-palette-gen-preview',
   },
-  imports: [MatButtonModule, MatIconModule, MatTooltipModule, ForgroundColorPipe],
+  imports: [MatButtonModule, MatIconModule, MatTooltipModule, ForgroundColorPipe, MatchTokensPipe],
   templateUrl: './palette-gen-preview.component.html',
   styleUrl: './palette-gen-preview.component.scss',
   encapsulation: ViewEncapsulation.None,
@@ -31,17 +31,7 @@ export class PaletteGenPreviewComponent {
 
   compact = input(true);
 
-  protected PALETTE_MAPPINGS = PALETTE_MAPPINGS;
-
-  matchConfig = input<PaletteGenMatchConfig>({ palette: undefined, mode: 'light' });
-
-  // TODO: use a pipe with the "percentage" as input and "PaletteGenMatchConfig" as additional param
-  protected matchColorNames({ palette, mode }: PaletteGenMatchConfig, percentage: number) {
-    if (!palette) {
-      return;
-    }
-    return PALETTE_MAPPINGS[palette][mode][percentage];
-  }
+  paletteMatch = input<PaletteGenPreviewPaletteMatch>({ name: undefined, mode: 'light' });
 
   protected colorMap = computed(() => {
     const formValue = this.formValue();

@@ -8,12 +8,12 @@
     <span class="pl-palette-gen-preview__percent">{{ config.percentage }}:</span>
     <span class="pl-palette-gen-preview__color">{{ config.color }}</span>
 
-    @if (matchColorNames(matchConfig(), config.percentage); as colorNames) {
+    @if (config.percentage | matchTokens: paletteMatch(); as tokens) {
       <span
         class="pl-palette-gen-preview__name"
         [class.pl-palette-gen-preview__name--black]="config.color | forgroundColor"
       >
-        {{ colorNames }}
+        {{ tokens }}
       </span>
     }
   </div>

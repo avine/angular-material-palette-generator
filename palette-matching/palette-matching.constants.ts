@@ -1,7 +1,7 @@
 /* Note: Color palettes are generated from primary: #0000ff */
 
 // Run the command `ng generate @angular/material:theme-color` and choose "SASS" as output
-export const sassPalettes = {
+export const sassPaletteMap = {
   primary: {
     0: '#000000',
     10: '#00006e',
@@ -123,7 +123,7 @@ export const sassPalettes = {
 };
 
 // Run the command `ng generate @angular/material:theme-color` and choose "CSS" as output
-export const cssPalettes = {
+export const cssPaletteMap = {
   primary: {
     primary: ['#343dff', '#bec2ff'],
     'on-primary': ['#ffffff', '#0001ac'],
@@ -134,6 +134,9 @@ export const cssPalettes = {
     'primary-fixed-dim': ['#bec2ff', '#bec2ff'],
     'on-primary-fixed': ['#00006e', '#00006e'],
     'on-primary-fixed-variant': ['#0000ef', '#0000ef'],
+
+    // MANUAL FIX
+    'surface-tint': ['#343dff', '#bec2ff'],
   } as Record<string, [string, string]>,
   secondary: {
     secondary: ['#4c53b8', '#bec2ff'],
@@ -168,17 +171,18 @@ export const cssPalettes = {
     'on-surface': ['#1a1b26', '#e3e1f1'],
     shadow: ['#000000', '#000000'],
     scrim: ['#000000', '#000000'],
-    'surface-tint': ['#343dff', '#bec2ff'],
     'inverse-surface': ['#2f2f3b', '#e3e1f1'],
     'inverse-on-surface': ['#f1efff', '#2f2f3b'],
-    outline: ['#757589', '#8f8fa4'],
-    'outline-variant': ['#c5c4db', '#454558'],
     neutral10: ['#1a1b26', '#1a1b26'],
   } as Record<string, [string, string]>,
   'neutral-variant': {
     'surface-variant': ['#e2e0f7', '#454558'],
     'on-surface-variant': ['#454558', '#c5c4db'],
     'neutral-variant20': ['#2e2f40', '#2e2f40'],
+
+    // MANUAL FIX
+    outline: ['#757589', '#8f8fa4'],
+    'outline-variant': ['#c5c4db', '#454558'],
   } as Record<string, [string, string]>,
   error: {
     error: ['#ba1a1a', '#ffb4ab'],

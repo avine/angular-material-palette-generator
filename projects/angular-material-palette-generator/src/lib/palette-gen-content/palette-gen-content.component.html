@@ -1,7 +1,6 @@
-<div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem">
+<div class="pl-palette-gen-content__actions">
   <button
     type="button"
-    class="pl-palette-gen-content__action"
     mat-icon-button
     [attr.aria-label]="compactAction()"
     [matTooltip]="compactAction()"
@@ -10,30 +9,27 @@
     <mat-icon>{{ compact() ? 'keyboard_double_arrow_down' : 'keyboard_double_arrow_up' }}</mat-icon>
   </button>
 
-  <mat-form-field appearance="outline" style="margin-bottom: -20px">
+  <mat-form-field appearance="outline" class="pl-palette-gen-content__no-error">
     <mat-label>Palette</mat-label>
-    <mat-select [(value)]="palette">
-      <mat-option [value]="undefined">-</mat-option>
-      <mat-option value="primary">Primary</mat-option>
-      <mat-option value="secondary">Secondary</mat-option>
-      <mat-option value="tertiary">Tertiary</mat-option>
-      <mat-option value="neutral">Neutral</mat-option>
-      <mat-option value="neutral-variant">Neutral variant</mat-option>
-      <mat-option value="error">Error</mat-option>
+    <mat-select [(value)]="paletteName">
+      @for (option of paletteNameOptions; track $index) {
+        <mat-option [value]="option.value">{{ option.label }}</mat-option>
+      }
     </mat-select>
   </mat-form-field>
 
-  @if (palette()) {
-    <mat-button-toggle-group aria-label="Mode" [(value)]="mode" hideSingleSelectionIndicator>
-      <mat-button-toggle value="light">Light</mat-button-toggle>
-      <mat-button-toggle value="dark">Dark</mat-button-toggle>
+  @if (paletteName()) {
+    <mat-button-toggle-group aria-label="Mode" [(value)]="paletteMode" hideSingleSelectionIndicator>
+      @for (option of paletteModeOptions; track $index) {
+        <mat-button-toggle [value]="option.value">{{ option.label }}</mat-button-toggle>
+      }
     </mat-button-toggle-group>
   }
 </div>
 
 <div class="pl-palette-gen-content__previews">
   <pl-palette-gen-preview
-    [matchConfig]="matchConfig()"
+    [paletteMatch]="paletteMatch()"
     [compact]="compact()"
     [formValue]="service.formValue()"
     (action)="setMirror()"

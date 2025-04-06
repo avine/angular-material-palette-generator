@@ -8,7 +8,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { PaletteGenService } from '../palette-gen';
 import { PaletteGenFormValue } from '../palette-gen-form';
 import { PaletteGenPreviewComponent } from '../palette-gen-preview';
-import { PaletteGenMatchConfig } from '../palette-gen-preview/palette-gen-preview.types';
+import { PaletteGenPreviewPaletteMatch } from '../palette-gen-preview/palette-gen-preview.types';
+import { PaletteMode, PaletteName } from '../palette-matching';
 
 @Component({
   selector: 'pl-palette-gen-content',
@@ -29,6 +30,8 @@ import { PaletteGenMatchConfig } from '../palette-gen-preview/palette-gen-previe
 export class PaletteGenContentComponent {
   protected service = inject(PaletteGenService);
 
+  // ----- Mirror -----
+
   protected formValueMirror = signal<PaletteGenFormValue | undefined>(undefined);
 
   protected setMirror() {
@@ -39,6 +42,8 @@ export class PaletteGenContentComponent {
     this.formValueMirror.set(undefined);
   }
 
+  // ----- Compact -----
+
   protected compact = signal(false);
 
   protected compactAction = computed(() => (this.compact() ? 'Expand preview' : 'Reduce preview'));
@@ -47,11 +52,29 @@ export class PaletteGenContentComponent {
     this.compact.update((compact) => !compact);
   }
 
-  // ----- matchConfig -----
+  // ----- Preview match -----
 
-  protected palette = signal<string | undefined>(undefined);
+  protected paletteName = signal<PaletteName | undefined>(undefined);
 
-  protected mode = signal<'light' | 'dark'>('light');
+  protected paletteNameOptions: { value: PaletteName | undefined; label: string }[] = [
+    { value: undefined, label: '-' },
+    { value: 'primary', label: 'Primary' },
+    { value: 'secondary', label: 'Secondary' },
+    { value: 'tertiary', label: 'Tertiary' },
+    { value: 'neutral', label: 'Neutral' },
+    { value: 'neutral-variant', label: 'Neutral variant' },
+    { value: 'error', label: 'Error' },
+  ];
 
-  protected matchConfig = computed<PaletteGenMatchConfig>(() => ({ palette: this.palette(), mode: this.mode() }));
+  protected paletteMode = signal<PaletteMode>('light');
+
+  protected paletteModeOptions: { value: PaletteMode; label: string }[] = [
+    { value: 'light', label: 'Light' },
+    { value: 'dark', label: 'Dark' },
+  ];
+
+  protected paletteMatch = computed<PaletteGenPreviewPaletteMatch>(() => ({
+    name: this.paletteName(),
+    mode: this.paletteMode(),
+  }));
 }
