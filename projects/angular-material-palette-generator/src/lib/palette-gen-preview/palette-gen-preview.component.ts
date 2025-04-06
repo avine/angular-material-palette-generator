@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PaletteGenFormValue } from '../palette-gen-form';
-import { paletteMapping } from '../palette-mapping';
+import { paletteMappings } from '../palette-mapping';
 import { ForgroundColorPipe } from './forground-color.pipe';
 import { materialPalettePercentagesMap } from './palette-gen-preview.constants';
 import { percentageToRgbFactory } from './palette-gen-preview.utils';
@@ -30,7 +30,7 @@ export class PaletteGenPreviewComponent {
 
   compact = input(true);
 
-  protected paletteMapping = paletteMapping;
+  protected paletteMappings = paletteMappings;
 
   palette = input<string>();
 

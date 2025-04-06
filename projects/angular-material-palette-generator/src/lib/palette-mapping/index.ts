@@ -1,1 +1,1 @@
-export * from './palette-mapping.utils';
+export * from './palette-mappings.utils';
