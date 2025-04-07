@@ -1,10 +1,10 @@
-import { PaletteMatchingMap } from './palette-matching.types';
+import { PalettePercentageMatchingMap } from './palette-matching.types';
 
 // DO NOT MODIFY THE FOLLOWING OBJECT MANUALLY
 // -------------------------------------------
 // The content of following object has been generated from the script:
 //    `<rootDir>/palette-matching/script.ts`
-export const PALETTE_MATCHING_MAP: PaletteMatchingMap = {
+export const PALETTE_PERCENTAGE_MATCHING_MAP: PalettePercentageMatchingMap = {
   primary: {
     light: {
       '10': ['on-primary-container', 'on-primary-fixed'],
