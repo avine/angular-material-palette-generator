@@ -1,5 +1,9 @@
 import { PaletteMatchingMap } from './palette-matching.types';
 
+// DO NOT MODIFY THE FOLLOWING OBJECT MANUALLY
+// -------------------------------------------
+// The content of following object has been generated from the script:
+//    `<rootDir>/palette-matching/script.ts`
 export const PALETTE_MATCHING_MAP: PaletteMatchingMap = {
   primary: {
     light: {

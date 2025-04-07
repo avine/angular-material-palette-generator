@@ -1,0 +1,8 @@
+{
+  "name": "palette-matching",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node --experimental-transform-types palette-matching.script.ts"
+  }
+}
