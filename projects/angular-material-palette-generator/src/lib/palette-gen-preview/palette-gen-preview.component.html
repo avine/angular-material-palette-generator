@@ -8,7 +8,7 @@
     <span class="pl-palette-gen-preview__percent">{{ config.percentage }}:</span>
     <span class="pl-palette-gen-preview__color">{{ config.color }}</span>
 
-    @if (config.percentage | matchTokens: paletteMatch(); as tokens) {
+    @if (config.percentage | paletteMatchingTokens: tokensConfig(); as tokens) {
       <span
         class="pl-palette-gen-preview__name"
         [class.pl-palette-gen-preview__name--black]="config.color | forgroundColor"
