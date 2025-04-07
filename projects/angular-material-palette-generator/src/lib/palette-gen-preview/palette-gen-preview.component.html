@@ -11,7 +11,7 @@
     @if (config.percentage | paletteMatchingTokens: tokensConfig(); as tokens) {
       <span
         class="pl-palette-gen-preview__name"
-        [class.pl-palette-gen-preview__name--black]="config.color | forgroundColor"
+        [class.pl-palette-gen-preview__name--black]="config.color | preferBlackForgroundColor"
       >
         {{ tokens }}
       </span>

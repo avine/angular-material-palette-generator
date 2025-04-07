@@ -5,16 +5,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PaletteGenFormValue } from '../palette-gen-form';
 import { PaletteMatchingTokensConfig, PaletteMatchingTokensPipe } from '../palette-matching';
-import { ForgroundColorPipe } from './forground-color.pipe';
 import { materialPalettePercentagesMap } from './palette-gen-preview.constants';
 import { percentageToRgbFactory } from './palette-gen-preview.utils';
+import { PreferBlackForgroundColorPipe } from './prefer-black-forground-color.pipe';
 
 @Component({
   selector: 'pl-palette-gen-preview',
   host: {
     class: 'pl-palette-gen-preview',
   },
-  imports: [MatButtonModule, MatIconModule, MatTooltipModule, ForgroundColorPipe, PaletteMatchingTokensPipe],
+  imports: [MatButtonModule, MatIconModule, MatTooltipModule, PaletteMatchingTokensPipe, PreferBlackForgroundColorPipe],
   templateUrl: './palette-gen-preview.component.html',
   styleUrl: './palette-gen-preview.component.scss',
   encapsulation: ViewEncapsulation.None,
