@@ -1,20 +1,33 @@
-@for (config of colorMap(); track $index) {
+@for (listItem of data().list; track $index) {
   <div
-    class="pl-palette-gen-preview__config"
-    [class.pl-palette-gen-preview__config--mirror]="mirrorView()"
+    class="pl-palette-gen-preview__item"
+    [class.pl-palette-gen-preview__item--mirror]="mirrorView()"
     [style.--pl-palette-gen-preview-space]="compact() ? '0rem' : '0.375rem'"
-    [style.backgroundColor]="config.color"
+    [style.backgroundColor]="listItem.color"
   >
-    <span class="pl-palette-gen-preview__percent">{{ config.percentage }}:</span>
-    <span class="pl-palette-gen-preview__color">{{ config.color }}</span>
+    <div class="pl-palette-gen-preview__info">
+      <span class="pl-palette-gen-preview__percent">{{ listItem.percentage }}:</span>
+      {{ listItem.color }}
+    </div>
 
-    @if (config.percentage | palettePercentageMatching: matchingConfig(); as tokens) {
-      <span
-        class="pl-palette-gen-preview__name"
-        [class.pl-palette-gen-preview__name--black]="config.color | preferBlackForgroundColor"
+    @let tokens = listItem.percentage | paletteMatchingPercentageToTokens: matchingConfig();
+
+    @if (!mirrorView() && tokens.length) {
+      @let mirrorColor = tokens | paletteMatchingTokensToMirrorColor: matchingConfig() : data().percentageMap;
+
+      <div
+        class="pl-palette-gen-preview__tokens gbl-body-medium"
+        [class.pl-palette-gen-preview__tokens--black]="!mirrorColor && (listItem.color | preferBlackForgroundColor)"
+        [style.color]="mirrorColor"
       >
-        {{ tokens }}
-      </span>
+        {{ tokens.join(' | ') }}
+
+        @if (listItem.color | wcagContrastRatioCompliance: mirrorColor; as compliance) {
+          <mat-icon [attr.aria-label]="compliance.label" [matTooltip]="compliance.label" matTooltipPosition="right">
+            {{ compliance.icon }}
+          </mat-icon>
+        }
+      </div>
     }
   </div>
 }

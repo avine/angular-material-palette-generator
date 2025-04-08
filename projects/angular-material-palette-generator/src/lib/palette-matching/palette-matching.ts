@@ -1,9 +1,10 @@
-import { PalettePercentageMatchingMap } from './palette-matching.types';
+import { PalettePercentageMatchingMap, PaletteTokenMatchingMap } from './palette-matching.types';
 
-// DO NOT MODIFY THE FOLLOWING OBJECT MANUALLY
-// -------------------------------------------
-// The content of following object has been generated from the script:
+// DO NOT MODIFY THE FOLLOWING OBJECTS MANUALLY
+// --------------------------------------------
+// The content of following objects has been generated from the script:
 //    `<rootDir>/palette-matching/script.ts`
+
 export const PALETTE_PERCENTAGE_MATCHING_MAP: PalettePercentageMatchingMap = {
   primary: {
     light: {
@@ -115,6 +116,145 @@ export const PALETTE_PERCENTAGE_MATCHING_MAP: PalettePercentageMatchingMap = {
       '30': ['error-container'],
       '80': ['error'],
       '90': ['on-error-container'],
+    },
+  },
+};
+
+export const PALETTE_TOKEN_MATCHING_MAP: PaletteTokenMatchingMap = {
+  primary: {
+    light: {
+      'on-primary-container': 10,
+      'on-primary-fixed': 10,
+      'on-primary-fixed-variant': 30,
+      primary: 40,
+      'surface-tint': 40,
+      'inverse-primary': 80,
+      'primary-fixed-dim': 80,
+      'primary-container': 90,
+      'primary-fixed': 90,
+      'on-primary': 100,
+    },
+    dark: {
+      'on-primary-fixed': 10,
+      'on-primary': 20,
+      'primary-container': 30,
+      'on-primary-fixed-variant': 30,
+      'inverse-primary': 40,
+      primary: 80,
+      'primary-fixed-dim': 80,
+      'surface-tint': 80,
+      'on-primary-container': 90,
+      'primary-fixed': 90,
+    },
+  },
+  secondary: {
+    light: {
+      'on-secondary-container': 10,
+      'on-secondary-fixed': 10,
+      'on-secondary-fixed-variant': 30,
+      secondary: 40,
+      'secondary-fixed-dim': 80,
+      'secondary-container': 90,
+      'secondary-fixed': 90,
+      'on-secondary': 100,
+    },
+    dark: {
+      'on-secondary-fixed': 10,
+      'on-secondary': 20,
+      'secondary-container': 30,
+      'on-secondary-fixed-variant': 30,
+      secondary: 80,
+      'secondary-fixed-dim': 80,
+      'on-secondary-container': 90,
+      'secondary-fixed': 90,
+    },
+  },
+  tertiary: {
+    light: {
+      'on-tertiary-container': 10,
+      'on-tertiary-fixed': 10,
+      'on-tertiary-fixed-variant': 30,
+      tertiary: 40,
+      'tertiary-fixed-dim': 80,
+      'tertiary-container': 90,
+      'tertiary-fixed': 90,
+      'on-tertiary': 100,
+    },
+    dark: {
+      'on-tertiary-fixed': 10,
+      'on-tertiary': 20,
+      'tertiary-container': 30,
+      'on-tertiary-fixed-variant': 30,
+      tertiary: 80,
+      'tertiary-fixed-dim': 80,
+      'on-tertiary-container': 90,
+      'tertiary-fixed': 90,
+    },
+  },
+  neutral: {
+    light: {
+      shadow: 0,
+      scrim: 0,
+      'on-background': 10,
+      'on-surface': 10,
+      neutral10: 10,
+      'inverse-surface': 20,
+      'surface-dim': 87,
+      'surface-container-highest': 90,
+      'surface-container-high': 92,
+      'surface-container': 94,
+      'inverse-on-surface': 95,
+      background: 98,
+      surface: 98,
+      'surface-bright': 98,
+      'surface-container-lowest': 100,
+    },
+    dark: {
+      shadow: 0,
+      scrim: 0,
+      'surface-container-lowest': 4,
+      background: 6,
+      surface: 6,
+      'surface-dim': 6,
+      neutral10: 10,
+      'surface-container': 12,
+      'surface-container-high': 17,
+      'inverse-on-surface': 20,
+      'surface-container-highest': 22,
+      'surface-bright': 24,
+      'on-background': 90,
+      'on-surface': 90,
+      'inverse-surface': 90,
+    },
+  },
+  'neutral-variant': {
+    light: {
+      'neutral-variant20': 20,
+      'on-surface-variant': 30,
+      outline: 50,
+      'outline-variant': 80,
+      'surface-variant': 90,
+    },
+    dark: {
+      'neutral-variant20': 20,
+      'surface-variant': 30,
+      'outline-variant': 30,
+      outline: 60,
+      'on-surface-variant': 80,
+    },
+  },
+  error: {
+    light: {
+      'on-error-container': 10,
+      error: 40,
+      'error-container': 90,
+      'on-error': 100,
+    },
+    dark: {
+      'on-error': 20,
+      'error-container': 30,
+      error: 80,
+      'on-error-container': 90,
     },
   },
 };

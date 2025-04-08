@@ -2,42 +2,55 @@
   display: block;
   position: relative;
 
-  &__config {
+  &__item {
     display: flex;
-
-    font-size: var(--pl-font-size-monospace, 0.85rem);
-    font-family: var(--pl-font-family-monospace, monospace);
-    font-optical-sizing: auto;
-    font-weight: normal;
-    font-style: normal;
 
     &--mirror {
       justify-content: flex-end;
     }
   }
 
+  &__info {
+    flex-shrink: 0;
+
+    padding: var(--pl-palette-gen-preview-space) 1rem;
+    padding-left: 0;
+    background-color: var(--mat-sys-surface);
+    transition: padding ease 150ms;
+
+    font-size: var(--pl-font-size-monospace, 0.85rem);
+    font-family: var(--pl-font-family-monospace, monospace);
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+  }
+
   &__percent {
+    display: inline-block;
     width: 3rem;
-    padding: var(--pl-palette-gen-preview-space) 0;
     text-align: end;
     color: var(--mat-sys-primary);
-    background-color: var(--mat-sys-surface);
-    transition: padding ease 150ms;
   }
 
-  &__color {
-    padding: var(--pl-palette-gen-preview-space) 1rem var(--pl-palette-gen-preview-space) 0.5rem;
-    background-color: var(--mat-sys-surface);
-    transition: padding ease 150ms;
-  }
+  &__tokens {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 
-  &__name {
     padding: var(--pl-palette-gen-preview-space) 1rem;
     transition: padding ease 150ms;
 
     color: white;
     &--black {
       color: black;
+    }
+
+    mat-icon {
+      flex-shrink: 0;
+      opacity: 0.65;
+      width: auto;
+      height: auto;
+      font-size: 1.25rem;
     }
   }
 
