@@ -11,9 +11,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { PaletteGenService } from 'angular-material-palette-generator';
 import { filter, map, startWith, tap } from 'rxjs';
 import { CubicBezierControlComponent } from '../cubic-bezier-control';
+import { PaletteGenService } from '../palette-gen.service';
 import { PaletteGenFormValue } from './palette-gen-form.types';
 import { getPaletteGenForm } from './palette-gen-form.utils';
 
