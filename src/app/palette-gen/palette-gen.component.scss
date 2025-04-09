@@ -11,6 +11,7 @@ $extra-space: 1rem; // Prevent horizontal scroll from appearing
   }
 
   &__content {
+    display: block;
     padding: 2rem var(--gbl-spacing);
   }
 
