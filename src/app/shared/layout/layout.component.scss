@@ -31,5 +31,18 @@
     position: relative;
     z-index: 2;
     background-color: var(--mat-sys-surface-container);
+
+    &-default {
+      display: flex;
+      gap: 0.375rem;
+      align-items: center;
+
+      mat-icon {
+        width: auto;
+        height: auto;
+        font-size: 1rem;
+        color: var(--mat-sys-primary);
+      }
+    }
   }
 }
