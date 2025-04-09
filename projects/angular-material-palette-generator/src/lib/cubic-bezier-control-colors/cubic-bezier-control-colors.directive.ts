@@ -2,7 +2,7 @@ import { afterRenderEffect, Directive, ElementRef, inject, input, signal } from 
 import { PaletteGenService } from '../palette-gen.service';
 
 @Directive({
-  selector: '[plCubicBezierControlColors]',
+  selector: '[pgCubicBezierControlColors]',
   host: {
     '[style.color]': '"var(" + cssVarName() + ")"',
   },
@@ -12,7 +12,7 @@ export class CubicBezierControlColorsDirective {
 
   private refreshCanvas = inject(PaletteGenService).refreshCanvas;
 
-  cssVarName = input.required<string>({ alias: 'plCubicBezierControlColors' });
+  cssVarName = input.required<string>({ alias: 'pgCubicBezierControlColors' });
 
   public rgbColor = signal<string | undefined>(undefined); // Part of the public directive API
 

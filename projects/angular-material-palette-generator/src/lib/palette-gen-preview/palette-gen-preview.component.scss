@@ -1,4 +1,4 @@
-.pl-palette-gen-preview {
+.pg-palette-gen-preview {
   display: block;
   position: relative;
 
@@ -13,7 +13,7 @@
   &__info {
     flex-shrink: 0;
 
-    padding: var(--pl-palette-gen-preview-space) 1rem;
+    padding: var(--pg-palette-gen-preview-space) 1rem;
     padding-left: 0;
     background-color: var(--mat-sys-surface);
     transition: padding ease 150ms;
@@ -37,7 +37,7 @@
     align-items: center;
     gap: 0.5rem;
 
-    padding: var(--pl-palette-gen-preview-space) 1rem;
+    padding: var(--pg-palette-gen-preview-space) 1rem;
     transition: padding ease 150ms;
 
     color: white;

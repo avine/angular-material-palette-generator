@@ -1,12 +1,12 @@
 @for (listItem of data().list; track $index) {
   <div
-    class="pl-palette-gen-preview__item"
-    [class.pl-palette-gen-preview__item--mirror]="mirrorView()"
-    [style.--pl-palette-gen-preview-space]="compact() ? '0rem' : '0.375rem'"
+    class="pg-palette-gen-preview__item"
+    [class.pg-palette-gen-preview__item--mirror]="mirrorView()"
+    [style.--pg-palette-gen-preview-space]="compact() ? '0rem' : '0.375rem'"
     [style.backgroundColor]="listItem.color"
   >
-    <div class="pl-palette-gen-preview__info">
-      <span class="pl-palette-gen-preview__percent">{{ listItem.percentage }}:</span>
+    <div class="pg-palette-gen-preview__info">
+      <span class="pg-palette-gen-preview__percent">{{ listItem.percentage }}:</span>
       {{ listItem.color }}
     </div>
 
@@ -16,8 +16,8 @@
       @let mirrorColor = tokens | paletteMatchingTokensToMirrorColor: matchingConfig() : data().percentageMap;
 
       <div
-        class="pl-palette-gen-preview__tokens gbl-body-medium"
-        [class.pl-palette-gen-preview__tokens--black]="!mirrorColor && (listItem.color | preferBlackForgroundColor)"
+        class="pg-palette-gen-preview__tokens gbl-body-medium"
+        [class.pg-palette-gen-preview__tokens--black]="!mirrorColor && (listItem.color | preferBlackForgroundColor)"
         [style.color]="mirrorColor"
       >
         {{ tokens.join(' | ') }}
@@ -33,8 +33,8 @@
 }
 
 <button
-  class="pl-palette-gen-preview__action"
-  [class.pl-palette-gen-preview__action--mirror]="mirrorView()"
+  class="pg-palette-gen-preview__action"
+  [class.pg-palette-gen-preview__action--mirror]="mirrorView()"
   mat-icon-button
   matTooltip="Copy Sass map to clipboard"
   [matTooltipPosition]="mirrorView() ? 'right' : 'left'"
@@ -45,7 +45,7 @@
 
 @if (mirrorView()) {
   <button
-    class="pl-palette-gen-preview__action pl-palette-gen-preview__action--2 pl-palette-gen-preview__action--mirror"
+    class="pg-palette-gen-preview__action pg-palette-gen-preview__action--2 pg-palette-gen-preview__action--mirror"
     mat-icon-button
     matTooltip="Close mirror view"
     matTooltipPosition="right"
@@ -55,7 +55,7 @@
   </button>
 } @else {
   <button
-    class="pl-palette-gen-preview__action pl-palette-gen-preview__action--2"
+    class="pg-palette-gen-preview__action pg-palette-gen-preview__action--2"
     mat-icon-button
     matTooltip="Open mirror view"
     matTooltipPosition="left"

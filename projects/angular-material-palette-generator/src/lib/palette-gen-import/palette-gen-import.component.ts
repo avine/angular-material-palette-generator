@@ -9,7 +9,7 @@ import { PaletteGenFormValue } from '../palette-gen-form';
 import { parsePaletteGenFormValue } from '../palette-gen-form/palette-gen-form.utils';
 
 @Component({
-  selector: 'pl-palette-gen-import',
+  selector: 'pg-palette-gen-import',
   imports: [ReactiveFormsModule, MatButtonModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule],
   templateUrl: './palette-gen-import.component.html',
   encapsulation: ViewEncapsulation.None,

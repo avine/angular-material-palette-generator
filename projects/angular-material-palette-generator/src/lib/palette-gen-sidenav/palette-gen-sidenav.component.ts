@@ -4,10 +4,10 @@ import { PaletteGenImportComponent } from '../palette-gen-import';
 import { PaletteGenService } from '../palette-gen.service';
 
 @Component({
-  selector: 'pl-palette-gen-sidenav',
+  selector: 'pg-palette-gen-sidenav',
   host: {
-    class: 'pl-palette-gen-sidenav',
-    '[style.--pl-palette-gen-sidenav-control-size]': 'service.controlSize() + "px"',
+    class: 'pg-palette-gen-sidenav',
+    '[style.--pg-palette-gen-sidenav-control-size]': 'service.controlSize() + "px"',
   },
   imports: [ColorGenFormComponent, PaletteGenImportComponent],
   templateUrl: './palette-gen-sidenav.component.html',

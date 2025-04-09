@@ -15,9 +15,9 @@ import { percentageToRgbFactory } from './palette-gen-preview.utils';
 import { PreferBlackForgroundColorPipe, WcagContrastRatioCompliancePipe } from './pipes';
 
 @Component({
-  selector: 'pl-palette-gen-preview',
+  selector: 'pg-palette-gen-preview',
   host: {
-    class: 'pl-palette-gen-preview',
+    class: 'pg-palette-gen-preview',
   },
   imports: [
     MatButtonModule,

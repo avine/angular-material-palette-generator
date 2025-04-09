@@ -1,16 +1,16 @@
-<form [formGroup]="form" class="pl-palette-gen-form__form">
-  <mat-form-field appearance="outline" class="pl-palette-gen-form__color">
+<form [formGroup]="form" class="pg-palette-gen-form__form">
+  <mat-form-field appearance="outline" class="pg-palette-gen-form__color">
     <mat-label>Color</mat-label>
     <input [formControl]="form.controls.color" matInput placeholder="#666666" />
     <mat-error>Invalid</mat-error>
   </mat-form-field>
 
-  <mat-slider min="0" max="100" step="1" discrete class="pl-palette-gen-form__range">
+  <mat-slider min="0" max="100" step="1" discrete class="pg-palette-gen-form__range">
     <input [formControl]="form.controls.start" matSliderStartThumb />
     <input [formControl]="form.controls.end" matSliderEndThumb />
   </mat-slider>
 
-  <pl-cubic-bezier-control [formControl]="form.controls.params" [canvasSize]="controlSize()" />
+  <pg-cubic-bezier-control [formControl]="form.controls.params" [canvasSize]="controlSize()" />
 
   <mat-checkbox [formControl]="form.controls.reverse">Reverse</mat-checkbox>
 

@@ -11,8 +11,8 @@ import { PaletteGenService } from '../palette-gen.service';
 import { PaletteMatchingConfig, PaletteMode, PaletteName } from '../palette-matching';
 
 @Component({
-  selector: 'pl-palette-gen-content',
-  host: { class: 'pl-palette-gen-content' },
+  selector: 'pg-palette-gen-content',
+  host: { class: 'pg-palette-gen-content' },
   imports: [
     MatButtonModule,
     MatButtonToggleModule,

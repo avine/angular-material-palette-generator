@@ -5,8 +5,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { PaletteGenFormValue } from '../palette-gen-form';
 
 @Component({
-  selector: 'pl-palette-gen-snapshots',
-  host: { class: 'pl-palette-gen-snapshots' },
+  selector: 'pg-palette-gen-snapshots',
+  host: { class: 'pg-palette-gen-snapshots' },
   imports: [MatButtonModule, MatIconModule, MatTooltipModule],
   templateUrl: './palette-gen-snapshots.component.html',
   styleUrl: './palette-gen-snapshots.component.scss',

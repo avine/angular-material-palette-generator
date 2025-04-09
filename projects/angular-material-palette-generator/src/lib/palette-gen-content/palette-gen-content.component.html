@@ -1,4 +1,4 @@
-<div class="pl-palette-gen-content__actions">
+<div class="pg-palette-gen-content__actions">
   <button
     type="button"
     mat-icon-button
@@ -9,7 +9,7 @@
     <mat-icon>{{ compact() ? 'keyboard_double_arrow_down' : 'keyboard_double_arrow_up' }}</mat-icon>
   </button>
 
-  <mat-form-field appearance="outline" class="pl-palette-gen-content__no-error">
+  <mat-form-field appearance="outline" class="pg-palette-gen-content__no-error">
     <mat-label>Palette</mat-label>
     <mat-select [(value)]="paletteName">
       @for (option of paletteNameOptions; track $index) {
@@ -27,8 +27,8 @@
   }
 </div>
 
-<div class="pl-palette-gen-content__previews">
-  <pl-palette-gen-preview
+<div class="pg-palette-gen-content__previews">
+  <pg-palette-gen-preview
     [matchingConfig]="matchingConfig()"
     [compact]="compact()"
     [formValue]="service.formValue()"
@@ -36,6 +36,6 @@
   />
 
   @if (formValueMirror(); as mirror) {
-    <pl-palette-gen-preview [compact]="compact()" [formValue]="mirror" mirrorView (action)="unsetMirror()" />
+    <pg-palette-gen-preview [compact]="compact()" [formValue]="mirror" mirrorView (action)="unsetMirror()" />
   }
 </div>

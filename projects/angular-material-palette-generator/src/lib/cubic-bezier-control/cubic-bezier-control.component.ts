@@ -30,11 +30,11 @@ import {
 import { CubicBezierParamsPipe } from './cubic-bezier-params.pipe';
 
 @Component({
-  selector: 'pl-cubic-bezier-control',
+  selector: 'pg-cubic-bezier-control',
   host: {
-    class: 'pl-cubic-bezier-control',
-    '[class.pl-cubic-bezier-control--disabled]': 'disabled()',
-    '[style.--pl-cubic-bezier-control-canvas-size]': 'canvasSize() + "px"',
+    class: 'pg-cubic-bezier-control',
+    '[class.pg-cubic-bezier-control--disabled]': 'disabled()',
+    '[style.--pg-cubic-bezier-control-canvas-size]': 'canvasSize() + "px"',
   },
   imports: [
     CdkDrag,

@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ViewEncapsulation } from '@angular/core';
 import { CubicBezierControlComponent } from 'angular-material-palette-generator';
 
 @Component({
@@ -6,6 +6,7 @@ import { CubicBezierControlComponent } from 'angular-material-palette-generator'
   imports: [CubicBezierControlComponent],
   templateUrl: './demo.component.html',
   styleUrl: './demo.component.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class DemoComponent {
   disabled = signal(false);

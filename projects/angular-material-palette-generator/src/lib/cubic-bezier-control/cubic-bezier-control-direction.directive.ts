@@ -2,7 +2,7 @@ import { Directive, output } from '@angular/core';
 import { CubicBezierControlDirection } from './cubic-bezier-control.types';
 
 @Directive({
-  selector: '[plCubicBezierControlDirection]',
+  selector: '[pgCubicBezierControlDirection]',
   host: {
     '(keydown.ArrowUp)': 'direction.emit("up")',
     '(keydown.ArrowRight)': 'direction.emit("right")',

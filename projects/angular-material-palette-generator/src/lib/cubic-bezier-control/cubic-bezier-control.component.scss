@@ -1,8 +1,8 @@
-.pl-cubic-bezier-control {
+.pg-cubic-bezier-control {
   position: relative;
   display: block;
-  width: var(--pl-cubic-bezier-control-canvas-size);
-  height: var(--pl-cubic-bezier-control-canvas-size);
+  width: var(--pg-cubic-bezier-control-canvas-size);
+  height: var(--pg-cubic-bezier-control-canvas-size);
   transition: opacity ease 120ms;
 
   &--disabled {

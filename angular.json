@@ -132,7 +132,7 @@
       },
       "root": "projects/angular-material-palette-generator",
       "sourceRoot": "projects/angular-material-palette-generator/src",
-      "prefix": "pl",
+      "prefix": "pg",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",

@@ -18,10 +18,10 @@ import { PaletteGenFormValue } from './palette-gen-form.types';
 import { getPaletteGenForm } from './palette-gen-form.utils';
 
 @Component({
-  selector: 'pl-palette-gen-form',
+  selector: 'pg-palette-gen-form',
   host: {
-    class: 'pl-palette-gen-form',
-    '[style.--pl-palette-gen-form-control-size]': 'controlSize() + "px"',
+    class: 'pg-palette-gen-form',
+    '[style.--pg-palette-gen-form-control-size]': 'controlSize() + "px"',
   },
   imports: [
     ReactiveFormsModule,
@@ -78,11 +78,11 @@ export class ColorGenFormComponent {
   // ----- storage -----
 
   private store(formValue: PaletteGenFormValue) {
-    this.localStorage?.setItem('pl-palette-gen-form', JSON.stringify(formValue));
+    this.localStorage?.setItem('pg-palette-gen-form', JSON.stringify(formValue));
   }
 
   private restore() {
-    const value = this.localStorage?.getItem('pl-palette-gen-form');
+    const value = this.localStorage?.getItem('pg-palette-gen-form');
     if (!value) {
       return;
     }
@@ -90,7 +90,7 @@ export class ColorGenFormComponent {
       this.form.setValue(JSON.parse(value));
       this.form.updateValueAndValidity();
     } catch {
-      this.localStorage?.removeItem('pl-palette-gen-form');
+      this.localStorage?.removeItem('pg-palette-gen-form');
       console.error('ColorGenFormComponent: unable to restore value', value);
     }
   }

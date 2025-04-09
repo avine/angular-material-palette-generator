@@ -1,9 +1,9 @@
-<canvas #canvas [width]="canvasSize()" [height]="canvasSize()" class="pl-cubic-bezier-control__canvas"></canvas>
+<canvas #canvas [width]="canvasSize()" [height]="canvasSize()" class="pg-cubic-bezier-control__canvas"></canvas>
 
 <div
-  class="pl-cubic-bezier-control__point"
+  class="pg-cubic-bezier-control__point"
   cdkDrag
-  cdkDragBoundary=".pl-cubic-bezier-control"
+  cdkDragBoundary=".pg-cubic-bezier-control"
   [cdkDragDisabled]="disabled()"
   (cdkDragMoved)="updateParam('p1')"
   #p1
@@ -15,7 +15,7 @@
     [matRippleDisabled]="disabled()"
     [matTooltip]="params() | cubicBezierParams: 'p1'"
     matTooltipPosition="left"
-    plCubicBezierControlDirection
+    pgCubicBezierControlDirection
     (direction)="moveParams('p1', $event)"
   >
     p1
@@ -23,9 +23,9 @@
 </div>
 
 <div
-  class="pl-cubic-bezier-control__point"
+  class="pg-cubic-bezier-control__point"
   cdkDrag
-  cdkDragBoundary=".pl-cubic-bezier-control"
+  cdkDragBoundary=".pg-cubic-bezier-control"
   [cdkDragDisabled]="disabled()"
   (cdkDragMoved)="updateParam('p2')"
   #p2
@@ -37,11 +37,11 @@
     [matRippleDisabled]="disabled()"
     [matTooltip]="params() | cubicBezierParams: 'p2'"
     matTooltipPosition="right"
-    plCubicBezierControlDirection
+    pgCubicBezierControlDirection
     (direction)="moveParams('p2', $event)"
   >
     p2
   </button>
 </div>
 
-<pl-cubic-bezier-control-colors [cssVarConfig]="cssVarConfig" (colorMapChange)="colorMap.set($event)" />
+<pg-cubic-bezier-control-colors [cssVarConfig]="cssVarConfig" (colorMapChange)="colorMap.set($event)" />
