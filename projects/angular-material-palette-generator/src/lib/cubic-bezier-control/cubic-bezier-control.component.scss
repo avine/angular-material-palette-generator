@@ -4,6 +4,7 @@
   width: var(--pg-cubic-bezier-control-canvas-size);
   height: var(--pg-cubic-bezier-control-canvas-size);
   transition: opacity ease 120ms;
+  text-align: left;
 
   &--disabled {
     opacity: 0.5;

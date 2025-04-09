@@ -1,0 +1,15 @@
+.app-cubic-bezier-control-demo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+
+  pre {
+    font-size: 1rem;
+    font-family: var(--pl-font-family-monospace, monospace);
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+  }
+}

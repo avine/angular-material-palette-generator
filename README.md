@@ -1,3 +1,3 @@
 # Angular Material Palette Generator
 
-See [Online demo](https://avine.github.io/angular-material-palette-generator).
+See [documentation](./projects/angular-material-palette-generator/README.md).

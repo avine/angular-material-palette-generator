@@ -1,7 +1,4 @@
 import { Routes } from '@angular/router';
-import { ContentComponent } from './content/content.component';
-import { DemoComponent } from './demo/demo.component';
-import { GuideComponent } from './guide';
 import { PaletteGenComponent } from './palette-gen/palette-gen.component';
 import { RouterLayoutComponent } from './shared/layout';
 
@@ -13,20 +10,16 @@ export const routes: Routes = [
   },
 
   {
-    path: 'doc',
+    path: 'demo',
     component: RouterLayoutComponent,
     children: [
       {
-        path: 'guide',
-        component: GuideComponent,
-      },
-      {
-        path: 'bezier-control',
-        component: DemoComponent,
+        path: 'cubic-bezier-control',
+        loadComponent: () => import('./cubic-bezier-control-demo/cubic-bezier-control-demo.component'),
       },
       {
         path: 'content',
-        component: ContentComponent,
+        loadComponent: () => import('./content-demo/content-demo.component'),
       },
     ],
   },

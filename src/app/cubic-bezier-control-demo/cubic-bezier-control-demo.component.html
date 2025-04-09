@@ -1,0 +1,5 @@
+<button mat-button (click)="toggleDisabled()">Disable/Enable</button>
+
+<pg-cubic-bezier-control [disabled]="disabled()" [(params)]="params" />
+
+<pre>params {{ paramsStringified() | json }}</pre>
