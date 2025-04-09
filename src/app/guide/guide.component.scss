@@ -1,13 +1,7 @@
-// @use '../../app.scss' as app;
-
-.pl-palette-gen-guide {
+.app-guide {
   margin-top: 2rem;
   display: flex;
   gap: 2rem;
-
-  /*@include app.media-breakpoint-down(sm) {
-    flex-direction: column;
-  }*/
 
   table {
     flex-grow: 1;

@@ -5,9 +5,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { PaletteGenService } from '../palette-gen';
 import { PaletteGenFormValue } from '../palette-gen-form';
 import { PaletteGenPreviewComponent } from '../palette-gen-preview';
+import { PaletteGenService } from '../palette-gen.service';
 import { PaletteMatchingConfig, PaletteMode, PaletteName } from '../palette-matching';
 
 @Component({

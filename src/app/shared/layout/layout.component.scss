@@ -1,0 +1,35 @@
+.app-layout {
+  height: 100%;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: 'header' 'main' 'footer';
+
+  &__header {
+    grid-area: header;
+    position: sticky;
+    z-index: 3;
+    top: 0;
+    background-color: var(--mat-sys-surface-container);
+  }
+
+  &__main {
+    grid-area: main;
+    position: relative;
+    z-index: 1;
+    padding: 2rem var(--gbl-spacing);
+
+    &--full-screen {
+      overflow: auto;
+      padding: 0;
+    }
+  }
+
+  &__footer {
+    grid-area: footer;
+    position: relative;
+    z-index: 2;
+    background-color: var(--mat-sys-surface-container);
+  }
+}

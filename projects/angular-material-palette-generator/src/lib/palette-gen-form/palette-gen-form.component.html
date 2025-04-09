@@ -10,7 +10,7 @@
     <input [formControl]="form.controls.end" matSliderEndThumb />
   </mat-slider>
 
-  <pl-cubic-bezier-control [formControl]="form.controls.params" [canvasSize]="200" />
+  <pl-cubic-bezier-control [formControl]="form.controls.params" [canvasSize]="controlSize()" />
 
   <mat-checkbox [formControl]="form.controls.reverse">Reverse</mat-checkbox>
 

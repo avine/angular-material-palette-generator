@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { PaletteGenService } from 'angular-material-palette-generator';
 import { filter, map, startWith, tap } from 'rxjs';
 import { CubicBezierControlComponent } from '../cubic-bezier-control';
 import { PaletteGenFormValue } from './palette-gen-form.types';
@@ -18,6 +19,10 @@ import { getPaletteGenForm } from './palette-gen-form.utils';
 
 @Component({
   selector: 'pl-palette-gen-form',
+  host: {
+    class: 'pl-palette-gen-form',
+    '[style.--pl-palette-gen-form-control-size]': 'controlSize() + "px"',
+  },
   imports: [
     ReactiveFormsModule,
     MatButtonModule,
@@ -50,6 +55,8 @@ export class ColorGenFormComponent {
       tap((formValue) => this.store(formValue)),
     ),
   );
+
+  protected controlSize = inject(PaletteGenService).controlSize;
 
   constructor() {
     this.initFormValueHandler();

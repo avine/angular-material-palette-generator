@@ -18,6 +18,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { cubicBezierFactory, CubicBezierParams } from '../cubic-bezier';
 import { CubicBezierControlColorsComponent } from '../cubic-bezier-control-colors/cubic-bezier-control-colors.component';
+import { PALETTE_FORM_CONTROL_SIZE_DEFAULT } from '../palette-gen.constants';
 import { CubicBezierControlDirectionDirective } from './cubic-bezier-control-direction.directive';
 import { CubicBezierControlColors, CubicBezierControlDirection } from './cubic-bezier-control.types';
 import {
@@ -61,7 +62,7 @@ export class CubicBezierControlComponent implements ControlValueAccessor {
     return ctx ? new CanvasHandler(ctx, this.canvasSize(), this.colorMap()) : undefined;
   });
 
-  canvasSize = input(200);
+  canvasSize = input(PALETTE_FORM_CONTROL_SIZE_DEFAULT);
 
   private p1 = viewChild.required<ElementRef<HTMLElement>>('p1');
 

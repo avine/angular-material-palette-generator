@@ -1,0 +1,10 @@
+<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu">
+  <mat-icon>more_vert</mat-icon>
+</button>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item routerLink="/">Home</button>
+  <button mat-menu-item routerLink="/doc/guide">Guide demo</button>
+  <button mat-menu-item routerLink="/doc/bezier-control">Bezier control demo</button>
+  <button mat-menu-item routerLink="/doc/content">Content demo</button>
+</mat-menu>

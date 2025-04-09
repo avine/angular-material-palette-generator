@@ -1,0 +1,20 @@
+$control-size: 200px; // Should be the same value as in `palette-gen.component.ts`.
+
+$extra-space: 1rem; // Prevent horizontal scroll from appearing
+
+.app-palette-gen {
+  --mat-sidenav-container-shape: 0px;
+  --mat-sidenav-container-width: calc(#{$control-size} + 2 * var(--gbl-spacing) + #{$extra-space});
+
+  &__container {
+    height: 100%;
+  }
+
+  &__content {
+    padding: 2rem var(--gbl-spacing);
+  }
+
+  &__sidenav {
+    margin: 2rem auto !important;
+  }
+}

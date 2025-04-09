@@ -1,5 +1,5 @@
 import { afterRenderEffect, Directive, ElementRef, inject, input, signal } from '@angular/core';
-import { PaletteGenService } from '../palette-gen';
+import { PaletteGenService } from '../palette-gen.service';
 
 @Directive({
   selector: '[plCubicBezierControlColors]',

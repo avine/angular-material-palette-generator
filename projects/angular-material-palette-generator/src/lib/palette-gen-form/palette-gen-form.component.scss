@@ -1,22 +1,24 @@
 $gap: 1.5rem;
-$base-width: 200px;
 
 .pl-palette-gen-form {
+  display: block;
+  width: var(--pl-palette-gen-form-control-size);
+
   &__form {
-    margin-bottom: $gap;
     display: flex;
     flex-direction: column;
-    gap: $gap;
     align-items: flex-start;
+    gap: $gap;
+    margin-bottom: $gap;
   }
 
   &__color {
-    margin: 0 0 -20px 0 !important;
-    width: $base-width !important;
+    margin: 0 0 -20px 0 !important; // Remove the area of the `<mat-error>`
+    width: 100% !important;
   }
 
   &__range {
-    margin: 0 !important;
-    width: $base-width !important;
+    margin: 0 !important; // Remove the `8px` margin
+    width: 100% !important;
   }
 }

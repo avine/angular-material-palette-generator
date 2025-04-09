@@ -1,0 +1,11 @@
+<app-header class="app-layout__header">
+  <ng-content select="[appLayoutHeaderAction]" />
+</app-header>
+
+<main class="app-layout__main" [class.app-layout__main--full-screen]="fullScreen()">
+  <ng-content />
+</main>
+
+<app-footer class="app-layout__footer">
+  <ng-content select="[appLayoutFooterAction]"> Default footer </ng-content>
+</app-footer>
