@@ -1,6 +1,6 @@
 {
   "name": "angular-material-palette-generator",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "peerDependencies": {
     "@angular/cdk": "^19.2.0",
     "@angular/common": "^19.2.0",
