@@ -14,7 +14,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { MatRippleModule } from '@angular/material/core';
+import { MatRipple, MatRippleModule, RippleRef } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { cubicBezierFactory, CubicBezierParams } from '../cubic-bezier';
 import { CubicBezierControlColorsComponent } from '../cubic-bezier-control-colors/cubic-bezier-control-colors.component';
@@ -73,6 +73,12 @@ export class CubicBezierControlComponent implements ControlValueAccessor {
   skipNextParamsEffect = false;
 
   private cdkDrags = viewChildren(CdkDrag);
+
+  private matRipples = viewChildren(MatRipple);
+
+  private rippleRef?: RippleRef;
+
+  protected matRippleColor = 'rgb(from var(--mat-sys-primary) r g b / 0.24)';
 
   constructor() {
     afterRenderEffect(() => this.updateCanvas());
@@ -137,6 +143,14 @@ export class CubicBezierControlComponent implements ControlValueAccessor {
       return;
     }
     canvasHandler.clear().linear().curve(this.cubicBezier()).sticks(this.params());
+  }
+
+  protected launchRipple(p: 'p1' | 'p2') {
+    this.rippleRef = this.matRipples()[p === 'p1' ? 0 : 1].launch({ persistent: true });
+  }
+
+  protected fadeOutRippleRef() {
+    this.rippleRef?.fadeOut();
   }
 
   // ----- ControlValueAccessor -----
