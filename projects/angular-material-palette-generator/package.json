@@ -1,12 +1,11 @@
 {
   "name": "angular-material-palette-generator",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "peerDependencies": {
     "@angular/cdk": "^19.2.0",
     "@angular/common": "^19.2.0",
     "@angular/core": "^19.2.0",
     "@angular/material": "^19.2.0",
-    "@mapbox/unitbezier": "^0.0.1",
     "colorjs.io": "^0.5.2"
   },
   "dependencies": {
