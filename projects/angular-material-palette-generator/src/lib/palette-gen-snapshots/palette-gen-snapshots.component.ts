@@ -50,6 +50,13 @@ export class PaletteGenSnapshotsComponent {
   private snapshotAliasIndex = 0;
 
   private get nextSnapshotAlias() {
-    return this.snapshotAliasList[this.snapshotAliasIndex++ % this.snapshotAliasList.length];
+    const usedAliases = this.snapshots().map(({ alias }) => alias);
+
+    let alias: string;
+    do {
+      alias = this.snapshotAliasList[this.snapshotAliasIndex++ % this.snapshotAliasList.length];
+    } while (usedAliases.includes(alias));
+
+    return alias;
   }
 }
