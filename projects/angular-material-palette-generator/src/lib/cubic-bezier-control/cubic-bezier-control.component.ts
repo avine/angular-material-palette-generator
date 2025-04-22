@@ -164,8 +164,8 @@ export class CubicBezierControlComponent implements ControlValueAccessor {
 
   protected cssVarConfig: CubicBezierControlColors = {
     linearColor: '--mat-sys-surface-container-highest',
-    curveColor: '--mat-sys-on-surface-variant',
-    stickColor: '--mat-sys-primary',
+    curveColor: '--mat-sys-primary',
+    stickColor: '--mat-sys-on-surface-variant',
   };
 
   protected colorMap = signal<typeof this.cssVarConfig>({

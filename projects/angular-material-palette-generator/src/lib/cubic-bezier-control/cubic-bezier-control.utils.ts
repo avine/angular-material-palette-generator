@@ -51,8 +51,7 @@ export class CanvasHandler {
   linear() {
     this.ctx.beginPath();
     this.ctx.moveTo(0, 0);
-    this.ctx.lineWidth = 3;
-    this.ctx.lineCap = 'round';
+    this.ctx.lineWidth = 4;
     this.ctx.lineTo(this.canvasSize, this.canvasSize);
     this.ctx.strokeStyle = this.colors.linearColor;
     this.ctx.stroke();
@@ -62,8 +61,8 @@ export class CanvasHandler {
   curve(interpolate: (x: number) => number) {
     this.ctx.beginPath();
     this.ctx.moveTo(0, 0);
-    this.ctx.lineWidth = 3;
-    this.ctx.lineCap = 'round';
+    this.ctx.lineWidth = 4;
+    this.ctx.lineJoin = 'round';
     for (let step = 0; step <= this.canvasSize; step += 1) {
       this.ctx.lineTo(step, interpolate(step / this.canvasSize) * this.canvasSize);
     }
