@@ -9,12 +9,9 @@
   #p1
 >
   <button
-    matRipple
-    [matRippleCentered]="true"
-    [matRippleUnbounded]="true"
-    [matRippleDisabled]="disabled()"
     [matTooltip]="params() | cubicBezierParams: 'p1'"
     matTooltipPosition="left"
+    [pgCubicBezierControlRipple]="!disabled()"
     pgCubicBezierControlDirection
     (direction)="moveParams('p1', $event)"
   >
@@ -31,12 +28,9 @@
   #p2
 >
   <button
-    matRipple
-    [matRippleCentered]="true"
-    [matRippleUnbounded]="true"
-    [matRippleDisabled]="disabled()"
     [matTooltip]="params() | cubicBezierParams: 'p2'"
     matTooltipPosition="right"
+    [pgCubicBezierControlRipple]="!disabled()"
     pgCubicBezierControlDirection
     (direction)="moveParams('p2', $event)"
   >

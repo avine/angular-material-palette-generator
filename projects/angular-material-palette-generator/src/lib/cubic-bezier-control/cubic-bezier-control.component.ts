@@ -14,12 +14,12 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { MatRippleModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { cubicBezierFactory, CubicBezierParams } from '../cubic-bezier';
 import { CubicBezierControlColorsComponent } from '../cubic-bezier-control-colors/cubic-bezier-control-colors.component';
 import { PALETTE_FORM_CONTROL_SIZE_DEFAULT } from '../palette-gen.constants';
 import { CubicBezierControlDirectionDirective } from './cubic-bezier-control-direction.directive';
+import { CubicBezierControlRippleDirective } from './cubic-bezier-control-ripple.directive';
 import { CubicBezierControlColors, CubicBezierControlDirection } from './cubic-bezier-control.types';
 import {
   CanvasHandler,
@@ -38,10 +38,10 @@ import { CubicBezierParamsPipe } from './cubic-bezier-params.pipe';
   },
   imports: [
     CdkDrag,
-    MatRippleModule,
     MatTooltipModule,
     CubicBezierControlColorsComponent,
     CubicBezierControlDirectionDirective,
+    CubicBezierControlRippleDirective,
     CubicBezierParamsPipe,
   ],
   templateUrl: './cubic-bezier-control.component.html',
@@ -70,21 +70,13 @@ export class CubicBezierControlComponent implements ControlValueAccessor {
 
   disabled = model(false);
 
-  skipNextParamsEffect = false;
+  skipNextPointsUpdate = false;
 
   private cdkDrags = viewChildren(CdkDrag);
 
   constructor() {
+    afterRenderEffect(() => this.updatePoints());
     afterRenderEffect(() => this.updateCanvas());
-
-    afterRenderEffect(() => {
-      const params = this.params();
-      if (this.skipNextParamsEffect) {
-        this.skipNextParamsEffect = false;
-        return;
-      }
-      untracked(() => this.updatePoints(params));
-    });
 
     const ngControl = inject(NgControl, { optional: true, self: true });
     if (ngControl) {
@@ -92,11 +84,18 @@ export class CubicBezierControlComponent implements ControlValueAccessor {
     }
   }
 
-  private updatePoints(params: CubicBezierParams) {
+  private updatePoints() {
+    const params = this.params();
     const size = this.canvasSize();
+
+    if (this.skipNextPointsUpdate) {
+      this.skipNextPointsUpdate = false;
+      return;
+    }
+
     const { p1, p2 } = cubicBezierParamsToPoints({ params, size });
 
-    const [p1Drag, p2Drag] = this.cdkDrags();
+    const [p1Drag, p2Drag] = untracked(() => this.cdkDrags());
     p1Drag.setFreeDragPosition(p1);
     p2Drag.setFreeDragPosition(p2);
   }
@@ -106,7 +105,7 @@ export class CubicBezierControlComponent implements ControlValueAccessor {
     const container = this.container.getBoundingClientRect();
     const size = this.canvasSize();
 
-    this.skipNextParamsEffect = true;
+    this.skipNextPointsUpdate = true;
     this.params.update((params) => {
       const { x, y } = pointToCubicBezierParam({ point, container, size });
 
