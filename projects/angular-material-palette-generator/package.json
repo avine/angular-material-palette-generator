@@ -1,6 +1,22 @@
 {
   "name": "angular-material-palette-generator",
-  "version": "0.0.4",
+  "version": "0.0.5",
+  "author": "Stéphane Francel <stephane.francel@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/avine/angular-material-palette-generator.git"
+  },
+  "homepage": "https://github.com/avine/angular-material-palette-generator#readme",
+  "bugs": {
+    "url": "https://github.com/avine/angular-material-palette-generator/issues"
+  },
+  "keywords": [
+    "angular",
+    "material",
+    "theming",
+    "tool"
+  ],
   "peerDependencies": {
     "@angular/cdk": "^19.2.0",
     "@angular/common": "^19.2.0",
@@ -11,10 +27,5 @@
   "dependencies": {
     "tslib": "^2.3.0"
   },
-  "sideEffects": false,
-  "keywords": [
-    "angular",
-    "material",
-    "theming"
-  ]
+  "sideEffects": false
 }
