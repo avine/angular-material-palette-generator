@@ -9,9 +9,8 @@ import {
   PaletteMatchingPercentageToTokensPipe,
   PaletteMatchingTokensToMirrorColorPipe,
 } from '../palette-matching';
-import { MATERIAL_PALETTE_PERCENTAGES_MAP } from './palette-gen-preview.config';
 import { PaletteGenPreviewData } from './palette-gen-preview.types';
-import { percentageToRgbFactory } from './palette-gen-preview.utils';
+import { buildPaletteGenPreviewData } from './palette-gen-preview.utils';
 import { PreferBlackForgroundColorPipe, WcagContrastRatioCompliancePipe } from './pipes';
 
 @Component({
@@ -45,34 +44,7 @@ export class PaletteGenPreviewComponent {
 
   matchingConfig = input<PaletteMatchingConfig>({ name: undefined, mode: 'light' });
 
-  protected data = computed<PaletteGenPreviewData>(() => {
-    const formValue = this.formValue();
-    if (!formValue) {
-      return { list: [], percentageMap: {} };
-    }
-
-    const { color, start, end, params, reverse, neutral } = formValue;
-
-    const percentages = MATERIAL_PALETTE_PERCENTAGES_MAP[neutral ? 'neutral' : 'default'];
-    const percentageToRgb = percentageToRgbFactory({ color, params, reverse });
-
-    const list = percentages
-      .map((percentage) => ({
-        percentage,
-        adjustedPercentage: start + (percentage / 100) * (end - start),
-      }))
-      .map(({ percentage, adjustedPercentage }) => ({ percentage, color: percentageToRgb(adjustedPercentage) }));
-
-    const percentageMap = list.reduce(
-      (map, { percentage, color }) => {
-        map[percentage] = color;
-        return map;
-      },
-      {} as Record<number, string>,
-    );
-
-    return { list, percentageMap };
-  });
+  protected data = computed<PaletteGenPreviewData>(() => buildPaletteGenPreviewData(this.formValue()));
 
   protected sassMapToClipboard() {
     const formValue = this.formValue();
