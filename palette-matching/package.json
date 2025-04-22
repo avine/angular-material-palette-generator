@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "node --experimental-transform-types palette-matching.script.ts"
+    "start": "node --experimental-strip-types palette-matching.script.ts"
   }
 }

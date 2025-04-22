@@ -8,7 +8,7 @@ Online demo: https://avine.github.io/angular-material-palette-generator
 ```scss
 $_palettes: (
   primary: (
-    // This tool helps you refine the following map
+    // 👇 This tool helps you refine the following map
     0: #000000,
     10: #001d33,
     20: #003354,
