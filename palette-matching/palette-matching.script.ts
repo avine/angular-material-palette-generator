@@ -1,7 +1,7 @@
 import { inspect } from 'node:util';
 
 // Run this script `npm start` and copy/paste the output in:
-//    `projects/angular-material-palette-generator/src/lib/palette-matching/palette-matching.ts`
+//    `projects/angular-material-palette-generator/src/lib/palette-matching/palette-matching.config.ts`
 import {
   PALETTE_MATCHING_ERRORS,
   PALETTE_PERCENTAGE_MATCHING_MAP,

@@ -1,4 +1,4 @@
-import { cssPaletteMap, sassPaletteMap } from './palette-matching.constants.ts';
+import { cssPaletteMap, sassPaletteMap } from './palette-matching.data.ts';
 import type {
   PalettePercentageMap,
   PalettePercentageMatching,

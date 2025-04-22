@@ -3,7 +3,7 @@ import { PalettePercentageMatchingMap, PaletteTokenMatchingMap } from './palette
 // DO NOT MODIFY THE FOLLOWING OBJECTS MANUALLY
 // --------------------------------------------
 // The content of following objects has been generated from the script:
-//    `<rootDir>/palette-matching/script.ts`
+//    `<rootDir>/palette-matching/palette-matching.script.ts`
 
 export const PALETTE_PERCENTAGE_MATCHING_MAP: PalettePercentageMatchingMap = {
   primary: {

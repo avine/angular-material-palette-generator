@@ -9,7 +9,7 @@ import {
   PaletteMatchingPercentageToTokensPipe,
   PaletteMatchingTokensToMirrorColorPipe,
 } from '../palette-matching';
-import { materialPalettePercentagesMap } from './palette-gen-preview.constants';
+import { MATERIAL_PALETTE_PERCENTAGES_MAP } from './palette-gen-preview.config';
 import { PaletteGenPreviewData } from './palette-gen-preview.types';
 import { percentageToRgbFactory } from './palette-gen-preview.utils';
 import { PreferBlackForgroundColorPipe, WcagContrastRatioCompliancePipe } from './pipes';
@@ -53,7 +53,7 @@ export class PaletteGenPreviewComponent {
 
     const { color, start, end, params, reverse, neutral } = formValue;
 
-    const percentages = materialPalettePercentagesMap[neutral ? 'neutral' : 'default'];
+    const percentages = MATERIAL_PALETTE_PERCENTAGES_MAP[neutral ? 'neutral' : 'default'];
     const percentageToRgb = percentageToRgbFactory({ color, params, reverse });
 
     const list = percentages

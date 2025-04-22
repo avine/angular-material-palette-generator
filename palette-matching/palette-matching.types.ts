@@ -1,4 +1,4 @@
-import type { sassPaletteMap } from './palette-matching.constants.ts';
+import type { sassPaletteMap } from './palette-matching.data.ts';
 
 export type PaletteName = keyof typeof sassPaletteMap;
 

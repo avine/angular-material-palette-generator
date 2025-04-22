@@ -1,4 +1,4 @@
-export const materialPalettePercentagesMap = {
+export const MATERIAL_PALETTE_PERCENTAGES_MAP = {
   // Works for Material `primary`, `secondary`, `tertiary`, `neutral-variant` and `error` palettes
   default: [0, 10, 20, 25, 30, 35, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100],
 
