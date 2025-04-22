@@ -1,4 +1,4 @@
-import{Ia as h,Q as _,R as B}from"./chunk-ELA4GSKF.js";import{$b as C,Ba as l,Gb as o,Hb as n,Lb as s,Xb as a,Ya as m,Yb as f,_b as g,ac as z,kb as b,sc as y,xb as c}from"./chunk-SGEUV4BD.js";var d=class u{disabled=l(!1);toggleDisabled(){this.disabled.update(t=>!t)}large=l(!1);toggleLarge(){this.large.update(t=>!t)}params=l({p1x:0,p1y:0,p2x:1,p2y:1});paramsStringified=y(()=>{let{p1x:t,p1y:i,p2x:e,p2y:r}=this.params();return`params {
+import{Ia as h,Q as _,R as B}from"./chunk-XLC5XHTZ.js";import{$b as C,Ba as l,Gb as o,Hb as n,Lb as s,Xb as a,Ya as m,Yb as f,_b as g,ac as z,kb as b,sc as y,xb as c}from"./chunk-SGEUV4BD.js";var d=class u{disabled=l(!1);toggleDisabled(){this.disabled.update(t=>!t)}large=l(!1);toggleLarge(){this.large.update(t=>!t)}params=l({p1x:0,p1y:0,p2x:1,p2y:1});paramsStringified=y(()=>{let{p1x:t,p1y:i,p2x:e,p2y:r}=this.params();return`params {
   "p1x": ${t.toFixed(3)},
   "p1y": ${i.toFixed(3)},
   "p2x": ${e.toFixed(3)},
