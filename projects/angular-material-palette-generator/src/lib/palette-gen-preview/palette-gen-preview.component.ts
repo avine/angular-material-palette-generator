@@ -36,7 +36,7 @@ export class PaletteGenPreviewComponent {
 
   mirrorView = input(false, { transform: booleanAttribute });
 
-  formValue = input.required<PaletteGenFormValue | undefined>();
+  formValue = input<PaletteGenFormValue>();
 
   action = output<void>();
 

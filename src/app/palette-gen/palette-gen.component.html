@@ -11,9 +11,5 @@
     </mat-drawer>
   </mat-drawer-container>
 
-  <pg-palette-gen-snapshots
-    appLayoutFooterAction
-    [formValue]="paletteGenService.formValue()"
-    (formValueChange)="paletteGenService.formValueSetter.set($event)"
-  />
+  <pg-palette-gen-snapshots appLayoutFooterAction />
 </app-layout>

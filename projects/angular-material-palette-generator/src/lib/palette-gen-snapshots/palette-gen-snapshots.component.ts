@@ -1,8 +1,8 @@
-import { Component, computed, input, model, signal, ViewEncapsulation } from '@angular/core';
+import { Component, computed, inject, input, signal, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { PaletteGenFormValue } from '../palette-gen-form';
+import { PaletteGenService } from '../palette-gen.service';
 
 @Component({
   selector: 'pg-palette-gen-snapshots',
@@ -13,13 +13,13 @@ import { PaletteGenFormValue } from '../palette-gen-form';
   encapsulation: ViewEncapsulation.None,
 })
 export class PaletteGenSnapshotsComponent {
+  private service = inject(PaletteGenService);
+
   maxSnapshots = input(10);
 
   disabled = input(false);
 
-  formValue = model<PaletteGenFormValue>();
-
-  protected formValueSnapshot = computed(() => JSON.stringify(this.formValue()));
+  protected formValueSnapshot = computed(() => JSON.stringify(this.service.formValue()));
 
   protected snapshots = signal<{ alias: string; value: string }[]>([]);
 
@@ -42,7 +42,7 @@ export class PaletteGenSnapshotsComponent {
   }
 
   protected selectSnapshot(snapshot: string) {
-    this.formValue.set(JSON.parse(snapshot));
+    this.service.formValue.set(JSON.parse(snapshot));
   }
 
   private snapshotAliasList = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';

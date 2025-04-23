@@ -28,8 +28,6 @@ import { ThemeService } from '../shared/theme';
   encapsulation: ViewEncapsulation.None,
 })
 export class PaletteGenComponent {
-  protected paletteGenService = inject(PaletteGenService);
-
   sidenavOpened = signal<boolean>(true);
 
   protected toggleSidenav() {
@@ -37,7 +35,8 @@ export class PaletteGenComponent {
   }
 
   constructor() {
-    this.paletteGenService.controlSize.set(200); // Should be the same value as in `palette-gen.component.scss`.
-    this.paletteGenService.refreshCanvasOn(inject(ThemeService).theme);
+    const paletteGenService = inject(PaletteGenService);
+    paletteGenService.controlSize.set(200); // Should be the same value as in `palette-gen.component.scss`.
+    paletteGenService.refreshCanvasOn(inject(ThemeService).theme);
   }
 }

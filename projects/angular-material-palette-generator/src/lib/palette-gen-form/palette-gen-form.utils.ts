@@ -26,3 +26,14 @@ export const parsePaletteGenFormValue = (value: string): PaletteGenFormValue | n
     return null;
   }
 };
+
+export const paletteGenFormValuesEqual = (a: PaletteGenFormValue, b: PaletteGenFormValue) =>
+  a.color === b.color &&
+  a.start === b.start &&
+  a.end === b.end &&
+  a.reverse === b.reverse &&
+  a.neutral === b.neutral &&
+  a.params.p1x === b.params.p1x &&
+  a.params.p1y === b.params.p1y &&
+  a.params.p2x === b.params.p2x &&
+  a.params.p2y === b.params.p2y;

@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, effect, inject, input, ViewEncapsulation } from '@angular/core';
-import { outputFromObservable } from '@angular/core/rxjs-interop';
+import { Component, effect, inject, ViewEncapsulation } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -11,17 +11,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { filter, map, startWith, tap } from 'rxjs';
+import { filter, startWith } from 'rxjs';
 import { CubicBezierControlComponent } from '../cubic-bezier-control';
 import { PaletteGenService } from '../palette-gen.service';
 import { PaletteGenFormValue } from './palette-gen-form.types';
-import { getPaletteGenForm } from './palette-gen-form.utils';
+import { getPaletteGenForm, paletteGenFormValuesEqual } from './palette-gen-form.utils';
 
 @Component({
   selector: 'pg-palette-gen-form',
   host: {
     class: 'pg-palette-gen-form',
-    '[style.--pg-palette-gen-form-control-size]': 'controlSize() + "px"',
+    '[style.--pg-palette-gen-form-control-size]': 'service.controlSize() + "px"',
   },
   imports: [
     ReactiveFormsModule,
@@ -40,35 +40,38 @@ import { getPaletteGenForm } from './palette-gen-form.utils';
   styleUrl: './palette-gen-form.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
-export class ColorGenFormComponent {
+export class PaletteGenFormComponent {
+  protected service = inject(PaletteGenService);
+
   private localStorage = inject(DOCUMENT).defaultView?.localStorage;
 
   protected form = getPaletteGenForm();
 
-  formValue = input<PaletteGenFormValue>();
-
-  formValueChange = outputFromObservable<PaletteGenFormValue>(
-    this.form.statusChanges.pipe(
-      startWith(this.form.valid ? 'VALID' : 'INVALID'),
-      filter((status) => status === 'VALID'),
-      map(() => this.form.value as PaletteGenFormValue),
-      tap((formValue) => this.store(formValue)),
-    ),
-  );
-
-  protected controlSize = inject(PaletteGenService).controlSize;
-
   constructor() {
-    this.initFormValueHandler();
     this.restore();
+    this.handleFormStatusChanges(); // Note: must be executed after `this.restore()`
+    this.handleServiceFormValue();
   }
 
   // ----- form -----
 
-  private initFormValueHandler() {
+  private handleFormStatusChanges() {
+    this.form.statusChanges
+      .pipe(
+        takeUntilDestroyed(),
+        startWith(this.form.valid ? 'VALID' : 'INVALID'),
+        filter((status) => status === 'VALID'),
+      )
+      .subscribe(() => {
+        this.service.formValue.set(this.form.value as PaletteGenFormValue);
+        this.store(this.form.value as PaletteGenFormValue);
+      });
+  }
+
+  private handleServiceFormValue() {
     effect(() => {
-      const formValue = this.formValue();
-      if (formValue) {
+      const formValue = this.service.formValue();
+      if (formValue && !paletteGenFormValuesEqual(formValue, this.form.value as PaletteGenFormValue)) {
         this.form.setValue(formValue);
         this.form.updateValueAndValidity();
       }
@@ -76,10 +79,6 @@ export class ColorGenFormComponent {
   }
 
   // ----- storage -----
-
-  private store(formValue: PaletteGenFormValue) {
-    this.localStorage?.setItem('pg-palette-gen-form', JSON.stringify(formValue));
-  }
 
   private restore() {
     const value = this.localStorage?.getItem('pg-palette-gen-form');
@@ -91,7 +90,11 @@ export class ColorGenFormComponent {
       this.form.updateValueAndValidity();
     } catch {
       this.localStorage?.removeItem('pg-palette-gen-form');
-      console.error('ColorGenFormComponent: unable to restore value', value);
+      console.error('PaletteGenFormComponent: unable to restore value', value);
     }
+  }
+
+  private store(formValue: PaletteGenFormValue) {
+    this.localStorage?.setItem('pg-palette-gen-form', JSON.stringify(formValue));
   }
 }
