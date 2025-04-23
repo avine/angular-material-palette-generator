@@ -10,7 +10,7 @@ import { PaletteGenService } from '../palette-gen.service';
 export class CubicBezierControlColorsDirective {
   private host: HTMLElement = inject(ElementRef).nativeElement;
 
-  private refreshCanvas = inject(PaletteGenService).refreshCanvas;
+  private service = inject(PaletteGenService);
 
   cssVarName = input.required<string>({ alias: 'pgCubicBezierControlColors' });
 
@@ -18,7 +18,7 @@ export class CubicBezierControlColorsDirective {
 
   constructor() {
     afterRenderEffect(() => {
-      this.refreshCanvas?.();
+      this.service.refreshCanvas?.();
       this.cssVarName();
 
       const rgbColor = this.host.computedStyleMap().get('color')?.toString();
