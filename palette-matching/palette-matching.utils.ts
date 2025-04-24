@@ -1,8 +1,8 @@
 import { cssPaletteMap, sassPaletteMap } from './palette-matching.data.ts';
 import type {
-  PalettePercentageMap,
-  PalettePercentageMatching,
   PalettePercentageMatchingMap,
+  PaletteTokenMap,
+  PaletteTokenMatching,
   PaletteTokenMatchingMap,
 } from './palette-matching.types.ts';
 
@@ -17,16 +17,16 @@ const sassPaletteMapReversed = Object.fromEntries(
 
 export const PALETTE_MATCHING_ERRORS: string[] = [];
 
-// ----- Percentage -----
+// ----- Token -----
 
-export const PALETTE_PERCENTAGE_MATCHING_MAP = Object.fromEntries(
+export const PALETTE_TOKEN_MATCHING_MAP = Object.fromEntries(
   Object.entries(cssPaletteMap).map(([paletteName, cssPalette]) => {
-    const paletteMatching: PalettePercentageMatching = {
+    const paletteMatching: PaletteTokenMatching = {
       light: {},
       dark: {},
     };
 
-    const addPercentage = (map: PalettePercentageMap, token: string, color: string) => {
+    const addToken = (map: PaletteTokenMap, token: string, color: string) => {
       const percentage: number | undefined = sassPaletteMapReversed[paletteName][color];
       if (percentage === undefined) {
         PALETTE_MATCHING_ERRORS.push(`"${color}" is missing in "${paletteName}" Sass palette!`);
@@ -37,19 +37,19 @@ export const PALETTE_PERCENTAGE_MATCHING_MAP = Object.fromEntries(
     };
 
     Object.entries(cssPalette).forEach(([token, [lightColor, darkColor]]) => {
-      addPercentage(paletteMatching.light, token, lightColor);
-      addPercentage(paletteMatching.dark, token, darkColor);
+      addToken(paletteMatching.light, token, lightColor);
+      addToken(paletteMatching.dark, token, darkColor);
     });
 
     return [paletteName, paletteMatching];
   }),
-) as PalettePercentageMatchingMap;
+) as PaletteTokenMatchingMap;
 
-// ----- Token -----
+// ----- Percentage -----
 
-export const PALETTE_TOKEN_MATCHING_MAP = Object.fromEntries(
-  Object.entries(PALETTE_PERCENTAGE_MATCHING_MAP).map(([paletteName, { light, dark }]) => {
-    const getTokenMap = (map: PalettePercentageMap) =>
+export const PALETTE_PERCENTAGE_MATCHING_MAP = Object.fromEntries(
+  Object.entries(PALETTE_TOKEN_MATCHING_MAP).map(([paletteName, { light, dark }]) => {
+    const getPercentageMap = (map: PaletteTokenMap) =>
       Object.entries(map).reduce(
         (tokenMap, [percentage, tokens]) => {
           tokens.forEach((token) => (tokenMap[token] = parseInt(percentage)));
@@ -58,6 +58,6 @@ export const PALETTE_TOKEN_MATCHING_MAP = Object.fromEntries(
         {} as Record<string, number>,
       );
 
-    return [paletteName, { light: getTokenMap(light), dark: getTokenMap(dark) }];
+    return [paletteName, { light: getPercentageMap(light), dark: getPercentageMap(dark) }];
   }),
-) as PaletteTokenMatchingMap;
+) as PalettePercentageMatchingMap;

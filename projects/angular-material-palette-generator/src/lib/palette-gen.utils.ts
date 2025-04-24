@@ -39,7 +39,7 @@ const percentageToRgbFactory = ({
 
 export const buildPaletteGenData = (formValue: PaletteGenFormValue | undefined): PaletteGenData => {
   if (!formValue) {
-    return { list: [], percentageMap: {} };
+    return { list: [], colorMap: {} };
   }
   const { color, start, end, params, reverse, neutral } = formValue;
 
@@ -53,7 +53,7 @@ export const buildPaletteGenData = (formValue: PaletteGenFormValue | undefined):
     }))
     .map(({ percentage, adjustedPercentage }) => ({ percentage, color: percentageToRgb(adjustedPercentage) }));
 
-  const percentageMap = list.reduce(
+  const colorMap = list.reduce(
     (map, { percentage, color }) => {
       map[percentage] = color;
       return map;
@@ -61,5 +61,5 @@ export const buildPaletteGenData = (formValue: PaletteGenFormValue | undefined):
     {} as Record<number, string>,
   );
 
-  return { list, percentageMap };
+  return { list, colorMap };
 };

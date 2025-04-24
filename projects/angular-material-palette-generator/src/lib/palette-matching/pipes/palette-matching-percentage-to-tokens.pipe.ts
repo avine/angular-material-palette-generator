@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { PALETTE_PERCENTAGE_MATCHING_MAP } from '../palette-matching.config';
+import { PALETTE_TOKEN_MATCHING_MAP } from '../palette-matching.config';
 import { PaletteMatchingConfig } from './palette-matching-config.types';
 
 @Pipe({
@@ -10,6 +10,6 @@ export class PaletteMatchingPercentageToTokensPipe implements PipeTransform {
     if (!name) {
       return [];
     }
-    return PALETTE_PERCENTAGE_MATCHING_MAP[name][mode][percentage] ?? [];
+    return PALETTE_TOKEN_MATCHING_MAP[name][mode][percentage] ?? [];
   }
 }

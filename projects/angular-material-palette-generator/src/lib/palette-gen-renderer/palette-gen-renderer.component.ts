@@ -1,6 +1,6 @@
 import { Component, computed, inject, Signal, ViewEncapsulation } from '@angular/core';
 import { PaletteGenService } from '../palette-gen.service';
-import { PALETTE_TOKEN_MATCHING_MAP, PaletteName } from '../palette-matching';
+import { PALETTE_PERCENTAGE_MATCHING_MAP, PaletteName } from '../palette-matching';
 
 @Component({
   selector: 'pg-palette-gen-renderer',
@@ -26,9 +26,9 @@ export class PaletteGenRendererComponent {
 
   private getComputedTokens(paletteName: PaletteName) {
     return computed(() => {
-      const { percentageMap } = this.service.data[paletteName]();
-      return Object.entries(PALETTE_TOKEN_MATCHING_MAP[paletteName][this.service.paletteMode()])
-        .map(([token, percentage]) => `--mat-sys-${token}: ${percentageMap[percentage]}`)
+      const { colorMap } = this.service.data[paletteName]();
+      return Object.entries(PALETTE_PERCENTAGE_MATCHING_MAP[paletteName][this.service.paletteMode()])
+        .map(([token, percentage]) => `--mat-sys-${token}: ${colorMap[percentage]}`)
         .join('; ');
     });
   }

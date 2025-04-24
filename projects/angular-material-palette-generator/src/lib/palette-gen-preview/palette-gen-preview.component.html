@@ -13,7 +13,7 @@
     @let tokens = listItem.percentage | paletteMatchingPercentageToTokens: matchingConfig();
 
     @if (!mirrorView() && tokens.length) {
-      @let mirrorColor = tokens | paletteMatchingTokensToMirrorColor: matchingConfig() : data().percentageMap;
+      @let mirrorColor = tokens | paletteMatchingTokensToMirrorColor: matchingConfig() : data().colorMap;
 
       <div
         class="pg-palette-gen-preview__tokens gbl-body-medium"

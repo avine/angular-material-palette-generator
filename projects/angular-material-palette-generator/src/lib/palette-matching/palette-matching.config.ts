@@ -5,7 +5,7 @@ import { PalettePercentageMatchingMap, PaletteTokenMatchingMap } from './palette
 // The content of following objects has been generated from the script:
 //    `<rootDir>/palette-matching/palette-matching.script.ts`
 
-export const PALETTE_PERCENTAGE_MATCHING_MAP: PalettePercentageMatchingMap = {
+export const PALETTE_TOKEN_MATCHING_MAP: PaletteTokenMatchingMap = {
   primary: {
     light: {
       '10': ['on-primary-container', 'on-primary-fixed'],
@@ -120,7 +120,7 @@ export const PALETTE_PERCENTAGE_MATCHING_MAP: PalettePercentageMatchingMap = {
   },
 };
 
-export const PALETTE_TOKEN_MATCHING_MAP: PaletteTokenMatchingMap = {
+export const PALETTE_PERCENTAGE_MATCHING_MAP: PalettePercentageMatchingMap = {
   primary: {
     light: {
       'on-primary-container': 10,

@@ -1,6 +1,6 @@
 export type PaletteGenData = {
   list: PaletteGenDataListItem[];
-  percentageMap: Record<number, string>;
+  colorMap: Record<number, string>;
 };
 
 export type PaletteGenDataListItem = {
