@@ -15,9 +15,7 @@ import { PreferBlackForgroundColorPipe, WcagContrastRatioCompliancePipe } from '
 
 @Component({
   selector: 'pg-palette-gen-preview',
-  host: {
-    class: 'pg-palette-gen-preview',
-  },
+  host: { class: 'pg-palette-gen-preview' },
   imports: [
     MatButtonModule,
     MatIconModule,
