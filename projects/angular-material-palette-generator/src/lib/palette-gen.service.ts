@@ -24,7 +24,7 @@ export class PaletteGenService {
 
   formValue = computed(() => this.formValueMap[this.paletteName()]);
 
-  data: Record<PaletteName, Signal<PaletteGenData>> = {
+  dataMap: Record<PaletteName, Signal<PaletteGenData>> = {
     primary: computed(() => buildPaletteGenData(this.formValueMap.primary())),
     secondary: computed(() => buildPaletteGenData(this.formValueMap.secondary())),
     tertiary: computed(() => buildPaletteGenData(this.formValueMap.tertiary())),

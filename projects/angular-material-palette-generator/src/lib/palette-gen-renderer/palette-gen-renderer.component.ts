@@ -26,7 +26,7 @@ export class PaletteGenRendererComponent {
 
   private getComputedTokens(paletteName: PaletteName) {
     return computed(() => {
-      const { colorMap } = this.service.data[paletteName]();
+      const { colorMap } = this.service.dataMap[paletteName]();
       return Object.entries(PALETTE_PERCENTAGE_MATCHING_MAP[paletteName][this.service.paletteMode()])
         .map(([token, percentage]) => `--mat-sys-${token}: ${colorMap[percentage]}`)
         .join('; ');
