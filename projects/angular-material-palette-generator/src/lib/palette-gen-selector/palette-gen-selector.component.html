@@ -1,5 +1,3 @@
-<ng-content />
-
 <mat-button-toggle-group aria-label="Mode" [(value)]="service.paletteMode" hideSingleSelectionIndicator>
   @for (option of paletteModes; track $index) {
     <mat-button-toggle [value]="option">{{ option | titlecase }}</mat-button-toggle>
@@ -14,3 +12,5 @@
     }
   </mat-select>
 </mat-form-field>
+
+<ng-content />

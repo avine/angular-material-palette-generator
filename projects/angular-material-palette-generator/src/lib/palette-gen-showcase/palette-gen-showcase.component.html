@@ -1,0 +1,51 @@
+<div class="pg-palette-gen-showcase__row">
+  <button mat-button>Button</button>
+  <button mat-icon-button><mat-icon>home</mat-icon></button>
+  <button mat-flat-button>Button</button>
+  <button mat-raised-button>Button</button>
+  <button mat-stroked-button>Button</button>
+</div>
+
+<div class="pg-palette-gen-showcase__row">
+  <button disabled mat-button>Button</button>
+  <button disabled mat-icon-button><mat-icon>home</mat-icon></button>
+  <button disabled mat-flat-button>Button</button>
+  <button disabled mat-raised-button>Button</button>
+  <button disabled mat-stroked-button>Button</button>
+</div>
+
+<div class="pg-palette-gen-showcase__row">
+  <mat-form-field appearance="fill">
+    <mat-label>Fill form field</mat-label>
+    <input [formControl]="formControl1" matInput placeholder="Placeholder" />
+    <mat-icon matSuffix>alternate_email</mat-icon>
+    <mat-hint>Hint</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Outline form field</mat-label>
+    <input [formControl]="formControl2" matInput placeholder="Placeholder" />
+    <mat-icon matSuffix>lock</mat-icon>
+    <mat-hint>Hint</mat-hint>
+    <mat-error>Field required</mat-error>
+  </mat-form-field>
+</div>
+
+<div class="pg-palette-gen-showcase__row">
+  <mat-slide-toggle checked>Slide toggle</mat-slide-toggle>
+  <mat-slide-toggle>Slide toggle</mat-slide-toggle>
+  <mat-slide-toggle disabled>Slide toggle</mat-slide-toggle>
+</div>
+
+<div class="pg-palette-gen-showcase__row">
+  <mat-progress-bar mode="determinate" value="40" />
+  <mat-progress-bar mode="indeterminate" />
+</div>
+
+<div class="pg-palette-gen-showcase__row">
+  <mat-tab-group [animationDuration]="0" style="width: 100%">
+    <mat-tab label="First"></mat-tab>
+    <mat-tab label="Second"></mat-tab>
+    <mat-tab label="Third"></mat-tab>
+  </mat-tab-group>
+</div>

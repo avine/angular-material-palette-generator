@@ -7,7 +7,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PaletteGenFormValue } from '../palette-gen-form';
 import { PaletteGenPreviewComponent } from '../palette-gen-preview';
+import { PaletteGenRendererComponent } from '../palette-gen-renderer';
 import { PaletteGenSelectorComponent } from '../palette-gen-selector';
+import { PaletteGenShowcaseComponent } from '../palette-gen-showcase';
 import { PaletteGenService } from '../palette-gen.service';
 import { PaletteMatchingConfig } from '../palette-matching';
 
@@ -21,8 +23,10 @@ import { PaletteMatchingConfig } from '../palette-matching';
     MatIconModule,
     MatSelectModule,
     MatTooltipModule,
-    PaletteGenSelectorComponent,
     PaletteGenPreviewComponent,
+    PaletteGenRendererComponent,
+    PaletteGenSelectorComponent,
+    PaletteGenShowcaseComponent,
   ],
   templateUrl: './palette-gen-content.component.html',
   styleUrl: './palette-gen-content.component.scss',
@@ -30,6 +34,16 @@ import { PaletteMatchingConfig } from '../palette-matching';
 })
 export class PaletteGenContentComponent {
   protected service = inject(PaletteGenService);
+
+  // ----- Showcase -----
+
+  protected showcase = signal(false);
+
+  protected showcaseAction = computed(() => (this.showcase() ? 'View selected palette' : 'View component showcase'));
+
+  protected toggleShowcase() {
+    this.showcase.update((showcase) => !showcase);
+  }
 
   // ----- Mirror -----
 

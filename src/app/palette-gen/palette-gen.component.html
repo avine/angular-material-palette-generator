@@ -4,7 +4,9 @@
   </button>
 
   <mat-drawer-container class="app-palette-gen__container" [hasBackdrop]="false" autosize>
-    <pg-palette-gen-content class="app-palette-gen__content" />
+    <pg-palette-gen-content class="app-palette-gen__content">
+      <!-- if neede, use your own component showcase -->
+    </pg-palette-gen-content>
 
     <mat-drawer position="end" mode="side" [(opened)]="sidenavOpened">
       <pg-palette-gen-sidenav class="app-palette-gen__sidenav" />

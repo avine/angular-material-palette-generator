@@ -4,13 +4,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PaletteGenFormValue } from '../palette-gen-form';
+import { PaletteGenData } from '../palette-gen.types';
+import { buildPaletteGenData } from '../palette-gen.utils';
 import {
   PaletteMatchingConfig,
   PaletteMatchingPercentageToTokensPipe,
   PaletteMatchingTokensToMirrorColorPipe,
 } from '../palette-matching';
-import { PaletteGenPreviewData } from './palette-gen-preview.types';
-import { buildPaletteGenPreviewData } from './palette-gen-preview.utils';
 import { PreferBlackForgroundColorPipe, WcagContrastRatioCompliancePipe } from './pipes';
 
 @Component({
@@ -44,7 +44,8 @@ export class PaletteGenPreviewComponent {
 
   matchingConfig = input<PaletteMatchingConfig>({ name: undefined, mode: 'light' });
 
-  protected data = computed<PaletteGenPreviewData>(() => buildPaletteGenPreviewData(this.formValue()));
+  // TODO: could we use computed data from the service?
+  protected data = computed<PaletteGenData>(() => buildPaletteGenData(this.formValue()));
 
   protected sassMapToClipboard() {
     const formValue = this.formValue();

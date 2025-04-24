@@ -2,23 +2,48 @@
   <button
     type="button"
     mat-icon-button
-    [attr.aria-label]="compactAction()"
-    [matTooltip]="compactAction()"
-    (click)="toggleCompact()"
+    [attr.aria-label]="showcaseAction()"
+    [matTooltip]="showcaseAction()"
+    (click)="toggleShowcase()"
   >
-    <mat-icon>{{ compact() ? 'keyboard_double_arrow_down' : 'keyboard_double_arrow_up' }}</mat-icon>
+    <mat-icon>{{ showcase() ? 'format_color_fill' : 'widgets' }}</mat-icon>
   </button>
+
+  @if (!showcase()) {
+    <button
+      type="button"
+      mat-icon-button
+      [attr.aria-label]="compactAction()"
+      [matTooltip]="compactAction()"
+      (click)="toggleCompact()"
+    >
+      <mat-icon
+        class="pg-palette-gen-content__compact-icon"
+        [class.pg-palette-gen-content__compact-icon--active]="compact()"
+      >
+        keyboard_double_arrow_up
+      </mat-icon>
+    </button>
+  }
 </pg-palette-gen-selector>
 
-<div class="pg-palette-gen-content__previews">
-  <pg-palette-gen-preview
-    [matchingConfig]="matchingConfig()"
-    [compact]="compact()"
-    [formValue]="service.formValue()()"
-    (action)="setMirror()"
-  />
+@if (!showcase()) {
+  <div class="pg-palette-gen-content__previews">
+    <pg-palette-gen-preview
+      [matchingConfig]="matchingConfig()"
+      [compact]="compact()"
+      [formValue]="service.formValue()()"
+      (action)="setMirror()"
+    />
 
-  @if (formValueMirror(); as mirror) {
-    <pg-palette-gen-preview [compact]="compact()" [formValue]="mirror" mirrorView (action)="unsetMirror()" />
-  }
-</div>
+    @if (formValueMirror(); as mirror) {
+      <pg-palette-gen-preview [compact]="compact()" [formValue]="mirror" mirrorView (action)="unsetMirror()" />
+    }
+  </div>
+} @else {
+  <pg-palette-gen-renderer>
+    <ng-content>
+      <pg-palette-gen-showcase />
+    </ng-content>
+  </pg-palette-gen-renderer>
+}

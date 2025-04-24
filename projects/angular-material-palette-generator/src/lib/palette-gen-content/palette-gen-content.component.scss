@@ -1,4 +1,12 @@
 .pg-palette-gen-content {
+  &__compact-icon {
+    transition: transform ease 150ms;
+
+    &--active {
+      transform: rotateX(180deg);
+    }
+  }
+
   &__previews {
     display: flex;
     gap: 1px;
