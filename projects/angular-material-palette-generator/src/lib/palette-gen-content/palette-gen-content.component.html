@@ -1,4 +1,4 @@
-<div class="pg-palette-gen-content__actions">
+<pg-palette-gen-selector>
   <button
     type="button"
     mat-icon-button
@@ -8,30 +8,13 @@
   >
     <mat-icon>{{ compact() ? 'keyboard_double_arrow_down' : 'keyboard_double_arrow_up' }}</mat-icon>
   </button>
-
-  <mat-form-field appearance="outline" class="pg-palette-gen-content__no-error">
-    <mat-label>Palette</mat-label>
-    <mat-select [(value)]="paletteName">
-      @for (option of paletteNameOptions; track $index) {
-        <mat-option [value]="option.value">{{ option.label }}</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
-
-  @if (paletteName()) {
-    <mat-button-toggle-group aria-label="Mode" [(value)]="paletteMode" hideSingleSelectionIndicator>
-      @for (option of paletteModeOptions; track $index) {
-        <mat-button-toggle [value]="option.value">{{ option.label }}</mat-button-toggle>
-      }
-    </mat-button-toggle-group>
-  }
-</div>
+</pg-palette-gen-selector>
 
 <div class="pg-palette-gen-content__previews">
   <pg-palette-gen-preview
     [matchingConfig]="matchingConfig()"
     [compact]="compact()"
-    [formValue]="service.formValue()"
+    [formValue]="service.formValue()()"
     (action)="setMirror()"
   />
 

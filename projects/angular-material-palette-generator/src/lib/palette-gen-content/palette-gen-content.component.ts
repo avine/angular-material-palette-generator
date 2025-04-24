@@ -7,8 +7,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PaletteGenFormValue } from '../palette-gen-form';
 import { PaletteGenPreviewComponent } from '../palette-gen-preview';
+import { PaletteGenSelectorComponent } from '../palette-gen-selector';
 import { PaletteGenService } from '../palette-gen.service';
-import { PaletteMatchingConfig, PaletteMode, PaletteName } from '../palette-matching';
+import { PaletteMatchingConfig } from '../palette-matching';
 
 @Component({
   selector: 'pg-palette-gen-content',
@@ -20,6 +21,7 @@ import { PaletteMatchingConfig, PaletteMode, PaletteName } from '../palette-matc
     MatIconModule,
     MatSelectModule,
     MatTooltipModule,
+    PaletteGenSelectorComponent,
     PaletteGenPreviewComponent,
   ],
   templateUrl: './palette-gen-content.component.html',
@@ -34,7 +36,7 @@ export class PaletteGenContentComponent {
   protected formValueMirror = signal<PaletteGenFormValue | undefined>(undefined);
 
   protected setMirror() {
-    this.formValueMirror.set(this.service.formValue());
+    this.formValueMirror.set(this.service.formValue()());
   }
 
   protected unsetMirror() {
@@ -53,27 +55,8 @@ export class PaletteGenContentComponent {
 
   // ----- Preview match -----
 
-  protected paletteName = signal<PaletteName | undefined>(undefined);
-
-  protected paletteNameOptions: { value: PaletteName | undefined; label: string }[] = [
-    { value: undefined, label: '-' },
-    { value: 'primary', label: 'Primary' },
-    { value: 'secondary', label: 'Secondary' },
-    { value: 'tertiary', label: 'Tertiary' },
-    { value: 'neutral', label: 'Neutral' },
-    { value: 'neutral-variant', label: 'Neutral variant' },
-    { value: 'error', label: 'Error' },
-  ];
-
-  protected paletteMode = signal<PaletteMode>('light');
-
-  protected paletteModeOptions: { value: PaletteMode; label: string }[] = [
-    { value: 'light', label: 'Light' },
-    { value: 'dark', label: 'Dark' },
-  ];
-
   protected matchingConfig = computed<PaletteMatchingConfig>(() => ({
-    name: this.paletteName(),
-    mode: this.paletteMode(),
+    name: this.service.paletteName(),
+    mode: this.service.paletteMode(),
   }));
 }

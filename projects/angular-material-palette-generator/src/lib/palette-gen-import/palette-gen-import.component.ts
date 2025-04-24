@@ -32,7 +32,7 @@ export class PaletteGenImportComponent {
   protected import() {
     const formValue = parsePaletteGenFormValue(this.importCtrl.value!);
     if (formValue) {
-      this.service.formValue.set(formValue);
+      this.service.formValue().set(formValue);
 
       this.importDialog?.close();
 

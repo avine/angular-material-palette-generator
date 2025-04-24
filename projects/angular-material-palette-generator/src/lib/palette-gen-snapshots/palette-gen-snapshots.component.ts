@@ -19,7 +19,7 @@ export class PaletteGenSnapshotsComponent {
 
   disabled = input(false);
 
-  protected formValueSnapshot = computed(() => JSON.stringify(this.service.formValue()));
+  protected formValueSnapshot = computed(() => JSON.stringify(this.service.formValue()()));
 
   protected snapshots = signal<{ alias: string; value: string }[]>([]);
 
@@ -42,7 +42,7 @@ export class PaletteGenSnapshotsComponent {
   }
 
   protected selectSnapshot(snapshot: string) {
-    this.service.formValue.set(JSON.parse(snapshot));
+    this.service.formValue().set(JSON.parse(snapshot));
   }
 
   private snapshotAliasList = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';

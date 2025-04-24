@@ -1,0 +1,16 @@
+<ng-content />
+
+<mat-button-toggle-group aria-label="Mode" [(value)]="service.paletteMode" hideSingleSelectionIndicator>
+  @for (option of paletteModes; track $index) {
+    <mat-button-toggle [value]="option">{{ option | titlecase }}</mat-button-toggle>
+  }
+</mat-button-toggle-group>
+
+<mat-form-field appearance="outline" class="pg-palette-gen-selector__no-error">
+  <mat-label>Palette</mat-label>
+  <mat-select [(value)]="service.paletteName">
+    @for (option of paletteNames; track $index) {
+      <mat-option [value]="option">{{ option | titlecase }}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>

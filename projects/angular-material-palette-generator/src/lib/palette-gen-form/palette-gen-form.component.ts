@@ -48,7 +48,7 @@ export class PaletteGenFormComponent {
   protected form = getPaletteGenForm();
 
   constructor() {
-    this.restore();
+    //this.restore(); // TODO: should depend on paletteName
     this.handleFormStatusChanges(); // Note: must be executed after `this.restore()`
     this.handleServiceFormValue();
   }
@@ -63,14 +63,14 @@ export class PaletteGenFormComponent {
         filter((status) => status === 'VALID'),
       )
       .subscribe(() => {
-        this.service.formValue.set(this.form.value as PaletteGenFormValue);
-        this.store(this.form.value as PaletteGenFormValue);
+        this.service.formValue().set(this.form.value as PaletteGenFormValue);
+        //this.store(this.form.value as PaletteGenFormValue); // TODO: should depend on paletteName
       });
   }
 
   private handleServiceFormValue() {
     effect(() => {
-      const formValue = this.service.formValue();
+      const formValue = this.service.formValue()();
       if (formValue && !paletteGenFormValuesEqual(formValue, this.form.value as PaletteGenFormValue)) {
         this.form.setValue(formValue);
         this.form.updateValueAndValidity();

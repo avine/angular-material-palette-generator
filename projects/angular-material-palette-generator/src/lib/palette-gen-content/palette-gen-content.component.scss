@@ -1,15 +1,4 @@
 .pg-palette-gen-content {
-  &__actions {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-
-  &__no-error {
-    margin-bottom: -20px; // Remove the area of the `<mat-error>`
-  }
-
   &__previews {
     display: flex;
     gap: 1px;
