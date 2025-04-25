@@ -16,26 +16,27 @@ export class PaletteGenService {
 
   paletteName = signal<PaletteName>('primary');
 
-  // TODO: allow the reset of this default value (removing the stored value)
-  formValueMap: Record<PaletteName, WritableSignal<PaletteGenFormValue>> = {
-    primary: signal<PaletteGenFormValue>(FORM_VALUE_MAP_DEFAULT.primary),
-    secondary: signal<PaletteGenFormValue>(FORM_VALUE_MAP_DEFAULT.secondary),
-    tertiary: signal<PaletteGenFormValue>(FORM_VALUE_MAP_DEFAULT.tertiary),
-    neutral: signal<PaletteGenFormValue>(FORM_VALUE_MAP_DEFAULT.neutral),
-    'neutral-variant': signal<PaletteGenFormValue>(FORM_VALUE_MAP_DEFAULT['neutral-variant']),
-    error: signal<PaletteGenFormValue>(FORM_VALUE_MAP_DEFAULT.error),
-  };
+  formValueMap = PALETTE_NAMES.reduce(
+    (map, paletteName) => {
+      map[paletteName] = signal<PaletteGenFormValue>(FORM_VALUE_MAP_DEFAULT[paletteName]);
+      return map;
+    },
+    {} as Record<PaletteName, WritableSignal<PaletteGenFormValue>>,
+  );
 
   formValue = computed(() => this.formValueMap[this.paletteName()]);
 
-  dataMap: Record<PaletteName, Signal<PaletteGenData>> = {
-    primary: computed(() => buildPaletteGenData(this.formValueMap.primary())),
-    secondary: computed(() => buildPaletteGenData(this.formValueMap.secondary())),
-    tertiary: computed(() => buildPaletteGenData(this.formValueMap.tertiary())),
-    neutral: computed(() => buildPaletteGenData(this.formValueMap.neutral())),
-    'neutral-variant': computed(() => buildPaletteGenData(this.formValueMap['neutral-variant']())),
-    error: computed(() => buildPaletteGenData(this.formValueMap.error())),
-  };
+  dataMap = PALETTE_NAMES.reduce(
+    (map, paletteName) => {
+      map[paletteName] = computed(() => buildPaletteGenData(this.formValueMap[paletteName]()));
+      return map;
+    },
+    {} as Record<PaletteName, Signal<PaletteGenData>>,
+  );
+
+  reset() {
+    PALETTE_NAMES.forEach((name) => this.formValueMap[name].set(FORM_VALUE_MAP_DEFAULT[name]));
+  }
 
   controlSize = signal(PALETTE_FORM_CONTROL_SIZE_DEFAULT);
 
