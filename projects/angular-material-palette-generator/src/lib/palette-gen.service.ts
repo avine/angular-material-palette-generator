@@ -2,9 +2,9 @@ import { DOCUMENT } from '@angular/common';
 import { computed, effect, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { getPaletteGenForm, PaletteGenFormValue } from './palette-gen-form';
 import { FORM_VALUE_MAP_DEFAULT, PALETTE_FORM_CONTROL_SIZE_DEFAULT } from './palette-gen.config';
-import { PaletteGenData } from './palette-gen.types';
+import { PaletteGenData, PaletteGenState } from './palette-gen.types';
 import { buildPaletteGenData } from './palette-gen.utils';
-import { PaletteMode, PaletteName } from './palette-matching';
+import { PALETTE_MODES, PALETTE_NAMES, PaletteMode, PaletteName } from './palette-matching';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +16,7 @@ export class PaletteGenService {
 
   paletteName = signal<PaletteName>('primary');
 
+  // TODO: allow the reset of this default value (removing the stored value)
   formValueMap: Record<PaletteName, WritableSignal<PaletteGenFormValue>> = {
     primary: signal<PaletteGenFormValue>(FORM_VALUE_MAP_DEFAULT.primary),
     secondary: signal<PaletteGenFormValue>(FORM_VALUE_MAP_DEFAULT.secondary),
@@ -44,18 +45,20 @@ export class PaletteGenService {
     this.refreshCanvas = trigger;
   }
 
-  // ----- storage -----
-
   constructor() {
     this.restoreFormValueMap();
-
     effect(() => this.storeFormValueMap());
+
+    this.restorePaletteState();
+    effect(() => this.storePaletteState());
   }
 
-  readonly storageKey = 'pg-palette-gen-form-value-map';
+  // ----- FormValueMap storage -----
+
+  readonly formValueMapStorageKey = 'pg-palette-gen-service.form-value-map';
 
   private restoreFormValueMap() {
-    const value = this.localStorage?.getItem(this.storageKey);
+    const value = this.localStorage?.getItem(this.formValueMapStorageKey);
     if (!value) {
       return;
     }
@@ -69,8 +72,8 @@ export class PaletteGenService {
         this.formValueMap[paletteName as PaletteName].set(formValue);
       });
     } catch (err) {
-      this.localStorage?.removeItem(this.storageKey);
-      console.error('PaletteGenService: unable to restore value', value, err);
+      this.localStorage?.removeItem(this.formValueMapStorageKey);
+      console.error('PaletteGenService: unable to restore FormValueMap', value, err);
     }
   }
 
@@ -82,6 +85,37 @@ export class PaletteGenService {
       },
       {} as Record<PaletteName, PaletteGenFormValue>,
     );
-    this.localStorage?.setItem(this.storageKey, JSON.stringify(formValueMap));
+    this.localStorage?.setItem(this.formValueMapStorageKey, JSON.stringify(formValueMap));
+  }
+
+  // ----- PaletteState storage -----
+
+  readonly paletteStateStorageKey = 'pg-palette-gen-service.palette-state';
+
+  private restorePaletteState() {
+    const value = this.localStorage?.getItem(this.paletteStateStorageKey);
+    if (!value) {
+      return;
+    }
+    try {
+      const { mode, name }: PaletteGenState = JSON.parse(value);
+      if (PALETTE_MODES.includes(mode) && PALETTE_NAMES.includes(name)) {
+        this.paletteMode.set(mode);
+        this.paletteName.set(name);
+      } else {
+        throw new Error('Invalid palette mode and/or name');
+      }
+    } catch (err) {
+      this.localStorage?.removeItem(this.paletteStateStorageKey);
+      console.error('PaletteGenService: unable to restore PaletteState', value, err);
+    }
+  }
+
+  private storePaletteState() {
+    const paletteState: PaletteGenState = {
+      mode: this.paletteMode(),
+      name: this.paletteName(),
+    };
+    this.localStorage?.setItem(this.paletteStateStorageKey, JSON.stringify(paletteState));
   }
 }
