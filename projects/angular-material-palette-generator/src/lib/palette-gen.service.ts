@@ -1,5 +1,6 @@
-import { computed, Injectable, Signal, signal, WritableSignal } from '@angular/core';
-import { PaletteGenFormValue } from './palette-gen-form';
+import { DOCUMENT } from '@angular/common';
+import { computed, effect, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import { getPaletteGenForm, PaletteGenFormValue } from './palette-gen-form';
 import { FORM_VALUE_MAP_DEFAULT, PALETTE_FORM_CONTROL_SIZE_DEFAULT } from './palette-gen.config';
 import { PaletteGenData } from './palette-gen.types';
 import { buildPaletteGenData } from './palette-gen.utils';
@@ -9,6 +10,8 @@ import { PaletteMode, PaletteName } from './palette-matching';
   providedIn: 'root',
 })
 export class PaletteGenService {
+  private localStorage = inject(DOCUMENT).defaultView?.localStorage;
+
   paletteMode = signal<PaletteMode>('light');
 
   paletteName = signal<PaletteName>('primary');
@@ -39,5 +42,46 @@ export class PaletteGenService {
 
   refreshCanvasOn(trigger: Signal<unknown>) {
     this.refreshCanvas = trigger;
+  }
+
+  // ----- storage -----
+
+  constructor() {
+    this.restoreFormValueMap();
+
+    effect(() => this.storeFormValueMap());
+  }
+
+  readonly storageKey = 'pg-palette-gen-form-value-map';
+
+  private restoreFormValueMap() {
+    const value = this.localStorage?.getItem(this.storageKey);
+    if (!value) {
+      return;
+    }
+    try {
+      const formValueMap: Record<PaletteName, PaletteGenFormValue> = JSON.parse(value);
+
+      const form = getPaletteGenForm();
+      Object.entries(formValueMap).forEach(([paletteName, formValue]) => {
+        form.setValue(formValue); // Validate each `formValue`
+
+        this.formValueMap[paletteName as PaletteName].set(formValue);
+      });
+    } catch (err) {
+      this.localStorage?.removeItem(this.storageKey);
+      console.error('PaletteGenService: unable to restore value', value, err);
+    }
+  }
+
+  private storeFormValueMap() {
+    const formValueMap = Object.entries(this.formValueMap).reduce(
+      (map, [paletteName, formValue]) => {
+        map[paletteName as PaletteName] = formValue();
+        return map;
+      },
+      {} as Record<PaletteName, PaletteGenFormValue>,
+    );
+    this.localStorage?.setItem(this.storageKey, JSON.stringify(formValueMap));
   }
 }

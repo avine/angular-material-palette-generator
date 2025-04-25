@@ -1,4 +1,3 @@
-import { DOCUMENT } from '@angular/common';
 import { Component, effect, inject, ViewEncapsulation } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -43,17 +42,12 @@ import { getPaletteGenForm, paletteGenFormValuesEqual } from './palette-gen-form
 export class PaletteGenFormComponent {
   protected service = inject(PaletteGenService);
 
-  private localStorage = inject(DOCUMENT).defaultView?.localStorage;
-
   protected form = getPaletteGenForm();
 
   constructor() {
-    //this.restore(); // TODO: should depend on paletteName
     this.handleFormStatusChanges(); // Note: must be executed after `this.restore()`
     this.handleServiceFormValue();
   }
-
-  // ----- form -----
 
   private handleFormStatusChanges() {
     this.form.statusChanges
@@ -64,7 +58,6 @@ export class PaletteGenFormComponent {
       )
       .subscribe(() => {
         this.service.formValue().set(this.form.value as PaletteGenFormValue);
-        //this.store(this.form.value as PaletteGenFormValue); // TODO: should depend on paletteName
       });
   }
 
@@ -76,25 +69,5 @@ export class PaletteGenFormComponent {
         this.form.updateValueAndValidity();
       }
     });
-  }
-
-  // ----- storage -----
-
-  private restore() {
-    const value = this.localStorage?.getItem('pg-palette-gen-form');
-    if (!value) {
-      return;
-    }
-    try {
-      this.form.setValue(JSON.parse(value));
-      this.form.updateValueAndValidity();
-    } catch {
-      this.localStorage?.removeItem('pg-palette-gen-form');
-      console.error('PaletteGenFormComponent: unable to restore value', value);
-    }
-  }
-
-  private store(formValue: PaletteGenFormValue) {
-    this.localStorage?.setItem('pg-palette-gen-form', JSON.stringify(formValue));
   }
 }
