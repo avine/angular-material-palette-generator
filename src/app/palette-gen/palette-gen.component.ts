@@ -1,5 +1,6 @@
-import { Component, inject, signal, ViewEncapsulation } from '@angular/core';
+import { Component, inject, signal, TemplateRef, viewChild, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import {
@@ -16,6 +17,7 @@ import { ThemeService } from '../shared/theme';
   host: { class: 'app-palette-gen' },
   imports: [
     MatButtonModule,
+    MatDialogModule,
     MatIconModule,
     MatSidenavModule,
     PaletteGenContentComponent,
@@ -28,15 +30,33 @@ import { ThemeService } from '../shared/theme';
   encapsulation: ViewEncapsulation.None,
 })
 export class PaletteGenComponent {
+  private paletteGenService = inject(PaletteGenService);
+
+  // ----- Reset dialog -----
+
+  private resetDialog = inject(MatDialog);
+
+  private resetTemplate = viewChild.required<TemplateRef<unknown>>('resetTemplate');
+
+  protected openResetDialog() {
+    this.resetDialog
+      .open(this.resetTemplate(), { width: '420px' })
+      .beforeClosed()
+      .subscribe((reset: boolean) => !reset || this.paletteGenService.reset());
+  }
+
+  // ----- Toggle sidenav -----
+
   sidenavOpened = signal<boolean>(true);
 
   protected toggleSidenav() {
     this.sidenavOpened.update((opened) => !opened);
   }
 
+  // ----- Service configuration -----
+
   constructor() {
-    const paletteGenService = inject(PaletteGenService);
-    paletteGenService.controlSize.set(200); // Should be the same value as in `palette-gen.component.scss`.
-    paletteGenService.refreshCanvasOn(inject(ThemeService).theme);
+    this.paletteGenService.controlSize.set(200); // Should be the same value as in `palette-gen.component.scss`.
+    this.paletteGenService.refreshCanvasOn(inject(ThemeService).theme);
   }
 }

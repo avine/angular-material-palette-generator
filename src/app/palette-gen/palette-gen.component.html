@@ -1,5 +1,9 @@
 <app-layout fullScreen>
-  <button appLayoutHeaderAction mat-icon-button aria-label="Menu" (click)="toggleSidenav()">
+  <button appLayoutHeaderAction mat-icon-button aria-label="Reset all forms" (click)="openResetDialog()">
+    <mat-icon>delete</mat-icon>
+  </button>
+
+  <button appLayoutHeaderAction mat-icon-button aria-label="Form menu" (click)="toggleSidenav()">
     <mat-icon>tune</mat-icon>
   </button>
 
@@ -15,3 +19,14 @@
 
   <pg-palette-gen-snapshots appLayoutFooterAction />
 </app-layout>
+
+<ng-template #resetTemplate>
+  <div role="heading" aria-level="2" mat-dialog-title>Reset to default palettes?</div>
+
+  <mat-dialog-content>All changes will be lost.</mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="false">Cancel</button>
+    <button mat-flat-button [mat-dialog-close]="true">Reset</button>
+  </mat-dialog-actions>
+</ng-template>
