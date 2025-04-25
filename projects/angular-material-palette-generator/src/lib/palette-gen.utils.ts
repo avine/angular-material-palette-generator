@@ -1,14 +1,18 @@
 import Color from 'colorjs.io';
-import { cubicBezierFactory } from './cubic-bezier';
+import { cubicBezierFactory, CubicBezierParams } from './cubic-bezier';
 import { PaletteGenFormValue } from './palette-gen-form';
 import { MATERIAL_PALETTE_PERCENTAGES_MAP } from './palette-gen.config';
 import { PaletteGenData } from './palette-gen.types';
 
-export const buildPaletteGenFormValue = (color: string, neutral = false): PaletteGenFormValue => ({
+export const buildPaletteGenFormValue = (
+  color: string,
+  params: CubicBezierParams = { p1x: 0, p1y: 0, p2x: 1, p2y: 1 },
+  neutral = false,
+): PaletteGenFormValue => ({
   color,
   start: 0,
   end: 100,
-  params: { p1x: 0, p1y: 0, p2x: 1, p2y: 1 },
+  params,
   reverse: false,
   neutral,
 });

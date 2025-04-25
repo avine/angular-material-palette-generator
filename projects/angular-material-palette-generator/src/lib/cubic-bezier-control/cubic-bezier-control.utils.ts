@@ -95,8 +95,8 @@ const movePoint = (
   direction: CubicBezierControlDirection,
   delta: number,
 ): [x: number, y: number] => {
-  const more = (coord: number) => Math.min(coord + delta, 1);
-  const less = (coord: number) => Math.max(0, coord - delta);
+  const more = (coord: number) => Math.round(Math.min(coord + delta, 1) * 100) / 100;
+  const less = (coord: number) => Math.round(Math.max(0, coord - delta) * 100) / 100;
   switch (direction) {
     case 'up':
       return [x, less(y)];
