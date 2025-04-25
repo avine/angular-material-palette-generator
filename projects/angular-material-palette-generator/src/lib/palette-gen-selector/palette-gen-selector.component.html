@@ -1,4 +1,9 @@
-<mat-button-toggle-group aria-label="Mode" [(value)]="service.paletteMode" hideSingleSelectionIndicator>
+<mat-button-toggle-group
+  aria-label="Mode"
+  hideSingleSelectionIndicator
+  [(value)]="service.paletteMode"
+  (change)="paletteModeChange.emit($event.value)"
+>
   @for (option of paletteModes; track $index) {
     <mat-button-toggle [value]="option">{{ option | titlecase }}</mat-button-toggle>
   }
@@ -6,7 +11,7 @@
 
 <mat-form-field appearance="outline" class="pg-palette-gen-selector__no-error">
   <mat-label>Palette</mat-label>
-  <mat-select [(value)]="service.paletteName">
+  <mat-select [(value)]="service.paletteName" (valueChange)="paletteNameChange.emit($event)">
     @for (option of paletteNames; track $index) {
       <mat-option [value]="option">{{ option | titlecase }}</mat-option>
     }
