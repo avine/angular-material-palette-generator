@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, signal, ViewEncapsulation } from '@angular/core';
+import { Component, computed, inject, input, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -21,42 +21,32 @@ export class PaletteGenSnapshotsComponent {
 
   protected formValueSnapshot = computed(() => JSON.stringify(this.service.formValue()()));
 
-  protected snapshots = signal<{ alias: string; value: string }[]>([]);
+  protected snapshots = computed(() => this.service.formValueSnapshotsMap[this.service.paletteName()]);
 
   protected takeSnapshot() {
-    this.snapshots.update((snapshots) => [
+    this.snapshots().update((snapshots) => [
       ...snapshots,
       {
-        alias: this.nextSnapshotAlias,
+        id: this.nextSnapshotId,
         value: this.formValueSnapshot(),
       },
     ]);
   }
 
   protected hasSelectedSnapshot = computed(() =>
-    this.snapshots().some(({ value }) => value === this.formValueSnapshot()),
+    this.snapshots()().some(({ value }) => value === this.formValueSnapshot()),
   );
 
   protected removeSelectedSnapshot() {
-    this.snapshots.update((snapshots) => snapshots.filter(({ value }) => value !== this.formValueSnapshot()));
+    this.snapshots().update((snapshots) => snapshots.filter(({ value }) => value !== this.formValueSnapshot()));
   }
 
   protected selectSnapshot(snapshot: string) {
     this.service.formValue().set(JSON.parse(snapshot));
   }
 
-  private snapshotAliasList = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-  private snapshotAliasIndex = 0;
-
-  private get nextSnapshotAlias() {
-    const usedAliases = this.snapshots().map(({ alias }) => alias);
-
-    let alias: string;
-    do {
-      alias = this.snapshotAliasList[this.snapshotAliasIndex++ % this.snapshotAliasList.length];
-    } while (usedAliases.includes(alias));
-
-    return alias;
+  private get nextSnapshotId() {
+    const snapshots = this.snapshots()();
+    return snapshots.length === 0 ? 1 : snapshots[snapshots.length - 1].id + 1;
   }
 }

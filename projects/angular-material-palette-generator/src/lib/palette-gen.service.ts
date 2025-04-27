@@ -1,10 +1,17 @@
 import { DOCUMENT } from '@angular/common';
 import { computed, effect, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { getPaletteGenForm, PaletteGenFormValue } from './palette-gen-form';
+import { PaletteGenFormValueSnapshot } from './palette-gen-snapshots';
 import { FORM_VALUE_MAP_DEFAULT, PALETTE_FORM_CONTROL_SIZE_DEFAULT } from './palette-gen.config';
 import { PaletteGenData, PaletteGenState } from './palette-gen.types';
 import { buildPaletteGenData } from './palette-gen.utils';
 import { PALETTE_MODES, PALETTE_NAMES, PaletteMode, PaletteName } from './palette-matching';
+
+// TODO: need to refactor this service...
+
+// TODO: add a view to display all palettes in one place...
+
+// TODO: add a global import...
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +25,7 @@ export class PaletteGenService {
 
   formValueMap = PALETTE_NAMES.reduce(
     (map, paletteName) => {
-      map[paletteName] = signal<PaletteGenFormValue>(FORM_VALUE_MAP_DEFAULT[paletteName]);
+      map[paletteName] = signal(FORM_VALUE_MAP_DEFAULT[paletteName]);
       return map;
     },
     {} as Record<PaletteName, WritableSignal<PaletteGenFormValue>>,
@@ -34,8 +41,19 @@ export class PaletteGenService {
     {} as Record<PaletteName, Signal<PaletteGenData>>,
   );
 
+  formValueSnapshotsMap = PALETTE_NAMES.reduce(
+    (map, paletteName) => {
+      map[paletteName] = signal([]);
+      return map;
+    },
+    {} as Record<PaletteName, WritableSignal<PaletteGenFormValueSnapshot[]>>,
+  );
+
   reset() {
-    PALETTE_NAMES.forEach((name) => this.formValueMap[name].set(FORM_VALUE_MAP_DEFAULT[name]));
+    PALETTE_NAMES.forEach((name) => {
+      this.formValueMap[name].set(FORM_VALUE_MAP_DEFAULT[name]);
+      this.formValueSnapshotsMap[name].set([]);
+    });
   }
 
   controlSize = signal(PALETTE_FORM_CONTROL_SIZE_DEFAULT);
@@ -52,6 +70,9 @@ export class PaletteGenService {
 
     this.restorePaletteState();
     effect(() => this.storePaletteState());
+
+    this.restoreFormValueSnapshotsMap();
+    effect(() => this.storeFormValueSnapshotsMap());
   }
 
   // ----- FormValueMap storage -----
@@ -87,6 +108,41 @@ export class PaletteGenService {
       {} as Record<PaletteName, PaletteGenFormValue>,
     );
     this.localStorage?.setItem(this.formValueMapStorageKey, JSON.stringify(formValueMap));
+  }
+
+  // ----- FormValueSnapshotsMap storage -----
+
+  readonly formValueMapSnapshotsStorageKey = 'pg-palette-gen-service.form-value-snapshots-map';
+
+  private restoreFormValueSnapshotsMap() {
+    const value = this.localStorage?.getItem(this.formValueMapSnapshotsStorageKey);
+    if (!value) {
+      return;
+    }
+    try {
+      const formValueSnapshotsMap: Record<PaletteName, PaletteGenFormValueSnapshot[]> = JSON.parse(value);
+
+      const form = getPaletteGenForm();
+      Object.entries(formValueSnapshotsMap).forEach(([paletteName, snapshots]) => {
+        snapshots.forEach((snapshot) => form.setValue(JSON.parse(snapshot.value) as PaletteGenFormValue)); // Validate each `snapshot`
+
+        this.formValueSnapshotsMap[paletteName as PaletteName].set(snapshots);
+      });
+    } catch (err) {
+      this.localStorage?.removeItem(this.formValueMapSnapshotsStorageKey);
+      console.error('PaletteGenService: unable to restore FormValueSnapshotsMap', value, err);
+    }
+  }
+
+  private storeFormValueSnapshotsMap() {
+    const formValueSnapshotsMap = Object.entries(this.formValueSnapshotsMap).reduce(
+      (map, [paletteName, snapshots]) => {
+        map[paletteName as PaletteName] = snapshots();
+        return map;
+      },
+      {} as Record<PaletteName, PaletteGenFormValueSnapshot[]>,
+    );
+    this.localStorage?.setItem(this.formValueMapSnapshotsStorageKey, JSON.stringify(formValueSnapshotsMap));
   }
 
   // ----- PaletteState storage -----

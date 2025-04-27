@@ -25,10 +25,10 @@
   </button>
 }
 
-@for (snapshot of snapshots(); track $index) {
+@for (snapshot of snapshots()(); track $index) {
   @if (snapshot.value === formValueSnapshot()) {
-    <button type="button" mat-flat-button (click)="selectSnapshot(snapshot.value)">{{ snapshot.alias }}</button>
+    <button type="button" mat-flat-button (click)="selectSnapshot(snapshot.value)">{{ snapshot.id }}</button>
   } @else {
-    <button type="button" mat-button (click)="selectSnapshot(snapshot.value)">{{ snapshot.alias }}</button>
+    <button type="button" mat-button (click)="selectSnapshot(snapshot.value)">{{ snapshot.id }}</button>
   }
 }
