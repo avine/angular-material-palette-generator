@@ -17,5 +17,6 @@ $extra-space: 1rem; // Prevent horizontal scroll from appearing
 
   &__sidenav {
     margin: 2rem auto !important;
+    width: $control-size;
   }
 }

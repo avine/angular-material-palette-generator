@@ -12,8 +12,7 @@
     [matTooltip]="params() | cubicBezierParams: 'p1'"
     matTooltipPosition="left"
     [pgCubicBezierControlRipple]="!disabled()"
-    pgCubicBezierControlDirection
-    (direction)="moveParams('p1', $event)"
+    (pgCubicBezierControlDirection)="moveParams('p1', $event)"
   >
     p1
   </button>
@@ -31,8 +30,7 @@
     [matTooltip]="params() | cubicBezierParams: 'p2'"
     matTooltipPosition="right"
     [pgCubicBezierControlRipple]="!disabled()"
-    pgCubicBezierControlDirection
-    (direction)="moveParams('p2', $event)"
+    (pgCubicBezierControlDirection)="moveParams('p2', $event)"
   >
     p2
   </button>

@@ -5,8 +5,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import {
   PaletteGenContentComponent,
+  PaletteGenFormComponent,
+  PaletteGenImportComponent,
   PaletteGenService,
-  PaletteGenSidenavComponent,
   PaletteGenSnapshotsComponent,
 } from 'angular-material-palette-generator';
 import { LayoutModule } from '../shared/layout';
@@ -21,7 +22,8 @@ import { ThemeService } from '../shared/theme';
     MatIconModule,
     MatSidenavModule,
     PaletteGenContentComponent,
-    PaletteGenSidenavComponent,
+    PaletteGenFormComponent,
+    PaletteGenImportComponent,
     PaletteGenSnapshotsComponent,
     LayoutModule,
   ],

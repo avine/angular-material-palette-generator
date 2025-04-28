@@ -8,6 +8,5 @@ export * from './lib/palette-gen-preview';
 export * from './lib/palette-gen-renderer';
 export * from './lib/palette-gen-selector';
 export * from './lib/palette-gen-showcase';
-export * from './lib/palette-gen-sidenav';
 export * from './lib/palette-gen-snapshots';
 export * from './lib/palette-gen.service';

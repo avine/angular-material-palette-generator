@@ -11,7 +11,7 @@ import { CubicBezierControlDirection } from './cubic-bezier-control.types';
   },
 })
 export class CubicBezierControlDirectionDirective {
-  direction = output<CubicBezierControlDirection>();
+  direction = output<CubicBezierControlDirection>({ alias: 'pgCubicBezierControlDirection' });
 
   protected emit(event: Event, direction: CubicBezierControlDirection) {
     event.preventDefault();

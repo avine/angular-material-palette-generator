@@ -1,15 +1,11 @@
 import { Component, effect, inject, ViewEncapsulation } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { filter, startWith } from 'rxjs';
 import { CubicBezierControlComponent } from '../cubic-bezier-control';
 import { PaletteGenService } from '../palette-gen.service';
@@ -24,15 +20,11 @@ import { getPaletteGenForm, paletteGenFormValuesEqual } from './palette-gen-form
   },
   imports: [
     ReactiveFormsModule,
-    MatButtonModule,
     MatCheckboxModule,
-    MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-    MatSelectModule,
     MatSliderModule,
-    MatTooltipModule,
     CubicBezierControlComponent,
   ],
   templateUrl: './palette-gen-form.component.html',
