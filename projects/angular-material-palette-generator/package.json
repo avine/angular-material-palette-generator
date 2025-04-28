@@ -1,6 +1,6 @@
 {
   "name": "angular-material-palette-generator",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "author": "Stéphane Francel <stephane.francel@gmail.com>",
   "license": "MIT",
   "repository": {
@@ -15,6 +15,7 @@
     "angular",
     "material",
     "theming",
+    "color",
     "tool"
   ],
   "peerDependencies": {
