@@ -5,7 +5,7 @@ import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dial
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { parsePaletteGenFormValue } from '../palette-gen-form';
+import { parsePaletteGenFormValue } from '../palette-gen-form/palette-gen-form.utils';
 import { PaletteGenService } from '../palette-gen.service';
 
 @Component({

@@ -1,11 +1,11 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component, computed, inject, ViewEncapsulation } from '@angular/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { PreferBlackForgroundColorPipe } from '../palette-gen-preview/pipes';
+import { PreferBlackForgroundColorPipe } from '../palette-gen-preview/pipes/prefer-black-forground-color.pipe';
 import { MATERIAL_PALETTE_PERCENTAGES_MAP } from '../palette-gen.config';
 import { PaletteGenService } from '../palette-gen.service';
 import { PaletteGenDataListItem } from '../palette-gen.types';
-import { PaletteName } from '../palette-matching';
+import { PaletteName } from '../palette-matching/palette-matching.types';
 
 // TODO: add "compact" input
 

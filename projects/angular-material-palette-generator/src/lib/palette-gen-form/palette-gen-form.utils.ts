@@ -1,5 +1,5 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CubicBezierParams } from '../cubic-bezier';
+import { CubicBezierParams } from '../cubic-bezier/cubic-bezier.types';
 import { PaletteGenFormValue } from './palette-gen-form.types';
 import { hexColorValidator } from './palette-gen-form.validator';
 

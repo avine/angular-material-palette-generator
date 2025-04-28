@@ -1,4 +1,4 @@
-import { PaletteMode, PaletteName } from './palette-matching';
+import { PaletteMode, PaletteName } from './palette-matching/palette-matching.types';
 
 export type PaletteGenData = {
   list: PaletteGenDataListItem[];

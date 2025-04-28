@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { CubicBezierParams } from '../cubic-bezier';
+import { CubicBezierParams } from '../cubic-bezier/cubic-bezier.types';
 
 @Pipe({
   name: 'cubicBezierParams',

@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSliderModule } from '@angular/material/slider';
 import { filter, startWith } from 'rxjs';
-import { CubicBezierControlComponent } from '../cubic-bezier-control';
+import { CubicBezierControlComponent } from '../cubic-bezier-control/cubic-bezier-control.component';
 import { PaletteGenService } from '../palette-gen.service';
 import { PaletteGenFormValue } from './palette-gen-form.types';
 import { getPaletteGenForm, paletteGenFormValuesEqual } from './palette-gen-form.utils';

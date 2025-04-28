@@ -1,5 +1,5 @@
 import { Point } from '@angular/cdk/drag-drop';
-import { CubicBezierParams } from '../cubic-bezier';
+import { CubicBezierParams } from '../cubic-bezier/cubic-bezier.types';
 import { CubicBezierControlColors, CubicBezierControlDirection } from './cubic-bezier-control.types';
 
 export type CubicBezierParamsToPointsConfig = {

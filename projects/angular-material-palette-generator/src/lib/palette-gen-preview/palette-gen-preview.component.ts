@@ -3,15 +3,14 @@ import { booleanAttribute, Component, computed, inject, input, output, ViewEncap
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { PaletteGenFormValue } from '../palette-gen-form';
+import { PaletteGenFormValue } from '../palette-gen-form/palette-gen-form.types';
 import { PaletteGenData } from '../palette-gen.types';
 import { buildPaletteGenData } from '../palette-gen.utils';
-import {
-  PaletteMatchingConfig,
-  PaletteMatchingPercentageToTokensPipe,
-  PaletteMatchingTokensToMirrorColorPipe,
-} from '../palette-matching';
-import { PreferBlackForgroundColorPipe, WcagContrastRatioCompliancePipe } from './pipes';
+import { PaletteMatchingConfig } from '../palette-matching/pipes/palette-matching-config.types';
+import { PaletteMatchingPercentageToTokensPipe } from '../palette-matching/pipes/palette-matching-percentage-to-tokens.pipe';
+import { PaletteMatchingTokensToMirrorColorPipe } from '../palette-matching/pipes/palette-matching-tokens-to-mirror-color.pipe';
+import { PreferBlackForgroundColorPipe } from './pipes/prefer-black-forground-color.pipe';
+import { WcagContrastRatioCompliancePipe } from './pipes/wcag-contrast-ratio-compliance.pipe';
 
 @Component({
   selector: 'pg-palette-gen-preview',

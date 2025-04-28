@@ -15,8 +15,9 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { cubicBezierFactory, CubicBezierParams } from '../cubic-bezier';
-import { CubicBezierControlColorsComponent } from '../cubic-bezier-control-colors';
+import { CubicBezierControlColorsComponent } from '../cubic-bezier-control-colors/cubic-bezier-control-colors.component';
+import { cubicBezierFactory } from '../cubic-bezier/cubic-bezier';
+import { CubicBezierParams } from '../cubic-bezier/cubic-bezier.types';
 import { PALETTE_FORM_CONTROL_SIZE_DEFAULT } from '../palette-gen.config';
 import { CubicBezierControlDirectionDirective } from './cubic-bezier-control-direction.directive';
 import { CubicBezierControlRippleDirective } from './cubic-bezier-control-ripple.directive';

@@ -1,6 +1,7 @@
 import Color from 'colorjs.io';
-import { cubicBezierFactory, CubicBezierParams } from './cubic-bezier';
-import { PaletteGenFormValue } from './palette-gen-form';
+import { cubicBezierFactory } from './cubic-bezier/cubic-bezier';
+import { CubicBezierParams } from './cubic-bezier/cubic-bezier.types';
+import { PaletteGenFormValue } from './palette-gen-form/palette-gen-form.types';
 import { MATERIAL_PALETTE_PERCENTAGES_MAP } from './palette-gen.config';
 import { PaletteGenData } from './palette-gen.types';
 

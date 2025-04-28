@@ -1,4 +1,4 @@
-import { CubicBezierParams } from '../cubic-bezier';
+import { CubicBezierParams } from '../cubic-bezier/cubic-bezier.types';
 
 export type PaletteGenFormValue = {
   color: string;

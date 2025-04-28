@@ -1,6 +1,7 @@
 import { Component, computed, inject, Signal, ViewEncapsulation } from '@angular/core';
 import { PaletteGenService } from '../palette-gen.service';
-import { PALETTE_PERCENTAGE_MATCHING_MAP, PaletteName } from '../palette-matching';
+import { PALETTE_PERCENTAGE_MATCHING_MAP } from '../palette-matching/palette-matching.config';
+import { PaletteName } from '../palette-matching/palette-matching.types';
 
 @Component({
   selector: 'pg-palette-gen-renderer',

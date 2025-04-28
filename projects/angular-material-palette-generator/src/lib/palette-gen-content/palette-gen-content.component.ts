@@ -4,14 +4,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { PaletteGenFormValue } from '../palette-gen-form';
-import { PaletteGenOverviewComponent } from '../palette-gen-overview';
-import { PaletteGenPreviewComponent } from '../palette-gen-preview';
-import { PaletteGenRendererComponent } from '../palette-gen-renderer';
-import { PaletteGenSelectorComponent } from '../palette-gen-selector';
-import { PaletteGenShowcaseComponent } from '../palette-gen-showcase';
+import { PaletteGenFormValue } from '../palette-gen-form/palette-gen-form.types';
+import { PaletteGenOverviewComponent } from '../palette-gen-overview/palette-gen-overview.component';
+import { PaletteGenPreviewComponent } from '../palette-gen-preview/palette-gen-preview.component';
+import { PaletteGenRendererComponent } from '../palette-gen-renderer/palette-gen-renderer.component';
+import { PaletteGenSelectorComponent } from '../palette-gen-selector/palette-gen-selector.component';
+import { PaletteGenShowcaseComponent } from '../palette-gen-showcase/palette-gen-showcase.component';
 import { PaletteGenService } from '../palette-gen.service';
-import { PaletteMatchingConfig } from '../palette-matching';
+import { PaletteMatchingConfig } from '../palette-matching/pipes/palette-matching-config.types';
 
 @Component({
   selector: 'pg-palette-gen-content',
