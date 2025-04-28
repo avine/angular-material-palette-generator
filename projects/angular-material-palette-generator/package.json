@@ -22,7 +22,8 @@
     "@angular/common": "^19.2.0",
     "@angular/core": "^19.2.0",
     "@angular/material": "^19.2.0",
-    "colorjs.io": "^0.5.2"
+    "colorjs.io": "^0.5.2",
+    "wcag-contrast-utils": "^1.0.1"
   },
   "dependencies": {
     "tslib": "^2.3.0"
