@@ -4,6 +4,7 @@ export * from './lib/cubic-bezier-control';
 export * from './lib/palette-gen-content';
 export * from './lib/palette-gen-form';
 export * from './lib/palette-gen-import';
+export * from './lib/palette-gen-overview';
 export * from './lib/palette-gen-preview';
 export * from './lib/palette-gen-renderer';
 export * from './lib/palette-gen-selector';

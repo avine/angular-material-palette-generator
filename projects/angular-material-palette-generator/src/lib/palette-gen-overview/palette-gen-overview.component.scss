@@ -1,0 +1,54 @@
+.pg-palette-gen-overview {
+  &__name {
+    margin: 1rem 0 0.5rem 0;
+    font-size: 1.125rem;
+    font-weight: 500;
+    line-height: 1em;
+  }
+
+  &__list {
+    display: flex;
+  }
+
+  &__item {
+    height: 4rem;
+    line-height: 4rem;
+
+    flex-basis: 3rem;
+    text-align: center;
+
+    font-size: var(--pl-font-size-monospace, 0.85rem);
+    font-family: var(--pl-font-family-monospace, monospace);
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+
+    border: 1px solid rgba(255 255 255 / 0.1);
+    border-width: 0 0 0 1px;
+    color: white;
+
+    transition: all ease 100ms;
+    transform-origin: center 3.5rem;
+
+    &--prefer-black {
+      border: 1px solid rgba(0 0 0 / 0.05);
+      border-width: 0 0 0 1px;
+      color: black;
+    }
+
+    &:first-child {
+      border-radius: 0.25rem 0 0 0.25rem;
+    }
+
+    &:last-child {
+      border-radius: 0 0.25rem 0.25rem 0;
+    }
+
+    &:hover {
+      z-index: 1;
+      border-radius: 0.25rem;
+      border-width: 1px;
+      transform: scale(1.5);
+    }
+  }
+}

@@ -1,15 +1,11 @@
 <pg-palette-gen-selector (paletteNameChange)="unsetMirror()">
-  <button
-    type="button"
-    mat-icon-button
-    [attr.aria-label]="showcaseAction()"
-    [matTooltip]="showcaseAction()"
-    (click)="toggleShowcase()"
-  >
-    <mat-icon>{{ showcase() ? 'format_color_fill' : 'widgets' }}</mat-icon>
-  </button>
+  <mat-button-toggle-group aria-label="View selector" hideSingleSelectionIndicator [(value)]="view">
+    @for (option of viewList; track $index) {
+      <mat-button-toggle [value]="option">{{ option | titlecase }}</mat-button-toggle>
+    }
+  </mat-button-toggle-group>
 
-  @if (!showcase()) {
+  @if (view() === 'palette') {
     <button
       type="button"
       mat-icon-button
@@ -27,23 +23,29 @@
   }
 </pg-palette-gen-selector>
 
-@if (!showcase()) {
-  <div class="pg-palette-gen-content__previews">
-    <pg-palette-gen-preview
-      [matchingConfig]="matchingConfig()"
-      [compact]="compact()"
-      [formValue]="service.formValue()()"
-      (action)="setMirror()"
-    />
+@switch (view()) {
+  @case ('palette') {
+    <div class="pg-palette-gen-content__previews">
+      <pg-palette-gen-preview
+        [matchingConfig]="matchingConfig()"
+        [compact]="compact()"
+        [formValue]="service.formValue()()"
+        (action)="setMirror()"
+      />
 
-    @if (formValueMirror(); as mirror) {
-      <pg-palette-gen-preview [compact]="compact()" [formValue]="mirror" mirrorView (action)="unsetMirror()" />
-    }
-  </div>
-} @else {
-  <pg-palette-gen-renderer>
-    <ng-content>
-      <pg-palette-gen-showcase />
-    </ng-content>
-  </pg-palette-gen-renderer>
+      @if (formValueMirror(); as mirror) {
+        <pg-palette-gen-preview [compact]="compact()" [formValue]="mirror" mirrorView (action)="unsetMirror()" />
+      }
+    </div>
+  }
+  @case ('overview') {
+    <pg-palette-gen-overview />
+  }
+  @case ('component') {
+    <pg-palette-gen-renderer>
+      <ng-content>
+        <pg-palette-gen-showcase />
+      </ng-content>
+    </pg-palette-gen-renderer>
+  }
 }

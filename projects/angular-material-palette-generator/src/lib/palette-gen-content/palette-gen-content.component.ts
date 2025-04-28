@@ -1,8 +1,11 @@
+import { TitleCasePipe } from '@angular/common';
 import { Component, computed, inject, signal, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PaletteGenFormValue } from '../palette-gen-form';
+import { PaletteGenOverviewComponent } from '../palette-gen-overview';
 import { PaletteGenPreviewComponent } from '../palette-gen-preview';
 import { PaletteGenRendererComponent } from '../palette-gen-renderer';
 import { PaletteGenSelectorComponent } from '../palette-gen-selector';
@@ -14,9 +17,12 @@ import { PaletteMatchingConfig } from '../palette-matching';
   selector: 'pg-palette-gen-content',
   host: { class: 'pg-palette-gen-content' },
   imports: [
+    TitleCasePipe,
     MatButtonModule,
+    MatButtonToggleModule,
     MatIconModule,
     MatTooltipModule,
+    PaletteGenOverviewComponent,
     PaletteGenPreviewComponent,
     PaletteGenRendererComponent,
     PaletteGenSelectorComponent,
@@ -29,15 +35,11 @@ import { PaletteMatchingConfig } from '../palette-matching';
 export class PaletteGenContentComponent {
   protected service = inject(PaletteGenService);
 
-  // ----- Showcase -----
+  // ----- View -----
 
-  protected showcase = signal(false);
+  viewList = ['palette', 'overview', 'component'] as const;
 
-  protected showcaseAction = computed(() => (this.showcase() ? 'View selected palette' : 'View component showcase'));
-
-  protected toggleShowcase() {
-    this.showcase.update((showcase) => !showcase);
-  }
+  view = signal<(typeof this.viewList)[number]>('palette');
 
   // ----- Mirror -----
 
