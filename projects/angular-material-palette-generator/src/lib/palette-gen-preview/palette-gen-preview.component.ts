@@ -37,7 +37,7 @@ export class PaletteGenPreviewComponent {
 
   action = output<void>();
 
-  compact = input(true);
+  compact = input(false);
 
   matchingConfig = input<PaletteMatchingConfig>({ name: undefined, mode: 'light' });
 

@@ -5,7 +5,7 @@
     }
   </mat-button-toggle-group>
 
-  @if (view() === 'palette') {
+  @if (view() === 'palette' || view() === 'overview') {
     <button
       type="button"
       mat-icon-button
@@ -39,7 +39,7 @@
     </div>
   }
   @case ('overview') {
-    <pg-palette-gen-overview />
+    <pg-palette-gen-overview [compact]="compact()" />
   }
   @case ('component') {
     <pg-palette-gen-renderer>

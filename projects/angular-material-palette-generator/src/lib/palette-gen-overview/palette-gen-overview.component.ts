@@ -1,13 +1,11 @@
 import { TitleCasePipe } from '@angular/common';
-import { Component, computed, inject, ViewEncapsulation } from '@angular/core';
+import { Component, computed, inject, input, ViewEncapsulation } from '@angular/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PreferBlackForgroundColorPipe } from '../constrast-ratio/prefer-black-forground-color.pipe';
 import { MATERIAL_PALETTE_PERCENTAGES_MAP } from '../palette-gen.config';
 import { PaletteGenService } from '../palette-gen.service';
 import { PaletteGenDataListItem } from '../palette-gen.types';
 import { PaletteName } from '../palette-matching/palette-matching.types';
-
-// TODO: add "compact" input
 
 @Component({
   selector: 'pg-palette-gen-overview',
@@ -31,4 +29,6 @@ export class PaletteGenOverviewComponent {
       [] as { paletteName: PaletteName; dataList: PaletteGenDataListItem[] }[],
     );
   });
+
+  compact = input(false);
 }

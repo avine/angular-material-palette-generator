@@ -50,5 +50,12 @@
       border-width: 1px;
       transform: scale(1.5);
     }
+
+    &--compact {
+      height: 3rem;
+      line-height: 3rem;
+
+      transform-origin: center 2.5rem;
+    }
   }
 }

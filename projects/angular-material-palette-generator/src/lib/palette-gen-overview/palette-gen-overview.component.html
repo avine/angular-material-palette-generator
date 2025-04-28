@@ -8,6 +8,7 @@
           [matTooltip]="dataListItem.color"
           class="pg-palette-gen-overview__item"
           [class.pg-palette-gen-overview__item--prefer-black]="dataListItem.color | preferBlackForgroundColor"
+          [class.pg-palette-gen-overview__item--compact]="compact()"
           [style.background-color]="dataListItem.color"
         >
           {{ dataListItem.percentage }}
