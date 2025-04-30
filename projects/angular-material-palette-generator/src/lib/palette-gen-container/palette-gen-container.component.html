@@ -1,4 +1,4 @@
-<mat-drawer-container class="pg-palette-gen-container__main" [hasBackdrop]="false">
+<mat-drawer-container class="pg-palette-gen-container__main" [hasBackdrop]="!isDesktop()">
   <mat-drawer-content>
     <pg-palette-gen-content class="pg-palette-gen-container__content">
       <ng-content>
@@ -7,7 +7,7 @@
     </pg-palette-gen-content>
   </mat-drawer-content>
 
-  <mat-drawer position="end" mode="side" [(opened)]="drawerOpened">
+  <mat-drawer position="end" [mode]="isDesktop() ? 'side' : 'over'" [(opened)]="drawerOpened">
     <div class="pg-palette-gen-container__aside">
       <pg-palette-gen-form />
       <pg-palette-gen-import />
@@ -18,15 +18,22 @@
 <div class="pg-palette-gen-container__footer">
   <pg-palette-gen-snapshots class="pg-palette-gen-container__snapshots" />
 
-  <pg-palette-gen-logo class="pg-palette-gen-container__logo" />
+  @if (!hideLogo()) {
+    <pg-palette-gen-logo class="pg-palette-gen-container__logo" />
+  }
 
-  <button
-    class="pg-palette-gen-container__toggle"
-    mat-icon-button
-    aria-label="Toggle form menu"
-    matTooltip="Toggle form menu"
-    (click)="toggleDrawer()"
-  >
-    <mat-icon>tune</mat-icon>
-  </button>
+  <div class="pg-palette-gen-container__actions">
+    <button
+      mat-icon-button
+      aria-label="Toggle page sharing"
+      matTooltip="Toggle page sharing"
+      (click)="rendererService.togglePageSharing()"
+    >
+      <mat-icon>{{ rendererService.isPageSharingActive() ? 'stop_screen_share' : 'screen_share' }}</mat-icon>
+    </button>
+
+    <button mat-icon-button aria-label="Toggle sidebar" matTooltip="Toggle sidebar" (click)="toggleDrawer()">
+      <mat-icon>tune</mat-icon>
+    </button>
+  </div>
 </div>

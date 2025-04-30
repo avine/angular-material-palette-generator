@@ -18,6 +18,7 @@ export * from './lib/palette-gen-overview/palette-gen-overview.component';
 export * from './lib/palette-gen-preview/palette-gen-preview.component';
 
 export * from './lib/palette-gen-renderer/palette-gen-renderer.directive';
+export * from './lib/palette-gen-renderer/palette-gen-renderer.service';
 
 export * from './lib/palette-gen-selector/palette-gen-selector-after.directive';
 export * from './lib/palette-gen-selector/palette-gen-selector.component';

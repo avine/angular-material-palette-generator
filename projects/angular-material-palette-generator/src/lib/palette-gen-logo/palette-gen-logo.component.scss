@@ -20,7 +20,7 @@
     color: var(--mat-sys-primary);
   }
 
-  @media (width < 800px) {
+  @media (width < 840px) {
     &__link {
       font: var(--mat-sys-title-medium);
       letter-spacing: var(--mat-sys-title-medium-tracking);
