@@ -1,5 +1,5 @@
 import { TitleCasePipe } from '@angular/common';
-import { Component, inject, output, ViewEncapsulation } from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -21,8 +21,4 @@ export class PaletteGenSelectorComponent {
   protected paletteModes: PaletteMode[] = PALETTE_MODES;
 
   protected paletteNames: PaletteName[] = PALETTE_NAMES;
-
-  paletteModeChange = output<PaletteMode>();
-
-  paletteNameChange = output<PaletteName>();
 }

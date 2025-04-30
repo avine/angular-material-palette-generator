@@ -1,10 +1,10 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { LayoutModule } from '.';
+import { LayoutComponent } from './layout.component';
 
 @Component({
   selector: 'app-router-layout',
-  imports: [RouterOutlet, LayoutModule],
+  imports: [RouterOutlet, LayoutComponent],
   template: `
     <app-layout>
       <router-outlet />

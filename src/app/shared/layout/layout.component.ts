@@ -13,4 +13,6 @@ import { HeaderComponent } from './header/header.component';
 })
 export class LayoutComponent {
   fullScreen = input(false, { transform: booleanAttribute });
+
+  footerLess = input(false, { transform: booleanAttribute });
 }

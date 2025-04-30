@@ -1,13 +1,12 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { libVersion } from '../../../lib.version';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-footer',
   host: { class: 'app-footer' },
+  imports: [MatIconModule],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
-export class FooterComponent {
-  protected libVersion = libVersion;
-}
+export class FooterComponent {}

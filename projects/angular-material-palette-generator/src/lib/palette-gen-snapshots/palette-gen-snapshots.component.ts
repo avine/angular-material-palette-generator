@@ -15,7 +15,7 @@ import { PaletteGenService } from '../palette-gen.service';
 export class PaletteGenSnapshotsComponent {
   private service = inject(PaletteGenService);
 
-  maxSnapshots = input(10);
+  maxSnapshots = input(5);
 
   disabled = input(false);
 

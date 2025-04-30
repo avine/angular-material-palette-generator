@@ -1,15 +1,16 @@
 import { TitleCasePipe } from '@angular/common';
-import { Component, computed, inject, signal, ViewEncapsulation } from '@angular/core';
+import { Component, computed, effect, inject, signal, TemplateRef, viewChild, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PaletteGenFormValue } from '../palette-gen-form/palette-gen-form.types';
 import { PaletteGenOverviewComponent } from '../palette-gen-overview/palette-gen-overview.component';
 import { PaletteGenPreviewComponent } from '../palette-gen-preview/palette-gen-preview.component';
-import { PaletteGenRendererComponent } from '../palette-gen-renderer/palette-gen-renderer.component';
+import { PaletteGenRendererDirective } from '../palette-gen-renderer/palette-gen-renderer.directive';
+import { PaletteGenSelectorAfterDirective } from '../palette-gen-selector/palette-gen-selector-after.directive';
 import { PaletteGenSelectorComponent } from '../palette-gen-selector/palette-gen-selector.component';
-import { PaletteGenShowcaseComponent } from '../palette-gen-showcase/palette-gen-showcase.component';
 import { PaletteGenService } from '../palette-gen.service';
 import { PaletteMatchingConfig } from '../palette-matching/pipes/palette-matching-config.types';
 
@@ -20,13 +21,14 @@ import { PaletteMatchingConfig } from '../palette-matching/pipes/palette-matchin
     TitleCasePipe,
     MatButtonModule,
     MatButtonToggleModule,
+    MatDialogModule,
     MatIconModule,
     MatTooltipModule,
     PaletteGenOverviewComponent,
     PaletteGenPreviewComponent,
-    PaletteGenRendererComponent,
+    PaletteGenRendererDirective,
+    PaletteGenSelectorAfterDirective,
     PaletteGenSelectorComponent,
-    PaletteGenShowcaseComponent,
   ],
   templateUrl: './palette-gen-content.component.html',
   styleUrl: './palette-gen-content.component.scss',
@@ -37,9 +39,9 @@ export class PaletteGenContentComponent {
 
   // ----- View -----
 
-  viewList = ['palette', 'overview', 'component'] as const;
+  protected viewList = ['palette', 'overview', 'component'] as const;
 
-  view = signal<(typeof this.viewList)[number]>('palette');
+  protected view = signal<(typeof this.viewList)[number]>('palette');
 
   // ----- Mirror -----
 
@@ -51,6 +53,13 @@ export class PaletteGenContentComponent {
 
   protected unsetMirror() {
     this.formValueMirror.set(undefined);
+  }
+
+  constructor() {
+    effect(() => {
+      this.service.paletteName();
+      this.unsetMirror();
+    });
   }
 
   // ----- Compact -----
@@ -69,4 +78,17 @@ export class PaletteGenContentComponent {
     name: this.service.paletteName(),
     mode: this.service.paletteMode(),
   }));
+
+  // ----- Reset dialog -----
+
+  private resetDialog = inject(MatDialog);
+
+  private resetTemplate = viewChild.required<TemplateRef<unknown>>('resetTemplate');
+
+  protected openResetDialog() {
+    this.resetDialog
+      .open(this.resetTemplate(), { width: '420px' })
+      .beforeClosed()
+      .subscribe((reset: boolean) => !reset || this.service.reset());
+  }
 }

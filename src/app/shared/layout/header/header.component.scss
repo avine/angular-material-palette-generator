@@ -4,7 +4,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   padding: 0.75rem var(--gbl-spacing);
+  background-color: var(--mat-sys-surface-container);
 
   &__title {
     margin: 0;

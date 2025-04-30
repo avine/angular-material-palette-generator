@@ -1,35 +1,5 @@
-<app-layout fullScreen>
-  <button appLayoutHeaderAction mat-icon-button aria-label="Reset all forms" (click)="openResetDialog()">
-    <mat-icon>delete</mat-icon>
-  </button>
-
-  <button appLayoutHeaderAction mat-icon-button aria-label="Form menu" (click)="toggleSidenav()">
-    <mat-icon>tune</mat-icon>
-  </button>
-
-  <mat-drawer-container class="app-palette-gen__container" [hasBackdrop]="false" autosize>
-    <pg-palette-gen-content class="app-palette-gen__content">
-      <!-- if neede, use your own component showcase -->
-    </pg-palette-gen-content>
-
-    <mat-drawer position="end" mode="side" [(opened)]="sidenavOpened">
-      <div class="app-palette-gen__sidenav">
-        <pg-palette-gen-form />
-        <pg-palette-gen-import />
-      </div>
-    </mat-drawer>
-  </mat-drawer-container>
-
-  <pg-palette-gen-snapshots appLayoutFooterAction />
+<app-layout fullScreen footerLess>
+  <pg-palette-gen-container>
+    <!-- if needed, use your own component showcase -->
+  </pg-palette-gen-container>
 </app-layout>
-
-<ng-template #resetTemplate>
-  <div role="heading" aria-level="2" mat-dialog-title>Reset to default palettes?</div>
-
-  <mat-dialog-content>All changes will be lost.</mat-dialog-content>
-
-  <mat-dialog-actions>
-    <button mat-button [mat-dialog-close]="false">Cancel</button>
-    <button mat-flat-button [mat-dialog-close]="true">Reset</button>
-  </mat-dialog-actions>
-</ng-template>

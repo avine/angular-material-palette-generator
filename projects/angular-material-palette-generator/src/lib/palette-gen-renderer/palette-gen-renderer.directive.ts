@@ -1,19 +1,15 @@
-import { Component, computed, inject, Signal, ViewEncapsulation } from '@angular/core';
+import { computed, Directive, inject, Signal } from '@angular/core';
 import { PaletteGenService } from '../palette-gen.service';
 import { PALETTE_PERCENTAGE_MATCHING_MAP } from '../palette-matching/palette-matching.config';
 import { PaletteName } from '../palette-matching/palette-matching.types';
 
-@Component({
-  selector: 'pg-palette-gen-renderer',
+@Directive({
+  selector: '[pgPaletteGenRenderer]',
   host: {
-    class: 'pg-palette-gen-renderer',
     '[style]': 'buildStyle()',
   },
-  templateUrl: './palette-gen-renderer.component.html',
-  styleUrl: './palette-gen-renderer.component.scss',
-  encapsulation: ViewEncapsulation.None,
 })
-export class PaletteGenRendererComponent {
+export class PaletteGenRendererDirective {
   protected service = inject(PaletteGenService);
 
   private tokens: Record<PaletteName, Signal<string>> = {

@@ -1,4 +1,4 @@
-@let noMoreSnapshots = snapshots().length >= maxSnapshots();
+@let noMoreSnapshots = snapshots()().length >= maxSnapshots();
 
 @if (hasSelectedSnapshot()) {
   <button

@@ -16,4 +16,9 @@
       flex-grow: 1;
     }
   }
+
+  &__renderer {
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+  }
 }

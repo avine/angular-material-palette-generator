@@ -1,26 +1,29 @@
-<pg-palette-gen-selector (paletteNameChange)="unsetMirror()">
+<pg-palette-gen-selector>
+  <button
+    type="button"
+    mat-icon-button
+    [attr.aria-label]="compactAction()"
+    [matTooltip]="compactAction()"
+    [disabled]="view() === 'component'"
+    (click)="toggleCompact()"
+  >
+    <mat-icon
+      class="pg-palette-gen-content__compact-icon"
+      [class.pg-palette-gen-content__compact-icon--active]="compact()"
+    >
+      keyboard_double_arrow_up
+    </mat-icon>
+  </button>
+
   <mat-button-toggle-group aria-label="View selector" hideSingleSelectionIndicator [(value)]="view">
     @for (option of viewList; track $index) {
       <mat-button-toggle [value]="option">{{ option | titlecase }}</mat-button-toggle>
     }
   </mat-button-toggle-group>
 
-  @if (view() === 'palette' || view() === 'overview') {
-    <button
-      type="button"
-      mat-icon-button
-      [attr.aria-label]="compactAction()"
-      [matTooltip]="compactAction()"
-      (click)="toggleCompact()"
-    >
-      <mat-icon
-        class="pg-palette-gen-content__compact-icon"
-        [class.pg-palette-gen-content__compact-icon--active]="compact()"
-      >
-        keyboard_double_arrow_up
-      </mat-icon>
-    </button>
-  }
+  <button pgPaletteGenSelectorAfter mat-icon-button aria-label="Reset" matTooltip="Reset" (click)="openResetDialog()">
+    <mat-icon>restart_alt</mat-icon>
+  </button>
 </pg-palette-gen-selector>
 
 @switch (view()) {
@@ -38,14 +41,25 @@
       }
     </div>
   }
+
   @case ('overview') {
     <pg-palette-gen-overview [compact]="compact()" />
   }
+
   @case ('component') {
-    <pg-palette-gen-renderer>
-      <ng-content>
-        <pg-palette-gen-showcase />
-      </ng-content>
-    </pg-palette-gen-renderer>
+    <div class="pg-palette-gen-content__renderer" pgPaletteGenRenderer>
+      <ng-content />
+    </div>
   }
 }
+
+<ng-template #resetTemplate>
+  <div role="heading" aria-level="2" mat-dialog-title>Reset to default palettes?</div>
+
+  <mat-dialog-content>All changes will be lost.</mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="false">Cancel</button>
+    <button mat-flat-button [mat-dialog-close]="true">Reset</button>
+  </mat-dialog-actions>
+</ng-template>

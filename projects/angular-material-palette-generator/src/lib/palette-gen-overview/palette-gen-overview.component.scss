@@ -1,9 +1,8 @@
 .pg-palette-gen-overview {
   &__name {
     margin: 1rem 0 0.5rem 0;
-    font-size: 1.125rem;
-    font-weight: 500;
-    line-height: 1em;
+    font: var(--mat-sys-title-medium);
+    letter-spacing: var(--mat-sys-title-medium-tracking);
   }
 
   &__list {

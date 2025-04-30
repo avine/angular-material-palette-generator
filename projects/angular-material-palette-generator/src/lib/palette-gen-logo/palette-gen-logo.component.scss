@@ -1,0 +1,33 @@
+.pg-palette-gen-logo {
+  &__link {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+
+    color: inherit;
+    text-decoration: none;
+    text-wrap: balance;
+    font: var(--mat-sys-label-medium);
+    letter-spacing: var(--mat-sys-label-medium-tracking);
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    width: auto !important;
+    height: auto !important;
+    font-size: 1.75rem;
+    color: var(--mat-sys-primary);
+  }
+
+  @media (width < 800px) {
+    &__link {
+      font: var(--mat-sys-title-medium);
+      letter-spacing: var(--mat-sys-title-medium-tracking);
+    }
+
+    &__br {
+      display: none;
+    }
+  }
+}

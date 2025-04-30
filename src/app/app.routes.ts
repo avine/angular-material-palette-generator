@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { PaletteGenComponent } from './palette-gen/palette-gen.component';
-import { RouterLayoutComponent } from './shared/layout';
+import { RouterLayoutComponent } from './shared/layout/router-layout.component';
 
 export const routes: Routes = [
   {
