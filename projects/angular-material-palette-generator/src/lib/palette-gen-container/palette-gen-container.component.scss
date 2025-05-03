@@ -1,6 +1,6 @@
 .pg-palette-gen-container {
   --mat-sidenav-container-shape: 0;
-  --mat-sidenav-container-width: 260px;
+  --mat-sidenav-container-width: 260px; // This value depends on `PALETTE_FORM_CONTROL_SIZE_DEFAULT` (palette-gen.config.ts)
 
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -25,7 +25,6 @@
     grid-area: footer;
 
     padding: 0.75rem 1.5rem;
-    background-color: var(--mat-sys-surface-container);
 
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto auto;

@@ -1,3 +1,14 @@
+@if (!hidePaletteNamesSelector()) {
+  <mat-form-field appearance="outline" class="pg-palette-gen-form__name">
+    <mat-label>Palette</mat-label>
+    <mat-select [(value)]="service.paletteName">
+      @for (option of paletteNames; track $index) {
+        <mat-option [value]="option">{{ option | titlecase }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+}
+
 <form [formGroup]="form" class="pg-palette-gen-form__form">
   <mat-form-field appearance="outline" class="pg-palette-gen-form__color">
     <mat-label>Color</mat-label>

@@ -1,5 +1,5 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, inject, input, signal, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, Component, inject, input, signal, ViewEncapsulation } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -42,7 +42,7 @@ export class PaletteGenContainerComponent {
 
   protected rendererService = inject(PaletteGenRendererService);
 
-  hideLogo = input(false);
+  hideLogo = input(false, { transform: booleanAttribute });
 
   protected drawerOpened = signal(true);
 

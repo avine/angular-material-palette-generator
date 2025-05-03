@@ -1,14 +1,18 @@
-import { Component, effect, inject, ViewEncapsulation } from '@angular/core';
+import { TitleCasePipe } from '@angular/common';
+import { booleanAttribute, Component, effect, inject, input, ViewEncapsulation } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { filter, startWith } from 'rxjs';
 import { CubicBezierControlComponent } from '../cubic-bezier-control/cubic-bezier-control.component';
 import { PaletteGenService } from '../palette-gen.service';
+import { PaletteName } from '../palette-matching/palette-matching.types';
+import { PALETTE_NAMES } from '../palette-matching/palette-matching.utils';
 import { PaletteGenFormValue } from './palette-gen-form.types';
 import { getPaletteGenForm, paletteGenFormValuesEqual } from './palette-gen-form.utils';
 
@@ -19,11 +23,13 @@ import { getPaletteGenForm, paletteGenFormValuesEqual } from './palette-gen-form
     '[style.--pg-palette-gen-form-control-size]': 'service.controlSize() + "px"',
   },
   imports: [
+    TitleCasePipe,
     ReactiveFormsModule,
     MatCheckboxModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatSelectModule,
     MatSliderModule,
     CubicBezierControlComponent,
   ],
@@ -33,6 +39,10 @@ import { getPaletteGenForm, paletteGenFormValuesEqual } from './palette-gen-form
 })
 export class PaletteGenFormComponent {
   protected service = inject(PaletteGenService);
+
+  protected paletteNames: PaletteName[] = PALETTE_NAMES;
+
+  hidePaletteNamesSelector = input(false, { transform: booleanAttribute });
 
   protected form = getPaletteGenForm();
 
