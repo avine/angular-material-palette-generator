@@ -1,11 +1,7 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { booleanAttribute, Component, inject, input, signal, ViewEncapsulation } from '@angular/core';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { Component, DestroyRef, inject, model, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { map, shareReplay } from 'rxjs';
 import { PaletteGenContentComponent } from '../palette-gen-content/palette-gen-content.component';
 import { PaletteGenFormComponent } from '../palette-gen-form/palette-gen-form.component';
 import { PaletteGenImportComponent } from '../palette-gen-import/palette-gen-import.component';
@@ -16,15 +12,14 @@ import { PaletteGenSnapshotsComponent } from '../palette-gen-snapshots/palette-g
 import { PaletteGenService } from '../palette-gen.service';
 
 @Component({
-  selector: 'pg-palette-gen-container',
+  selector: 'pg-palette-gen-overlay',
   host: {
-    class: 'pg-palette-gen-container',
-    '[style.--pg-palette-gen-container-control-size]': 'service.controlSize() + "px"',
+    class: 'pg-palette-gen-overlay',
+    '[style.--pg-palette-gen-overlay-control-size]': 'service.controlSize() + "px"',
   },
   imports: [
     MatButtonModule,
     MatIconModule,
-    MatSidenavModule,
     MatTooltipModule,
     PaletteGenContentComponent,
     PaletteGenFormComponent,
@@ -33,32 +28,30 @@ import { PaletteGenService } from '../palette-gen.service';
     PaletteGenShowcaseComponent,
     PaletteGenSnapshotsComponent,
   ],
-  templateUrl: './palette-gen-container.component.html',
-  styleUrl: './palette-gen-container.component.scss',
+  templateUrl: './palette-gen-overlay.component.html',
+  styleUrl: './palette-gen-overlay.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
-export class PaletteGenContainerComponent {
+export class PaletteGenOverlayComponent {
   protected service = inject(PaletteGenService);
 
   protected rendererService = inject(PaletteGenRendererService);
 
-  hideLogo = input(false, { transform: booleanAttribute });
+  state = model({ modal: false, details: false });
 
-  protected drawerOpened = signal(true);
+  constructor() {
+    this.rendererService.enablePageSharing();
 
-  protected toggleDrawer() {
-    this.drawerOpened.update((open) => !open);
+    inject(DestroyRef).onDestroy(() => {
+      this.rendererService.disablePageSharing();
+    });
   }
 
-  private matchDesktop = `(min-width: 840px)`;
+  protected toggleModal() {
+    this.state.update(({ modal, details }) => ({ modal: !modal, details }));
+  }
 
-  protected isDesktop = toSignal(
-    inject(BreakpointObserver)
-      .observe([this.matchDesktop])
-      .pipe(
-        takeUntilDestroyed(),
-        map(({ breakpoints }) => breakpoints[this.matchDesktop]),
-        shareReplay(1),
-      ),
-  );
+  protected toggleDetails() {
+    this.state.update(({ modal, details }) => ({ modal, details: !details }));
+  }
 }

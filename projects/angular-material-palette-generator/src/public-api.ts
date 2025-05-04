@@ -13,6 +13,9 @@ export * from './lib/palette-gen-import/palette-gen-import.component';
 
 export * from './lib/palette-gen-logo/palette-gen-logo.component';
 
+export * from './lib/palette-gen-overlay/palette-gen-overlay.component';
+export * from './lib/palette-gen-overlay/palette-gen-overlay.service';
+
 export * from './lib/palette-gen-overview/palette-gen-overview.component';
 
 export * from './lib/palette-gen-preview/palette-gen-preview.component';

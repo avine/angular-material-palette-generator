@@ -4,13 +4,13 @@ import { LayoutComponent } from '../shared/layout/layout.component';
 import { ThemeService } from '../shared/theme';
 
 @Component({
-  selector: 'app-palette-gen',
-  host: { class: 'app-palette-gen' },
+  selector: 'app-palette-gen-demo',
+  host: { class: 'app-palette-gen-demo' },
   imports: [PaletteGenContainerComponent, LayoutComponent],
-  templateUrl: './palette-gen.component.html',
-  styleUrl: './palette-gen.component.scss',
+  templateUrl: './palette-gen-demo.component.html',
+  styleUrl: './palette-gen-demo.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
-export class PaletteGenComponent {
+export class PaletteGenDemoComponent {
   protected themeService = inject(ThemeService);
 }

@@ -62,19 +62,36 @@ export class PaletteGenRendererService {
 
   private effectRef?: EffectRef;
 
+  enablePageSharing() {
+    if (this.effectRef) {
+      return;
+    }
+    this.effectRef = effect(
+      () => {
+        this.renderer.setProperty(this.document.body, 'style', this.getStyle());
+      },
+      { injector: this.injector },
+    );
+
+    this._isPageSharingActive.set(true);
+  }
+
+  disablePageSharing() {
+    if (!this.effectRef) {
+      return;
+    }
+    this.renderer.setProperty(this.document.body, 'style', null);
+    this.effectRef.destroy();
+    this.effectRef = undefined;
+
+    this._isPageSharingActive.set(false);
+  }
+
   togglePageSharing() {
     if (!this.effectRef) {
-      this.effectRef = effect(
-        () => {
-          this.renderer.setProperty(this.document.body, 'style', this.getStyle());
-        },
-        { injector: this.injector },
-      );
+      this.enablePageSharing();
     } else {
-      this.renderer.setProperty(this.document.body, 'style', null);
-      this.effectRef?.destroy();
-      this.effectRef = undefined;
+      this.disablePageSharing();
     }
-    this._isPageSharingActive.set(!!this.effectRef);
   }
 }

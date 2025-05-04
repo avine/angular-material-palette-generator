@@ -22,11 +22,10 @@
 
   @media (width < 840px) {
     &__link {
-      font: var(--mat-sys-title-medium);
-      letter-spacing: var(--mat-sys-title-medium-tracking);
+      line-height: 0;
     }
 
-    &__br {
+    &__text {
       display: none;
     }
   }
