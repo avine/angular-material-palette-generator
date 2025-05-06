@@ -25,7 +25,10 @@ export class PaletteGenOverlayService {
       () => {
         const { modal, details } = componentRef.instance.state();
 
-        this.overlayRef?.updateSize({ width: modal && details ? 'calc(100% - 3rem)' : '' });
+        this.overlayRef?.updateSize({
+          width: modal && details ? 'calc(100% - 2 * var(--pg-palette-gen-overlay-panel-offset))' : '',
+        });
+
         this.overlayRef?.[modal ? 'addPanelClass' : 'removePanelClass']('pg-palette-gen-overlay-panel--active');
       },
       { injector: this.injector },

@@ -1,8 +1,11 @@
 .pg-palette-gen-overlay-panel {
-  top: 1.5rem;
-  right: 1.5rem;
-  bottom: 1.5rem;
+  --pg-palette-gen-overlay-panel-offset: 1.5rem;
+
+  top: var(--pg-palette-gen-overlay-panel-offset);
+  right: var(--pg-palette-gen-overlay-panel-offset);
+  bottom: var(--pg-palette-gen-overlay-panel-offset);
   overflow: hidden;
+  max-width: 1280px;
 
   &--active {
     box-shadow: var(--mat-sys-level2);

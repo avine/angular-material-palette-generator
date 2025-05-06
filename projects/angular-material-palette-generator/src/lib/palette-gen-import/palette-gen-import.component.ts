@@ -27,7 +27,7 @@ export class PaletteGenImportComponent {
   protected importCtrl = new FormControl('');
 
   protected openDialog() {
-    this.importDialog = this.dialog.open(this.importTemplate(), { width: '420px' });
+    this.importDialog = this.dialog.open(this.importTemplate(), { width: 'calc(100% - 3rem)', maxWidth: '960px' });
   }
 
   protected import() {
