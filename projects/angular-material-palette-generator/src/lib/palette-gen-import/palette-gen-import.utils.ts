@@ -2,7 +2,7 @@ import { PaletteGenFormValue } from '../palette-gen-form/palette-gen-form.types'
 import { parsePaletteGenFormValue } from '../palette-gen-form/palette-gen-form.utils';
 import { PaletteName } from '../palette-matching/palette-matching.types';
 
-export const extractFormValueWrapper = (input: string | null | undefined) => {
+export const importTypedFormValue = (input: string | null | undefined) => {
   const formValuesStringified = (input ?? '')
     .split('\n')
     .filter((line) => line.includes('{')) // Find the line containing a stringified object...
