@@ -12,7 +12,8 @@
     "predocs": "rm -rf docs",
     "docs": "ng build --base-href='/angular-material-palette-generator/'",
     "postdocs": "mv dist/docs/browser docs && cp docs/index.html docs/404.html",
-    "build:lib": "ng build angular-material-palette-generator"
+    "build:lib": "ng build angular-material-palette-generator",
+    "publish:lib": "cd dist/angular-material-palette-generator && npm publish && cd -"
   },
   "private": true,
   "dependencies": {
