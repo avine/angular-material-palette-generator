@@ -5,8 +5,9 @@ import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dial
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { parsePaletteGenFormValue } from '../palette-gen-form/palette-gen-form.utils';
 import { PaletteGenService } from '../palette-gen.service';
+import { PaletteName } from '../palette-matching/palette-matching.types';
+import { extractFormValueWrapper } from './palette-gen-import.utils';
 
 @Component({
   selector: 'pg-palette-gen-import',
@@ -30,15 +31,37 @@ export class PaletteGenImportComponent {
   }
 
   protected import() {
-    const formValue = parsePaletteGenFormValue(this.importCtrl.value!);
-    if (formValue) {
-      this.service.formValue().set(formValue);
+    const formValueWrapper = extractFormValueWrapper(this.importCtrl.value);
 
-      this.importDialog?.close();
-
-      this.importCtrl.setValue(JSON.stringify(formValue)); // This is just to format the value
-    } else {
+    if (formValueWrapper === null) {
       this.importCtrl.setErrors({ import: true });
+      return;
     }
+
+    let importCtrlValueFormatted: string;
+
+    switch (formValueWrapper.type) {
+      case 'formValueMap': {
+        Object.entries(formValueWrapper.data).forEach(([paletteName, formValue]) => {
+          this.service.formValueMap[paletteName as PaletteName].set(formValue);
+        });
+
+        importCtrlValueFormatted = Object.values(formValueWrapper.data)
+          .map((formValue) => JSON.stringify(formValue))
+          .join('\n');
+        break;
+      }
+
+      case 'formValue': {
+        this.service.formValue().set(formValueWrapper.data);
+
+        importCtrlValueFormatted = JSON.stringify(formValueWrapper.data);
+        break;
+      }
+    }
+
+    this.importCtrl.setValue(importCtrlValueFormatted);
+
+    this.importDialog?.close();
   }
 }

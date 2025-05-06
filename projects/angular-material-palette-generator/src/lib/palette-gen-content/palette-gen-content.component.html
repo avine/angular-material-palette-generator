@@ -21,6 +21,16 @@
     }
   </mat-button-toggle-group>
 
+  <button
+    pgPaletteGenSelectorAfter
+    mat-icon-button
+    aria-label="Copy all Sass maps to clipboard"
+    matTooltip="Copy all Sass maps to clipboard"
+    (click)="service.sassMapsToClipboard()"
+  >
+    <mat-icon>integration_instructions</mat-icon>
+  </button>
+
   <button pgPaletteGenSelectorAfter mat-icon-button aria-label="Reset" matTooltip="Reset" (click)="openResetDialog()">
     <mat-icon>restart_alt</mat-icon>
   </button>

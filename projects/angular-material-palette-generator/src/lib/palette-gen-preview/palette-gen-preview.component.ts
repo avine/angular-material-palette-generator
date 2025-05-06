@@ -7,7 +7,7 @@ import { PreferBlackForgroundColorPipe } from '../constrast-ratio/prefer-black-f
 import { WcagContrastRatioCompliancePipe } from '../constrast-ratio/wcag-contrast-ratio-compliance.pipe';
 import { PaletteGenFormValue } from '../palette-gen-form/palette-gen-form.types';
 import { PaletteGenData } from '../palette-gen.types';
-import { buildPaletteGenData } from '../palette-gen.utils';
+import { buildPaletteGenData, buildSassMapStringified } from '../palette-gen.utils';
 import { PaletteMatchingConfig } from '../palette-matching/pipes/palette-matching-config.types';
 import { PaletteMatchingPercentageToTokensPipe } from '../palette-matching/pipes/palette-matching-percentage-to-tokens.pipe';
 import { PaletteMatchingTokensToMirrorColorPipe } from '../palette-matching/pipes/palette-matching-tokens-to-mirror-color.pipe';
@@ -41,7 +41,6 @@ export class PaletteGenPreviewComponent {
 
   matchingConfig = input<PaletteMatchingConfig>({ name: undefined, mode: 'light' });
 
-  // TODO: could we use computed data from the service?
   protected data = computed<PaletteGenData>(() => buildPaletteGenData(this.formValue()));
 
   protected sassMapToClipboard() {
@@ -49,13 +48,6 @@ export class PaletteGenPreviewComponent {
     if (!formValue) {
       return;
     }
-    const settings = `  // ${JSON.stringify(formValue)}`;
-    this.clipboard?.writeText(`${settings}\n${this.sassMapStringified()}`);
+    this.clipboard?.writeText(buildSassMapStringified(formValue, this.data().list));
   }
-
-  private sassMapStringified = computed(() => {
-    return this.data()
-      .list.map(({ percentage, color }) => `  ${percentage}: ${color}`)
-      .join(',\n');
-  });
 }

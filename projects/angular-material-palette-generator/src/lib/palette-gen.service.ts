@@ -5,7 +5,7 @@ import { getPaletteGenForm } from './palette-gen-form/palette-gen-form.utils';
 import { PaletteGenFormValueSnapshot } from './palette-gen-snapshots/palette-gen-snapshots.types';
 import { FORM_VALUE_MAP_DEFAULT, PALETTE_FORM_CONTROL_SIZE_DEFAULT } from './palette-gen.config';
 import { PaletteGenData, PaletteGenState } from './palette-gen.types';
-import { buildPaletteGenData } from './palette-gen.utils';
+import { buildPaletteGenData, buildSassMapStringified } from './palette-gen.utils';
 import { PaletteMode, PaletteName } from './palette-matching/palette-matching.types';
 import { PALETTE_MODES, PALETTE_NAMES } from './palette-matching/palette-matching.utils';
 
@@ -17,7 +17,9 @@ import { PALETTE_MODES, PALETTE_NAMES } from './palette-matching/palette-matchin
   providedIn: 'root',
 })
 export class PaletteGenService {
-  private localStorage = inject(DOCUMENT).defaultView?.localStorage;
+  private document = inject(DOCUMENT);
+
+  private localStorage = this.document.defaultView?.localStorage;
 
   paletteMode = signal<PaletteMode>('light');
 
@@ -73,6 +75,17 @@ export class PaletteGenService {
 
     this.restoreFormValueSnapshotsMap();
     effect(() => this.storeFormValueSnapshotsMap());
+  }
+
+  sassMapsToClipboard() {
+    const text = Object.entries(this.dataMap)
+      .map(([paletteName, data]) => {
+        const paletteMap = buildSassMapStringified(this.formValueMap[paletteName as PaletteName](), data().list);
+        return `${paletteName}: (\n${paletteMap}),`;
+      })
+      .join('\n');
+
+    this.document.defaultView?.navigator.clipboard?.writeText(text);
   }
 
   // ----- FormValueMap storage -----

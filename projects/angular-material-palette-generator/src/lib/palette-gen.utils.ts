@@ -3,7 +3,7 @@ import { cubicBezierFactory } from './cubic-bezier/cubic-bezier';
 import { CubicBezierParams } from './cubic-bezier/cubic-bezier.types';
 import { PaletteGenFormValue } from './palette-gen-form/palette-gen-form.types';
 import { MATERIAL_PALETTE_PERCENTAGES_MAP } from './palette-gen.config';
-import { PaletteGenData } from './palette-gen.types';
+import { PaletteGenData, PaletteGenDataListItem } from './palette-gen.types';
 
 export const buildPaletteGenFormValue = (
   color: string,
@@ -67,4 +67,12 @@ export const buildPaletteGenData = (formValue: PaletteGenFormValue | undefined):
   );
 
   return { list, colorMap };
+};
+
+export const buildSassMapStringified = (formValue: PaletteGenFormValue, dataList: PaletteGenDataListItem[]) => {
+  const settings = `  // ${JSON.stringify(formValue)}\n`;
+
+  const sassMap = dataList.map(({ percentage, color }) => `  ${percentage}: ${color},\n`).join('');
+
+  return settings + sassMap;
 };
