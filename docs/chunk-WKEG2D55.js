@@ -1,4 +1,4 @@
-import{Sa as _,Ua as B,Wa as h}from"./chunk-BTKQSS5Z.js";import{$b as f,Ca as l,Jb as o,Kb as n,Ob as s,Za as m,_b as a,bc as g,cc as C,dc as z,lb as b,vc as y,yb as c}from"./chunk-PISLEKJS.js";var d=class u{disabled=l(!1);toggleDisabled(){this.disabled.update(t=>!t)}large=l(!1);toggleLarge(){this.large.update(t=>!t)}params=l({p1x:0,p1y:0,p2x:1,p2y:1});paramsStringified=y(()=>{let{p1x:t,p1y:i,p2x:e,p2y:r}=this.params();return`params {
+import{Sa as _,Ua as B,Wa as h}from"./chunk-ZBEBGKNT.js";import{$b as f,Ca as l,Jb as o,Kb as n,Ob as s,Za as m,_b as a,bc as g,cc as C,dc as z,lb as b,vc as y,yb as c}from"./chunk-UIVOEDPE.js";var d=class u{disabled=l(!1);toggleDisabled(){this.disabled.update(t=>!t)}large=l(!1);toggleLarge(){this.large.update(t=>!t)}params=l({p1x:0,p1y:0,p2x:1,p2y:1});paramsStringified=y(()=>{let{p1x:t,p1y:i,p2x:e,p2y:r}=this.params();return`params {
   "p1x": ${t.toFixed(3)},
   "p1y": ${i.toFixed(3)},
   "p2x": ${e.toFixed(3)},
