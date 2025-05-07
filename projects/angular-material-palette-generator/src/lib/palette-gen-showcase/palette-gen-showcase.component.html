@@ -1,6 +1,7 @@
 <div class="pg-palette-gen-showcase__row">
   <button mat-button>Button</button>
   <button mat-icon-button><mat-icon>home</mat-icon></button>
+  <button mat-fab><mat-icon>home</mat-icon></button>
   <button mat-flat-button>Button</button>
   <button mat-raised-button>Button</button>
   <button mat-stroked-button>Button</button>
@@ -9,6 +10,7 @@
 <div class="pg-palette-gen-showcase__row">
   <button mat-button matBadge="4">Button</button>
   <button mat-icon-button matBadge="4"><mat-icon>home</mat-icon></button>
+  <button mat-fab matBadge="4"><mat-icon>home</mat-icon></button>
   <button mat-flat-button matBadge="4">Button</button>
   <button mat-raised-button matBadge="4">Button</button>
   <button mat-stroked-button matBadge="4">Button</button>
@@ -17,9 +19,24 @@
 <div class="pg-palette-gen-showcase__row">
   <button disabled mat-button>Button</button>
   <button disabled mat-icon-button><mat-icon>home</mat-icon></button>
+  <button disabled mat-fab><mat-icon>home</mat-icon></button>
   <button disabled mat-flat-button>Button</button>
   <button disabled mat-raised-button>Button</button>
   <button disabled mat-stroked-button>Button</button>
+</div>
+
+<div class="pg-palette-gen-showcase__row">
+  <mat-chip-listbox>
+    <mat-chip-option selected>Chip option 1</mat-chip-option>
+    <mat-chip-option>Chip option 2</mat-chip-option>
+    <mat-chip-option disabled>Chip option 3</mat-chip-option>
+  </mat-chip-listbox>
+
+  <mat-chip-set>
+    <mat-chip>Chip 1</mat-chip>
+    <mat-chip>Chip 2</mat-chip>
+    <mat-chip disabled>Chip 3</mat-chip>
+  </mat-chip-set>
 </div>
 
 <div class="pg-palette-gen-showcase__row">
