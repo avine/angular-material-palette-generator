@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { Injectable, RendererFactory2, effect, inject, signal } from '@angular/core';
+
+import { Injectable, RendererFactory2, effect, inject, signal, DOCUMENT } from '@angular/core';
 import Cookies from 'js-cookie';
 import { THEME_COOKIE_KEY } from './theme.config';
 import { Theme } from './theme.types';

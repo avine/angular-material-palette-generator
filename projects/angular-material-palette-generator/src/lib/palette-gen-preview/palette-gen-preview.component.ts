@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { booleanAttribute, Component, computed, inject, input, output, ViewEncapsulation } from '@angular/core';
+
+import { booleanAttribute, Component, computed, inject, input, output, ViewEncapsulation, DOCUMENT } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';

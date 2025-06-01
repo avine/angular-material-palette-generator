@@ -147,6 +147,7 @@ export const PALETTE_PERCENTAGE_MATCHING_MAP: PalettePercentageMatchingMap = {
       'primary-fixed': 90,
     },
   },
+
   secondary: {
     light: {
       'on-secondary-container': 10,
@@ -169,6 +170,7 @@ export const PALETTE_PERCENTAGE_MATCHING_MAP: PalettePercentageMatchingMap = {
       'secondary-fixed': 90,
     },
   },
+
   tertiary: {
     light: {
       'on-tertiary-container': 10,
@@ -191,6 +193,7 @@ export const PALETTE_PERCENTAGE_MATCHING_MAP: PalettePercentageMatchingMap = {
       'tertiary-fixed': 90,
     },
   },
+
   neutral: {
     light: {
       shadow: 0,
@@ -227,6 +230,7 @@ export const PALETTE_PERCENTAGE_MATCHING_MAP: PalettePercentageMatchingMap = {
       'inverse-surface': 90,
     },
   },
+
   'neutral-variant': {
     light: {
       'neutral-variant20': 20,
@@ -243,6 +247,7 @@ export const PALETTE_PERCENTAGE_MATCHING_MAP: PalettePercentageMatchingMap = {
       'on-surface-variant': 80,
     },
   },
+
   error: {
     light: {
       'on-error-container': 10,

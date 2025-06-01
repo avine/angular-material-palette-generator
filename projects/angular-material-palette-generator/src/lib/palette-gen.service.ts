@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { computed, effect, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+
+import { computed, effect, inject, Injectable, Signal, signal, WritableSignal, DOCUMENT } from '@angular/core';
 import { PaletteGenFormValue } from './palette-gen-form/palette-gen-form.types';
 import { getPaletteGenForm } from './palette-gen-form/palette-gen-form.utils';
 import { PaletteGenFormValueSnapshot } from './palette-gen-snapshots/palette-gen-snapshots.types';

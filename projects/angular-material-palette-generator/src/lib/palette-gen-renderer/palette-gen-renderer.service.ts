@@ -1,4 +1,4 @@
-import { DOCUMENT } from '@angular/common';
+
 import {
   computed,
   effect,
@@ -9,6 +9,7 @@ import {
   RendererFactory2,
   signal,
   Signal,
+  DOCUMENT
 } from '@angular/core';
 import { PaletteGenService } from '../palette-gen.service';
 import { PALETTE_PERCENTAGE_MATCHING_MAP } from '../palette-matching/palette-matching.config';
