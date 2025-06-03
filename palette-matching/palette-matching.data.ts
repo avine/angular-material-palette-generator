@@ -173,6 +173,7 @@ export const cssPaletteMap = {
     surface: ['#f9f9ff', '#111319'],
     'surface-dim': ['#d8d9e2', '#111319'],
     'surface-bright': ['#f9f9ff', '#373940'],
+    'surface-container-low': ['#f2f3fc', '#191c22'],
     'surface-container-lowest': ['#ffffff', '#0b0e14'],
     'surface-container': ['#ecedf6', '#1d2026'],
     'surface-container-high': ['#e7e8f0', '#272a30'],
