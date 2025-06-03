@@ -1,5 +1,5 @@
 <button
-  mat-fab
+  matFab
   aria-label="Toggle palette generator"
   matTooltip="Toggle palette generator"
   class="pg-palette-gen-overlay__toggle-modal"
@@ -31,7 +31,7 @@
     </div>
 
     <div class="pg-palette-gen-overlay__tools-footer">
-      <button mat-icon-button matTooltip="Toggle details" aria-label="Toggle details" (click)="toggleDetails()">
+      <button matIconButton matTooltip="Toggle details" aria-label="Toggle details" (click)="toggleDetails()">
         <mat-icon
           class="pg-palette-gen-overlay__toggle-details-icon"
           [class.pg-palette-gen-overlay__toggle-details-icon--active]="_state.details"
@@ -41,7 +41,7 @@
       </button>
 
       <button
-        mat-icon-button
+        matIconButton
         aria-label="Toggle page sharing"
         matTooltip="Toggle page sharing"
         (click)="rendererService.togglePageSharing()"
@@ -49,7 +49,7 @@
         <mat-icon>{{ rendererService.isPageSharingActive() ? 'stop_screen_share' : 'screen_share' }}</mat-icon>
       </button>
 
-      <!--<button mat-icon-button aria-label="View on GitHub" matTooltip="View on GitHub">
+      <!--<button matIconButton aria-label="View on GitHub" matTooltip="View on GitHub">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <g fill="currentColor">
             <path

@@ -1,7 +1,7 @@
 <pg-palette-gen-selector>
   <button
     type="button"
-    mat-icon-button
+    matIconButton
     [attr.aria-label]="compactAction()"
     [matTooltip]="compactAction()"
     [disabled]="view() === 'component'"
@@ -23,7 +23,7 @@
 
   <button
     pgPaletteGenSelectorAfter
-    mat-icon-button
+    matIconButton
     aria-label="Copy all Sass maps to clipboard"
     matTooltip="Copy all Sass maps to clipboard"
     (click)="service.sassMapsToClipboard()"
@@ -31,7 +31,7 @@
     <mat-icon>integration_instructions</mat-icon>
   </button>
 
-  <button pgPaletteGenSelectorAfter mat-icon-button aria-label="Reset" matTooltip="Reset" (click)="openResetDialog()">
+  <button pgPaletteGenSelectorAfter matIconButton aria-label="Reset" matTooltip="Reset" (click)="openResetDialog()">
     <mat-icon>restart_alt</mat-icon>
   </button>
 </pg-palette-gen-selector>
@@ -69,7 +69,7 @@
   <mat-dialog-content>All changes will be lost.</mat-dialog-content>
 
   <mat-dialog-actions>
-    <button mat-button [mat-dialog-close]="false">Cancel</button>
-    <button mat-flat-button [mat-dialog-close]="true">Reset</button>
+    <button matButton="tonal" [mat-dialog-close]="false">Cancel</button>
+    <button matButton="filled" [mat-dialog-close]="true">Reset</button>
   </mat-dialog-actions>
 </ng-template>

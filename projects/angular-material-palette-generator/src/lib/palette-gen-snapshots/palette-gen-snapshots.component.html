@@ -6,7 +6,7 @@
     aria-label="Remove selected snapshot"
     matTooltip="Remove selected snapshot"
     matTooltipPosition="above"
-    mat-icon-button
+    matIconButton
     (click)="removeSelectedSnapshot()"
   >
     <mat-icon>delete</mat-icon>
@@ -17,7 +17,7 @@
     aria-label="Take a snapshot"
     matTooltip="Take a snapshot"
     matTooltipPosition="above"
-    mat-icon-button
+    matIconButton
     [disabled]="disabled() || noMoreSnapshots"
     (click)="takeSnapshot()"
   >
@@ -27,8 +27,8 @@
 
 @for (snapshot of snapshots()(); track $index) {
   @if (snapshot.value === formValueSnapshot()) {
-    <button type="button" mat-flat-button (click)="selectSnapshot(snapshot.value)">{{ snapshot.id }}</button>
+    <button type="button" matButton="filled" (click)="selectSnapshot(snapshot.value)">{{ snapshot.id }}</button>
   } @else {
-    <button type="button" mat-button (click)="selectSnapshot(snapshot.value)">{{ snapshot.id }}</button>
+    <button type="button" matButton (click)="selectSnapshot(snapshot.value)">{{ snapshot.id }}</button>
   }
 }

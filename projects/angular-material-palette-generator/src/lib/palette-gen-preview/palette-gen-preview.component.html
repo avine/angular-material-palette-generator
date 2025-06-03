@@ -35,7 +35,7 @@
 <button
   class="pg-palette-gen-preview__action"
   [class.pg-palette-gen-preview__action--mirror]="mirrorView()"
-  mat-icon-button
+  matIconButton
   matTooltip="Copy Sass map to clipboard"
   [matTooltipPosition]="mirrorView() ? 'right' : 'left'"
   (click)="sassMapToClipboard()"
@@ -46,7 +46,7 @@
 @if (mirrorView()) {
   <button
     class="pg-palette-gen-preview__action pg-palette-gen-preview__action--2 pg-palette-gen-preview__action--mirror"
-    mat-icon-button
+    matIconButton
     matTooltip="Close mirror view"
     matTooltipPosition="right"
     (click)="action.emit()"
@@ -56,7 +56,7 @@
 } @else {
   <button
     class="pg-palette-gen-preview__action pg-palette-gen-preview__action--2"
-    mat-icon-button
+    matIconButton
     matTooltip="Open mirror view"
     matTooltipPosition="left"
     (click)="action.emit()"

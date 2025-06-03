@@ -1,8 +1,8 @@
 <h2 class="gbl-headline-small">Cubic Bezier Control</h2>
 
 <div>
-  <button mat-button (click)="toggleDisabled()">Enable / Disable</button>
-  <button mat-button (click)="toggleLarge()">Medium / Large</button>
+  <button matButton (click)="toggleDisabled()">Enable / Disable</button>
+  <button matButton (click)="toggleLarge()">Medium / Large</button>
 </div>
 
 <pg-cubic-bezier-control [disabled]="disabled()" [(params)]="params" [canvasSize]="large() ? 300 : 200" />

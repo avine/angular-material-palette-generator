@@ -24,7 +24,7 @@
 
   <div class="pg-palette-gen-container__actions">
     <button
-      mat-icon-button
+      matIconButton
       aria-label="Toggle page sharing"
       matTooltip="Toggle page sharing"
       (click)="rendererService.togglePageSharing()"
@@ -32,7 +32,7 @@
       <mat-icon>{{ rendererService.isPageSharingActive() ? 'stop_screen_share' : 'screen_share' }}</mat-icon>
     </button>
 
-    <button mat-icon-button aria-label="Toggle sidebar" matTooltip="Toggle sidebar" (click)="toggleDrawer()">
+    <button matIconButton aria-label="Toggle sidebar" matTooltip="Toggle sidebar" (click)="toggleDrawer()">
       <mat-icon>tune</mat-icon>
     </button>
   </div>
