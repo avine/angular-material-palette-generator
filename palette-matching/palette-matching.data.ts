@@ -1,205 +1,137 @@
-// Note: Color palettes are generated from primary: #005cbb
-// Run the command `ng generate @angular/material:theme-color` 2 times...
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { compileString } from 'sass';
 
-// 1. ...choose "SASS" as output and adapt the result to the following JSON object
-export const sassPaletteMap = {
-  primary: {
-    0: '#000000',
-    10: '#001b3f',
-    20: '#002f66',
-    25: '#003a7a',
-    30: '#00458f',
-    35: '#0050a5',
-    40: '#005cbb',
-    50: '#3376d6',
-    60: '#5290f2',
-    70: '#7cabff',
-    80: '#abc7ff',
-    90: '#d7e2ff',
-    95: '#ecf0ff',
-    98: '#f9f9ff',
-    99: '#fdfbff',
-    100: '#ffffff',
-  } as Record<number, string>,
+// Palette data extracted from `mat.theme()` of the `@angular/material` version installed in the root project.
+//
+// How it works:
+//  1. Each tone of each palette receives a unique "marker" color: `rgb(<palette index>, <tone>, 7)`.
+//  2. `mat.theme()` is compiled with these marker palettes, once for each theme type ("light" and "dark").
+//  3. Reading the marker color of each emitted `--mat-sys-*` token gives the palette and tone it comes from.
+//
+// Unlike the CSS output of `ng generate @angular/material:theme-color` (based on Material Color Utilities),
+// this reflects exactly what `mat.theme()` emits from Sass palettes, which is what this tool produces.
 
-  secondary: {
-    0: '#000000',
-    10: '#021b3d',
-    20: '#1b3053',
-    25: '#273b5f',
-    30: '#33476b',
-    35: '#3e5378',
-    40: '#4b5f84',
-    50: '#63779e',
-    60: '#7d91ba',
-    70: '#97acd5',
-    80: '#b2c7f2',
-    90: '#d7e2ff',
-    95: '#ecf0ff',
-    98: '#f9f9ff',
-    99: '#fdfbff',
-    100: '#ffffff',
-  } as Record<number, string>,
+const ROOT_NODE_MODULES = fileURLToPath(new URL('../node_modules', import.meta.url));
 
-  tertiary: {
-    0: '#000000',
-    10: '#330045',
-    20: '#52046d',
-    25: '#5f1779',
-    30: '#6b2686',
-    35: '#793393',
-    40: '#8640a0',
-    50: '#a15abb',
-    60: '#bd73d7',
-    70: '#da8ef4',
-    80: '#edb1ff',
-    90: '#f9d8ff',
-    95: '#ffebff',
-    98: '#fff7fb',
-    99: '#fffbff',
-    100: '#ffffff',
-  } as Record<number, string>,
+export const MATERIAL_VERSION: string = JSON.parse(
+  readFileSync(`${ROOT_NODE_MODULES}/@angular/material/package.json`, 'utf8'),
+).version;
 
-  neutral: {
-    0: '#000000',
-    10: '#191c22',
-    20: '#2e3037',
-    25: '#393b42',
-    30: '#44474d',
-    35: '#505259',
-    40: '#5c5e65',
-    50: '#75777e',
-    60: '#8f9098',
-    70: '#a9abb3',
-    80: '#c5c6ce',
-    90: '#e1e2ea',
-    95: '#eff0f9',
-    98: '#f9f9ff',
-    99: '#fdfbff',
-    100: '#ffffff',
-    4: '#0b0e14',
-    6: '#111319',
-    12: '#1d2026',
-    17: '#272a30',
-    22: '#32353b',
-    24: '#373940',
-    87: '#d8d9e2',
-    92: '#e7e8f0',
-    94: '#ecedf6',
-    96: '#f2f3fc',
-  } as Record<number, string>,
+// The index of each palette (starting at 1) is used as the red channel of its marker colors
+const PALETTE_NAMES = ['primary', 'secondary', 'tertiary', 'neutral', 'neutral-variant', 'error'] as const;
 
-  'neutral-variant': {
-    0: '#000000',
-    10: '#171c26',
-    20: '#2b303b',
-    25: '#363b47',
-    30: '#424752',
-    35: '#4d525e',
-    40: '#595e6a',
-    50: '#727784',
-    60: '#8c919e',
-    70: '#a6abb9',
-    80: '#c2c6d4',
-    90: '#dee2f1',
-    95: '#ecf0ff',
-    98: '#f9f9ff',
-    99: '#fdfbff',
-    100: '#ffffff',
-  } as Record<number, string>,
+type PaletteName = (typeof PALETTE_NAMES)[number];
 
-  error: {
-    0: '#000000',
-    10: '#410002',
-    20: '#690005',
-    25: '#7e0007',
-    30: '#93000a',
-    35: '#a80710',
-    40: '#ba1a1a',
-    50: '#de3730',
-    60: '#ff5449',
-    70: '#ff897d',
-    80: '#ffb4ab',
-    90: '#ffdad6',
-    95: '#ffedea',
-    98: '#fff8f7',
-    99: '#fffbff',
-    100: '#ffffff',
-  } as Record<number, string>,
+const MARKER_BLUE_CHANNEL = 7;
+
+const THEME_SCSS = `
+@use 'sass:map';
+@use 'sass:meta';
+@use 'sass:list';
+@use '@angular/material' as mat;
+
+$_names: ${PALETTE_NAMES.map((name) => `'${name}'`).join(', ')};
+
+@function _marker-palette($palette, $name) {
+  $index: list.index($_names, $name);
+  $result: ();
+  @each $tone, $value in $palette {
+    @if meta.type-of($value) != 'map' {
+      $result: map.merge($result, ($tone: rgb($index, $tone, ${MARKER_BLUE_CHANNEL})));
+    }
+  }
+  @return $result;
+}
+
+$_source: mat.$azure-palette;
+
+$_rest: (
+  secondary: _marker-palette(map.get($_source, secondary), 'secondary'),
+  neutral: _marker-palette(map.get($_source, neutral), 'neutral'),
+  neutral-variant: _marker-palette(map.get($_source, neutral-variant), 'neutral-variant'),
+  error: _marker-palette(map.get($_source, error), 'error'),
+);
+
+$_primary: map.merge(_marker-palette($_source, 'primary'), $_rest);
+$_tertiary: map.merge(_marker-palette($_source, 'tertiary'), $_rest);
+
+.tones {
+  @each $name in $_names {
+    $palette: $_source;
+    @if map.has-key($_rest, $name) {
+      $palette: map.get($_source, $name);
+    }
+    --#{$name}: #{map.keys(_marker-palette($palette, $name))};
+  }
+}
+
+.light {
+  @include mat.theme((color: (primary: $_primary, tertiary: $_tertiary, theme-type: light)));
+}
+
+.dark {
+  @include mat.theme((color: (primary: $_primary, tertiary: $_tertiary, theme-type: dark)));
+}
+`;
+
+const { css } = compileString(THEME_SCSS, { loadPaths: [ROOT_NODE_MODULES] });
+
+const getRuleBody = (selector: string) => {
+  const body = new RegExp(`\\${selector} \\{([^}]*)\\}`).exec(css)?.[1];
+  if (body === undefined) {
+    throw new Error(`Unable to find "${selector}" rule in compiled CSS`);
+  }
+  return body;
 };
 
-// 2. ...choose "CSS" as output and adapt the result to the following JSON object
-export const cssPaletteMap = {
-  primary: {
-    primary: ['#005cbb', '#abc7ff'],
-    'on-primary': ['#ffffff', '#002f66'],
-    'primary-container': ['#d7e2ff', '#00458f'],
-    'on-primary-container': ['#001b3f', '#d7e2ff'],
-    'inverse-primary': ['#abc7ff', '#005cbb'],
-    'primary-fixed': ['#d7e2ff', '#d7e2ff'],
-    'primary-fixed-dim': ['#abc7ff', '#abc7ff'],
-    'on-primary-fixed': ['#001b3f', '#001b3f'],
-    'on-primary-fixed-variant': ['#00458f', '#00458f'],
+const toMarkerHex = (paletteIndex: number, tone: number) =>
+  '#' + [paletteIndex, tone, MARKER_BLUE_CHANNEL].map((channel) => channel.toString(16).padStart(2, '0')).join('');
 
-    // FIX: Moved from 'neutral' to 'primary' palette
-    'surface-tint': ['#005cbb', '#abc7ff'],
-  } as Record<string, [string, string]>,
+// ----- Sass palettes -----
 
-  secondary: {
-    secondary: ['#4b5f84', '#b2c7f2'],
-    'on-secondary': ['#ffffff', '#1b3053'],
-    'secondary-container': ['#d7e2ff', '#33476b'],
-    'on-secondary-container': ['#021b3d', '#d7e2ff'],
-    'secondary-fixed': ['#d7e2ff', '#d7e2ff'],
-    'secondary-fixed-dim': ['#b2c7f2', '#b2c7f2'],
-    'on-secondary-fixed': ['#021b3d', '#021b3d'],
-    'on-secondary-fixed-variant': ['#33476b', '#33476b'],
-  } as Record<string, [string, string]>,
+const tonesBody = getRuleBody('.tones');
 
-  tertiary: {
-    tertiary: ['#8640a0', '#edb1ff'],
-    'on-tertiary': ['#ffffff', '#52046d'],
-    'tertiary-container': ['#f9d8ff', '#6b2686'],
-    'on-tertiary-container': ['#330045', '#f9d8ff'],
-    'tertiary-fixed': ['#f9d8ff', '#f9d8ff'],
-    'tertiary-fixed-dim': ['#edb1ff', '#edb1ff'],
-    'on-tertiary-fixed': ['#330045', '#330045'],
-    'on-tertiary-fixed-variant': ['#6b2686', '#6b2686'],
-  } as Record<string, [string, string]>,
+export const sassPaletteMap = Object.fromEntries(
+  PALETTE_NAMES.map((name, index) => {
+    const tones = new RegExp(`--${name}: ([^;]+);`).exec(tonesBody)?.[1].split(',').map(Number);
+    if (!tones) {
+      throw new Error(`Unable to find tones of "${name}" palette`);
+    }
+    return [name, Object.fromEntries(tones.map((tone) => [tone, toMarkerHex(index + 1, tone)]))];
+  }),
+) as Record<PaletteName, Record<number, string>>;
 
-  neutral: {
-    background: ['#f9f9ff', '#111319'],
-    'on-background': ['#191c22', '#e1e2ea'],
-    surface: ['#f9f9ff', '#111319'],
-    'surface-dim': ['#d8d9e2', '#111319'],
-    'surface-bright': ['#f9f9ff', '#373940'],
-    'surface-container-low': ['#f2f3fc', '#191c22'],
-    'surface-container-lowest': ['#ffffff', '#0b0e14'],
-    'surface-container': ['#ecedf6', '#1d2026'],
-    'surface-container-high': ['#e7e8f0', '#272a30'],
-    'surface-container-highest': ['#e1e2ea', '#32353b'],
-    'on-surface': ['#191c22', '#e1e2ea'],
-    shadow: ['#000000', '#000000'],
-    scrim: ['#000000', '#000000'],
-    'inverse-surface': ['#2e3037', '#e1e2ea'],
-    'inverse-on-surface': ['#eff0f9', '#2e3037'],
-    neutral10: ['#191c22', '#191c22'],
-  } as Record<string, [string, string]>,
+// ----- CSS tokens (grouped by the palette they come from) -----
 
-  'neutral-variant': {
-    'surface-variant': ['#dee2f1', '#424752'],
-    'on-surface-variant': ['#424752', '#c2c6d4'],
-    'neutral-variant20': ['#2b303b', '#2b303b'],
+type TokenMarker = { paletteName: PaletteName; color: string };
 
-    // FIX: Moved from 'neutral' to 'neutral-variant' palette
-    outline: ['#727784', '#8c919e'],
-    'outline-variant': ['#c2c6d4', '#424752'],
-  } as Record<string, [string, string]>,
-
-  error: {
-    error: ['#ba1a1a', '#ffb4ab'],
-    'on-error': ['#ffffff', '#690005'],
-    'error-container': ['#ffdad6', '#93000a'],
-    'on-error-container': ['#410002', '#ffdad6'],
-  } as Record<string, [string, string]>,
+const getTokenMarkers = (selector: string) => {
+  const markers = new Map<string, TokenMarker>();
+  for (const [, token, red, green, blue] of getRuleBody(selector).matchAll(
+    /--mat-sys-([a-z0-9-]+): rgb\((\d+), (\d+), (\d+)\);/g,
+  )) {
+    const paletteName = PALETTE_NAMES[Number(red) - 1];
+    if (!paletteName || Number(blue) !== MARKER_BLUE_CHANNEL) {
+      continue; // Not a color token (elevation, shape, ...)
+    }
+    markers.set(token, { paletteName, color: toMarkerHex(Number(red), Number(green)) });
+  }
+  return markers;
 };
+
+const lightMarkers = getTokenMarkers('.light');
+const darkMarkers = getTokenMarkers('.dark');
+
+export const cssPaletteMap = Object.fromEntries(PALETTE_NAMES.map((name) => [name, {}])) as Record<
+  PaletteName,
+  Record<string, [string, string]>
+>;
+
+for (const [token, light] of lightMarkers) {
+  const dark = darkMarkers.get(token);
+  if (dark?.paletteName !== light.paletteName) {
+    throw new Error(`Token "${token}" does not come from the same palette in light and dark modes`);
+  }
+  cssPaletteMap[light.paletteName][token] = [light.color, dark.color];
+}
