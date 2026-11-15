@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { ThemeSwitcherComponent } from '../../theme-switcher/theme-switcher.component';
@@ -10,6 +10,7 @@ import { MenuComponent } from '../menu/menu.component';
   imports: [RouterLink, MatIconModule, ThemeSwitcherComponent, MenuComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent {}

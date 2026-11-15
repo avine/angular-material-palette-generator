@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
@@ -8,6 +8,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   imports: [MatIconModule, MatTooltipModule],
   templateUrl: './palette-gen-logo.component.html',
   styleUrl: './palette-gen-logo.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None,
 })
 export class PaletteGenLogoComponent {}

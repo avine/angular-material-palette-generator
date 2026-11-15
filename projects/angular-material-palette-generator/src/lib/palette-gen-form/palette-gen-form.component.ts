@@ -1,5 +1,13 @@
 import { TitleCasePipe } from '@angular/common';
-import { booleanAttribute, Component, effect, inject, input, ViewEncapsulation } from '@angular/core';
+import {
+  booleanAttribute,
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  inject,
+  input,
+  ViewEncapsulation,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -35,6 +43,7 @@ import { getPaletteGenForm, paletteGenFormValuesEqual } from './palette-gen-form
   ],
   templateUrl: './palette-gen-form.component.html',
   styleUrl: './palette-gen-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None,
 })
 export class PaletteGenFormComponent {
