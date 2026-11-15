@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "format": "prettier --write .",
+    "lint": "ng lint --fix",
     "build:lib": "ng build angular-material-palette-generator",
     "publish:lib": "cd dist/angular-material-palette-generator && npm publish && cd -",
     "predocs": "rm -rf docs",
@@ -39,7 +40,11 @@
     "@angular/build": "^22.2.7",
     "@angular/cli": "^22.2.7",
     "@angular/compiler-cli": "^22.2.6",
+    "@eslint/js": "^10.0.1",
     "@types/jasmine": "~5.1.8",
+    "angular-eslint": "22.6.0",
+    "eslint": "^10.12.0",
+    "eslint-config-prettier": "^10.1.8",
     "istanbul-lib-instrument": "^6.0.3",
     "jasmine-core": "~5.7.1",
     "karma": "~6.4.4",
@@ -51,6 +56,7 @@
     "prettier": "^3.10.1",
     "prettier-plugin-organize-imports": "^4.3.0",
     "typescript": "~6.0.3",
+    "typescript-eslint": "8.71.0",
     "vitest": "^5.1.0"
   }
 }
