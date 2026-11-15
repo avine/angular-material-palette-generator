@@ -1,6 +1,6 @@
 {
   "name": "angular-material-palette-generator",
-  "version": "0.6.0",
+  "version": "22.0.0",
   "author": "Stéphane Francel <stephane.francel@gmail.com>",
   "license": "MIT",
   "repository": {
@@ -19,12 +19,14 @@
     "tool"
   ],
   "peerDependencies": {
-    "@angular/cdk": "^20.0.0",
-    "@angular/common": "^20.0.0",
-    "@angular/core": "^20.0.0",
-    "@angular/material": "^20.0.0",
-    "colorjs.io": "^0.5.2",
-    "wcag-contrast-utils": "^1.0.1"
+    "@angular/cdk": "^22.0.0",
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0",
+    "@angular/forms": "^22.0.0",
+    "@angular/material": "^22.0.0",
+    "colorjs.io": "^0.7.1",
+    "rxjs": "^7.8.0",
+    "wcag-contrast-utils": "^1.0.2"
   },
   "dependencies": {
     "tslib": "^2.3.0"
