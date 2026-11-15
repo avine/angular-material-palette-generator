@@ -3,13 +3,13 @@ import { PalettePercentageMatchingMap, PaletteTokenMatchingMap } from './palette
 // DO NOT MODIFY THE FOLLOWING OBJECTS MANUALLY
 // --------------------------------------------
 // The content of following objects has been generated from the script:
-//    `<rootDir>/palette-matching/palette-matching.script.ts`
+//    `<rootDir>/palette-matching/palette-matching.ts`
 
 export const PALETTE_TOKEN_MATCHING_MAP: PaletteTokenMatchingMap = {
   primary: {
     light: {
-      '10': ['on-primary-container', 'on-primary-fixed'],
-      '30': ['on-primary-fixed-variant'],
+      '10': ['on-primary-fixed'],
+      '30': ['on-primary-container', 'on-primary-fixed-variant'],
       '40': ['primary', 'surface-tint'],
       '80': ['inverse-primary', 'primary-fixed-dim'],
       '90': ['primary-container', 'primary-fixed'],
@@ -27,8 +27,8 @@ export const PALETTE_TOKEN_MATCHING_MAP: PaletteTokenMatchingMap = {
 
   secondary: {
     light: {
-      '10': ['on-secondary-container', 'on-secondary-fixed'],
-      '30': ['on-secondary-fixed-variant'],
+      '10': ['on-secondary-fixed'],
+      '30': ['on-secondary-container', 'on-secondary-fixed-variant'],
       '40': ['secondary'],
       '80': ['secondary-fixed-dim'],
       '90': ['secondary-container', 'secondary-fixed'],
@@ -45,8 +45,8 @@ export const PALETTE_TOKEN_MATCHING_MAP: PaletteTokenMatchingMap = {
 
   tertiary: {
     light: {
-      '10': ['on-tertiary-container', 'on-tertiary-fixed'],
-      '30': ['on-tertiary-fixed-variant'],
+      '10': ['on-tertiary-fixed'],
+      '30': ['on-tertiary-container', 'on-tertiary-fixed-variant'],
       '40': ['tertiary'],
       '80': ['tertiary-fixed-dim'],
       '90': ['tertiary-container', 'tertiary-fixed'],
@@ -101,13 +101,13 @@ export const PALETTE_TOKEN_MATCHING_MAP: PaletteTokenMatchingMap = {
       '20': ['neutral-variant20'],
       '30': ['surface-variant', 'outline-variant'],
       '60': ['outline'],
-      '80': ['on-surface-variant'],
+      '90': ['on-surface-variant'],
     },
   },
 
   error: {
     light: {
-      '10': ['on-error-container'],
+      '30': ['on-error-container'],
       '40': ['error'],
       '90': ['error-container'],
       '100': ['on-error'],
@@ -124,8 +124,8 @@ export const PALETTE_TOKEN_MATCHING_MAP: PaletteTokenMatchingMap = {
 export const PALETTE_PERCENTAGE_MATCHING_MAP: PalettePercentageMatchingMap = {
   primary: {
     light: {
-      'on-primary-container': 10,
       'on-primary-fixed': 10,
+      'on-primary-container': 30,
       'on-primary-fixed-variant': 30,
       primary: 40,
       'surface-tint': 40,
@@ -151,8 +151,8 @@ export const PALETTE_PERCENTAGE_MATCHING_MAP: PalettePercentageMatchingMap = {
 
   secondary: {
     light: {
-      'on-secondary-container': 10,
       'on-secondary-fixed': 10,
+      'on-secondary-container': 30,
       'on-secondary-fixed-variant': 30,
       secondary: 40,
       'secondary-fixed-dim': 80,
@@ -174,8 +174,8 @@ export const PALETTE_PERCENTAGE_MATCHING_MAP: PalettePercentageMatchingMap = {
 
   tertiary: {
     light: {
-      'on-tertiary-container': 10,
       'on-tertiary-fixed': 10,
+      'on-tertiary-container': 30,
       'on-tertiary-fixed-variant': 30,
       tertiary: 40,
       'tertiary-fixed-dim': 80,
@@ -247,13 +247,13 @@ export const PALETTE_PERCENTAGE_MATCHING_MAP: PalettePercentageMatchingMap = {
       'surface-variant': 30,
       'outline-variant': 30,
       outline: 60,
-      'on-surface-variant': 80,
+      'on-surface-variant': 90,
     },
   },
 
   error: {
     light: {
-      'on-error-container': 10,
+      'on-error-container': 30,
       error: 40,
       'error-container': 90,
       'on-error': 100,
