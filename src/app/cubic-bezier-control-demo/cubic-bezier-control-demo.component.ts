@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, signal, ViewEncapsulation } from '@angular/core';
+import { Component, computed, signal, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CubicBezierControlComponent, CubicBezierParams } from 'angular-material-palette-generator';
 
@@ -8,7 +8,6 @@ import { CubicBezierControlComponent, CubicBezierParams } from 'angular-material
   imports: [MatButtonModule, CubicBezierControlComponent],
   templateUrl: './cubic-bezier-control-demo.component.html',
   styleUrl: './cubic-bezier-control-demo.component.scss',
-  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None,
 })
 export default class CubicBezierControlDemoComponent {

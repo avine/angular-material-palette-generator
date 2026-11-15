@@ -1,15 +1,5 @@
 import { TitleCasePipe } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  effect,
-  inject,
-  signal,
-  TemplateRef,
-  viewChild,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, computed, effect, inject, signal, TemplateRef, viewChild, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -42,7 +32,6 @@ import { PaletteMatchingConfig } from '../palette-matching/pipes/palette-matchin
   ],
   templateUrl: './palette-gen-content.component.html',
   styleUrl: './palette-gen-content.component.scss',
-  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None,
 })
 export class PaletteGenContentComponent {

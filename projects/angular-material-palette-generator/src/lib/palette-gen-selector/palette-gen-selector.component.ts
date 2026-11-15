@@ -1,5 +1,5 @@
 import { TitleCasePipe } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, inject, input, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, Component, inject, input, ViewEncapsulation } from '@angular/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -13,7 +13,6 @@ import { PALETTE_MODES, PALETTE_NAMES } from '../palette-matching/palette-matchi
   imports: [TitleCasePipe, MatButtonToggleModule, MatFormFieldModule, MatSelectModule],
   templateUrl: './palette-gen-selector.component.html',
   styleUrl: './palette-gen-selector.component.scss',
-  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None,
 })
 export class PaletteGenSelectorComponent {

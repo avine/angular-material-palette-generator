@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, model, ViewEncapsulation } from '@angular/core';
+import { Component, DestroyRef, inject, model, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -30,7 +30,6 @@ import { PaletteGenService } from '../palette-gen.service';
   ],
   templateUrl: './palette-gen-overlay.component.html',
   styleUrl: './palette-gen-overlay.component.scss',
-  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None,
 })
 export class PaletteGenOverlayComponent {

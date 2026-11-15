@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { PaletteGenContainerComponent } from 'angular-material-palette-generator';
 import { LayoutComponent } from '../shared/layout/layout.component';
 import { ThemeService } from '../shared/theme';
@@ -9,7 +9,6 @@ import { ThemeService } from '../shared/theme';
   imports: [PaletteGenContainerComponent, LayoutComponent],
   templateUrl: './palette-gen-demo.component.html',
   styleUrl: './palette-gen-demo.component.scss',
-  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None,
 })
 export class PaletteGenDemoComponent {

@@ -1,6 +1,5 @@
 import {
   booleanAttribute,
-  ChangeDetectionStrategy,
   Component,
   computed,
   DOCUMENT,
@@ -35,7 +34,6 @@ import { PaletteMatchingTokensToMirrorColorPipe } from '../palette-matching/pipe
   ],
   templateUrl: './palette-gen-preview.component.html',
   styleUrl: './palette-gen-preview.component.scss',
-  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None,
 })
 export class PaletteGenPreviewComponent {

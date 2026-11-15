@@ -1,13 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  effect,
-  input,
-  output,
-  viewChildren,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, computed, effect, input, output, viewChildren, ViewEncapsulation } from '@angular/core';
 import { CubicBezierControlColorsDirective } from './cubic-bezier-control-colors.directive';
 
 @Component({
@@ -19,7 +10,6 @@ import { CubicBezierControlColorsDirective } from './cubic-bezier-control-colors
   imports: [CubicBezierControlColorsDirective],
   templateUrl: './cubic-bezier-control-colors.component.html',
   styleUrl: './cubic-bezier-control-colors.component.scss',
-  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None,
 })
 export class CubicBezierControlColorsComponent<T extends string> {

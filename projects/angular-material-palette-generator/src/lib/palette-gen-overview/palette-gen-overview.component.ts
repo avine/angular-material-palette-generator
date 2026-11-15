@@ -1,5 +1,5 @@
 import { TitleCasePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, input, ViewEncapsulation } from '@angular/core';
+import { Component, computed, inject, input, ViewEncapsulation } from '@angular/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PreferBlackForgroundColorPipe } from '../constrast-ratio/prefer-black-forground-color.pipe';
 import { MATERIAL_PALETTE_PERCENTAGES_MAP } from '../palette-gen.config';
@@ -13,7 +13,6 @@ import { PaletteName } from '../palette-matching/palette-matching.types';
   imports: [TitleCasePipe, MatTooltipModule, PreferBlackForgroundColorPipe],
   templateUrl: './palette-gen-overview.component.html',
   styleUrl: './palette-gen-overview.component.scss',
-  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None,
 })
 export class PaletteGenOverviewComponent {

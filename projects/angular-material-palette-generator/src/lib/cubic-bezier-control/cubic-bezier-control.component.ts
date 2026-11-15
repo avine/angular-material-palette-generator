@@ -1,7 +1,6 @@
 import { CdkDrag } from '@angular/cdk/drag-drop';
 import {
   afterRenderEffect,
-  ChangeDetectionStrategy,
   Component,
   computed,
   ElementRef,
@@ -48,7 +47,6 @@ import { CubicBezierParamsPipe } from './cubic-bezier-params.pipe';
   ],
   templateUrl: './cubic-bezier-control.component.html',
   styleUrl: './cubic-bezier-control.component.scss',
-  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None,
 })
 export class CubicBezierControlComponent implements ControlValueAccessor {
