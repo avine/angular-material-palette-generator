@@ -7,14 +7,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSliderModule } from '@angular/material/slider';
 import { filter, startWith } from 'rxjs';
-import { CubicBezierControlComponent } from '../cubic-bezier-control/cubic-bezier-control.component';
 import { PaletteGenService } from '../palette-gen.service';
 import { PaletteName } from '../palette-matching/palette-matching.types';
 import { PALETTE_NAMES } from '../palette-matching/palette-matching.utils';
 import { PaletteGenFormValue } from './palette-gen-form.types';
-import { getPaletteGenForm, paletteGenFormValuesEqual } from './palette-gen-form.utils';
+import { getPaletteGenForm, paletteGenFormValuesEqual, setPaletteGenFormValue } from './palette-gen-form.utils';
 
 @Component({
   selector: 'pg-palette-gen-form',
@@ -30,8 +28,6 @@ import { getPaletteGenForm, paletteGenFormValuesEqual } from './palette-gen-form
     MatIconModule,
     MatInputModule,
     MatSelectModule,
-    MatSliderModule,
-    CubicBezierControlComponent,
   ],
   templateUrl: './palette-gen-form.component.html',
   styleUrl: './palette-gen-form.component.scss',
@@ -67,7 +63,7 @@ export class PaletteGenFormComponent {
     effect(() => {
       const formValue = this.service.formValue()();
       if (formValue && !paletteGenFormValuesEqual(formValue, this.form.value as PaletteGenFormValue)) {
-        this.form.setValue(formValue);
+        setPaletteGenFormValue(this.form, formValue);
         this.form.updateValueAndValidity();
       }
     });
