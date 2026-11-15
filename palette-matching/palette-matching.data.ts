@@ -1,6 +1,5 @@
-import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { compileString } from 'sass';
+import { createRequire } from 'node:module';
+import { dirname } from 'node:path';
 
 // Palette data extracted from `mat.theme()` of the `@angular/material` version installed in the root project.
 //
@@ -12,11 +11,18 @@ import { compileString } from 'sass';
 // Unlike the CSS output of `ng generate @angular/material:theme-color` (based on Material Color Utilities),
 // this reflects exactly what `mat.theme()` emits from Sass palettes, which is what this tool produces.
 
-const ROOT_NODE_MODULES = fileURLToPath(new URL('../node_modules', import.meta.url));
+const require = createRequire(import.meta.url);
 
-export const MATERIAL_VERSION: string = JSON.parse(
-  readFileSync(`${ROOT_NODE_MODULES}/@angular/material/package.json`, 'utf8'),
-).version;
+// `sass` is not a dependency of this package: it is loaded through `@angular/build` (a peer dependency)
+// to guarantee that the palettes are compiled with the exact same Sass version as the Angular build,
+// whatever the package manager.
+//
+// Note: to switch this workspace to pnpm, also add a `pnpm-workspace.yaml` file at the root of the repository.
+const requireFromAngularBuild = createRequire(require.resolve('@angular/build/package.json'));
+const { compileString } = requireFromAngularBuild('sass') as typeof import('sass');
+
+// Directory containing `@angular/material` (and its `@angular/cdk` peer dependency), used as Sass load path
+const MATERIAL_LOAD_PATH = dirname(dirname(dirname(require.resolve('@angular/material/package.json'))));
 
 // The index of each palette (starting at 1) is used as the red channel of its marker colors
 const PALETTE_NAMES = ['primary', 'secondary', 'tertiary', 'neutral', 'neutral-variant', 'error'] as const;
@@ -75,7 +81,7 @@ $_tertiary: map.merge(_marker-palette($_source, 'tertiary'), $_rest);
 }
 `;
 
-const { css } = compileString(THEME_SCSS, { loadPaths: [ROOT_NODE_MODULES] });
+const { css } = compileString(THEME_SCSS, { loadPaths: [MATERIAL_LOAD_PATH] });
 
 const getRuleBody = (selector: string) => {
   const body = new RegExp(`\\${selector} \\{([^}]*)\\}`).exec(css)?.[1];

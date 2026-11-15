@@ -1,13 +1,17 @@
 {
   "name": "palette-matching",
   "version": "1.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
     "start": "node palette-matching.ts"
   },
+  "peerDependencies": {
+    "@angular/build": "^22.2.7",
+    "@angular/material": "^22.2.7"
+  },
   "devDependencies": {
     "@types/node": "^26.6.6",
-    "sass": "^1.108.2",
     "typescript": "^6.0.3"
   }
 }
