@@ -62,11 +62,6 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
-            },
-            "testing": {
-              "aot": false,
-              "optimization": false,
-              "extractLicenses": false
             }
           },
           "defaultConfiguration": "production"
@@ -83,15 +78,13 @@
           },
           "defaultConfiguration": "development"
         },
-        "extract-i18n": {
-          "builder": "@angular/build:extract-i18n"
-        },
         "test": {
-          "builder": "@angular/build:unit-test",
+          "builder": "@angular/build:unit-test"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": "tsconfig.spec.json",
-            "buildTarget": ":build:testing",
-            "runner": "vitest"
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         }
       }
@@ -123,9 +116,6 @@
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
-          "options": {
-            "project": "projects/angular-material-palette-generator/ng-package.json"
-          },
           "configurations": {
             "production": {
               "tsConfig": "projects/angular-material-palette-generator/tsconfig.lib.prod.json"
@@ -137,16 +127,28 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "tsConfig": "projects/angular-material-palette-generator/tsconfig.spec.json",
-            "polyfills": []
+            "tsConfig": "projects/angular-material-palette-generator/tsconfig.spec.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/angular-material-palette-generator/**/*.ts",
+              "projects/angular-material-palette-generator/**/*.html"
+            ],
+            "eslintConfig": "projects/angular-material-palette-generator/eslint.config.js"
           }
         }
       }
     }
   },
-  "cli": {},
+  "cli": {
+    "packageManager": "npm",
+    "schematicCollections": ["angular-eslint"]
+  },
   "schematics": {
     "@schematics/angular:component": {
       "type": "component"
