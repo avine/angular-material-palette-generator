@@ -1,0 +1,12 @@
+{
+  "name": "palette-matching",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node palette-matching.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "typescript": "^6.0.3"
+  }
+}
