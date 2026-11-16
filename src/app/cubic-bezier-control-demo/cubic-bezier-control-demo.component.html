@@ -5,6 +5,11 @@
   <button matButton (click)="toggleLarge()">Medium / Large</button>
 </div>
 
-<pg-cubic-bezier-control [disabled]="disabled()" [(params)]="params" [canvasSize]="large() ? 300 : 200" />
+<pg-cubic-bezier-control
+  [disabled]="disabled()"
+  [(params)]="params"
+  [canvasSize]="large() ? 300 : 200"
+  [refreshColorsOn]="theme()"
+/>
 
 <pre>{{ paramsStringified() }}</pre>

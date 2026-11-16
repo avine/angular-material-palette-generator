@@ -18,7 +18,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { CubicBezierControlColorsComponent } from '../cubic-bezier-control-colors/cubic-bezier-control-colors.component';
 import { cubicBezierFactory } from '../cubic-bezier/cubic-bezier';
 import { CubicBezierParams } from '../cubic-bezier/cubic-bezier.types';
-import { PALETTE_FORM_CONTROL_SIZE_DEFAULT } from '../palette-gen.config';
 import { CubicBezierControlDirectionDirective } from './cubic-bezier-control-direction.directive';
 import { CubicBezierControlRippleDirective } from './cubic-bezier-control-ripple.directive';
 import { CubicBezierControlColors, CubicBezierControlDirection } from './cubic-bezier-control.types';
@@ -63,7 +62,10 @@ export class CubicBezierControlComponent implements ControlValueAccessor {
     return ctx ? new CanvasHandler(ctx, this.canvasSize(), this.colorMap()) : undefined;
   });
 
-  canvasSize = input(PALETTE_FORM_CONTROL_SIZE_DEFAULT);
+  canvasSize = input(260);
+
+  /** Trigger signal: whenever its value changes, the Material colors are read again (e.g. on theme change). */
+  refreshColorsOn = input<unknown>();
 
   private p1 = viewChild.required<ElementRef<HTMLElement>>('p1');
 
@@ -71,7 +73,7 @@ export class CubicBezierControlComponent implements ControlValueAccessor {
 
   disabled = model(false);
 
-  skipNextPointsUpdate = false;
+  private skipNextPointsUpdate = false;
 
   private cdkDrags = viewChildren(CdkDrag);
 

@@ -36,4 +36,8 @@
   </button>
 </div>
 
-<pg-cubic-bezier-control-colors [cssVarConfig]="cssVarConfig" (colorMapChange)="colorMap.set($event)" />
+<pg-cubic-bezier-control-colors
+  [cssVarConfig]="cssVarConfig"
+  [refreshOn]="refreshColorsOn()"
+  (colorMapChange)="colorMap.set($event)"
+/>

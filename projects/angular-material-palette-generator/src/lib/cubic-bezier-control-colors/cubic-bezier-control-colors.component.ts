@@ -15,6 +15,9 @@ import { CubicBezierControlColorsDirective } from './cubic-bezier-control-colors
 export class CubicBezierControlColorsComponent<T extends string> {
   cssVarConfig = input.required<Record<T, string>>();
 
+  /** Trigger signal: whenever its value changes, the colors are read again (e.g. on theme change). */
+  refreshOn = input<unknown>();
+
   protected cssVarNames = computed(() => Object.values(this.cssVarConfig()) as string[]);
 
   protected cssVarItems = viewChildren(CubicBezierControlColorsDirective);

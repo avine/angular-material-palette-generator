@@ -1,5 +1,4 @@
 import { afterRenderEffect, Directive, ElementRef, inject, input, signal } from '@angular/core';
-import { PaletteGenService } from '../palette-gen.service';
 
 @Directive({
   selector: '[pgCubicBezierControlColors]',
@@ -10,15 +9,16 @@ import { PaletteGenService } from '../palette-gen.service';
 export class CubicBezierControlColorsDirective {
   private host: HTMLElement = inject(ElementRef).nativeElement;
 
-  private service = inject(PaletteGenService);
-
   cssVarName = input.required<string>({ alias: 'pgCubicBezierControlColors' });
+
+  /** Trigger signal: whenever its value changes, the color is read again (e.g. on theme change). */
+  refreshOn = input<unknown>();
 
   public rgbColor = signal<string | undefined>(undefined); // Part of the public directive API
 
   constructor() {
     afterRenderEffect(() => {
-      this.service.refreshCanvas?.();
+      this.refreshOn();
       this.cssVarName();
 
       const rgbColor = this.host.computedStyleMap().get('color')?.toString();

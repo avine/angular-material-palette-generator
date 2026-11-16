@@ -8,10 +8,6 @@ import { buildPaletteGenData, buildSassFileStringified } from './palette-gen.uti
 import { PaletteMode, PaletteName } from './palette-matching/palette-matching.types';
 import { PALETTE_MODES, PALETTE_NAMES } from './palette-matching/palette-matching.utils';
 
-// TODO: need to refactor this service...
-
-// TODO: add a global import...
-
 @Injectable({
   providedIn: 'root',
 })
@@ -58,12 +54,6 @@ export class PaletteGenService {
   }
 
   controlSize = signal(PALETTE_FORM_CONTROL_SIZE_DEFAULT);
-
-  refreshCanvas?: Signal<unknown>;
-
-  refreshCanvasOn(trigger: Signal<unknown>) {
-    this.refreshCanvas = trigger;
-  }
 
   constructor() {
     this.restoreFormValueMap();

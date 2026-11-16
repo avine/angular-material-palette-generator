@@ -1,6 +1,7 @@
-import { Component, computed, signal, ViewEncapsulation } from '@angular/core';
+import { Component, computed, inject, signal, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CubicBezierControlComponent, CubicBezierParams } from 'angular-material-palette-generator';
+import { ThemeService } from '../shared/theme';
 
 @Component({
   selector: 'app-cubic-bezier-control-demo',
@@ -11,6 +12,8 @@ import { CubicBezierControlComponent, CubicBezierParams } from 'angular-material
   encapsulation: ViewEncapsulation.None,
 })
 export default class CubicBezierControlDemoComponent {
+  protected theme = inject(ThemeService).theme;
+
   disabled = signal(false);
   toggleDisabled() {
     this.disabled.update((d) => !d);
