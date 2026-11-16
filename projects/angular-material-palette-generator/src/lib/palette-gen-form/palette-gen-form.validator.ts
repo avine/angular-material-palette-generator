@@ -8,6 +8,15 @@ export const HEX_COLOR_ERROR_KEY = 'hexColor';
 export const hexColorValidator = (control: AbstractControl): ValidationErrors | null =>
   (control.value as string | null | undefined)?.match(HEX_COLOR_REGEXP) ? null : { [HEX_COLOR_ERROR_KEY]: true };
 
+/** Normalize a valid hex color to its 6-digit lowercase form with `#` (e.g. `36C` -> `#3366cc`), or return it as is. */
+export const normalizeHexColor = (color: string): string => {
+  const digits = HEX_COLOR_REGEXP.exec(color)?.[1]?.toLowerCase();
+  if (!digits) {
+    return color;
+  }
+  return '#' + (digits.length === 3 ? [...digits].map((digit) => digit + digit).join('') : digits);
+};
+
 export const TONE_ERROR_KEY = 'tone';
 
 /**
