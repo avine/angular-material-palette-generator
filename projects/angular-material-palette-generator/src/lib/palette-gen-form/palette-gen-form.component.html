@@ -14,7 +14,12 @@
     <div class="pg-palette-gen-form__anchor">
       <mat-form-field appearance="outline" class="pg-palette-gen-form__color">
         <mat-label>Color</mat-label>
-        <input [formControl]="anchor.controls.color" matInput placeholder="#666666" />
+        <input
+          [formControl]="anchor.controls.color"
+          matInput
+          placeholder="#666666"
+          (blur)="normalizeColor(anchorIndex)"
+        />
         <mat-error>Invalid</mat-error>
       </mat-form-field>
 

@@ -22,6 +22,7 @@ import {
   paletteGenFormValuesEqual,
   setPaletteGenFormValue,
 } from './palette-gen-form.utils';
+import { normalizeHexColor } from './palette-gen-form.validator';
 
 @Component({
   selector: 'pg-palette-gen-form',
@@ -65,6 +66,14 @@ export class PaletteGenFormComponent {
 
   protected addAnchor() {
     addPaletteGenFormAnchor(this.form);
+  }
+
+  protected normalizeColor(index: number) {
+    const { color } = this.form.controls.anchors.at(index).controls;
+    const normalized = normalizeHexColor(color.value);
+    if (normalized !== color.value) {
+      color.setValue(normalized);
+    }
   }
 
   protected removeAnchor(index: number) {
