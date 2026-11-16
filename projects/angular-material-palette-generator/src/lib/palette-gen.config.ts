@@ -1,7 +1,7 @@
 import { PaletteGenFormValue } from './palette-gen-form/palette-gen-form.types';
 import { PaletteName } from './palette-matching/palette-matching.types';
 
-export const PALETTE_FORM_CONTROL_SIZE_DEFAULT = 280;
+export const PALETTE_FORM_CONTROL_SIZE_DEFAULT = 260;
 
 export const MATERIAL_PALETTE_PERCENTAGES_MAP = {
   // Works for Material `primary`, `secondary`, `tertiary`, `neutral-variant` and `error` palettes
