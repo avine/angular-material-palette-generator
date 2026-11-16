@@ -14,7 +14,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { PreferBlackForgroundColorPipe } from '../constrast-ratio/prefer-black-forground-color.pipe';
 import { WcagContrastRatioCompliancePipe } from '../constrast-ratio/wcag-contrast-ratio-compliance.pipe';
 import { PaletteGenFormValue } from '../palette-gen-form/palette-gen-form.types';
-import { PaletteGenData } from '../palette-gen.types';
+import { PaletteGenData, PaletteGenDataListItem } from '../palette-gen.types';
 import { buildPaletteGenData, buildSassMapStringified } from '../palette-gen.utils';
 import { PaletteMatchingConfig } from '../palette-matching/pipes/palette-matching-config.types';
 import { PaletteMatchingPercentageToTokensPipe } from '../palette-matching/pipes/palette-matching-percentage-to-tokens.pipe';
@@ -44,6 +44,9 @@ export class PaletteGenPreviewComponent {
   formValue = input<PaletteGenFormValue>();
 
   action = output<void>();
+
+  /** Emitted when the user pins (or unpins) the color of a tone. */
+  anchorToggle = output<PaletteGenDataListItem>();
 
   compact = input(false);
 

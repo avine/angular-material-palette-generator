@@ -1,9 +1,11 @@
 import { PaletteGenFormValue } from './palette-gen-form.types';
 import {
+  formatPaletteIssue,
   getPaletteGenForm,
   paletteGenFormValuesEqual,
   parsePaletteGenFormValue,
   setPaletteGenFormValue,
+  togglePaletteGenFormAnchor,
   validatePaletteGenFormValue,
 } from './palette-gen-form.utils';
 
@@ -70,5 +72,45 @@ describe('paletteGenFormValuesEqual', () => {
     expect(
       paletteGenFormValuesEqual(VALUE, { ...VALUE, anchors: [VALUE.anchors[0], { color: '#3366cc', tone: 30 }] }),
     ).toBe(false);
+  });
+});
+
+describe('togglePaletteGenFormAnchor', () => {
+  it('should pin a color at a tone, sorted by tone after the key color', () => {
+    const value = togglePaletteGenFormAnchor(VALUE, 30, '#254d9e');
+
+    expect(value.anchors).toEqual([
+      { color: '#005cbb', tone: null },
+      { color: '#254d9e', tone: 30 },
+      { color: '#3366cc', tone: 40 },
+    ]);
+  });
+
+  it('should unpin the color pinned at a tone', () => {
+    expect(togglePaletteGenFormAnchor(VALUE, 40, '#3366cc').anchors).toEqual([{ color: '#005cbb', tone: null }]);
+  });
+
+  it('should not unpin the last anchor', () => {
+    const value: PaletteGenFormValue = { anchors: [{ color: '#3366cc', tone: 40 }], neutral: false };
+
+    expect(togglePaletteGenFormAnchor(value, 40, '#3366cc')).toBe(value);
+  });
+
+  it('should not mutate the form value', () => {
+    const value = structuredClone(VALUE);
+    togglePaletteGenFormAnchor(value, 30, '#254d9e');
+
+    expect(value).toEqual(VALUE);
+  });
+});
+
+describe('formatPaletteIssue', () => {
+  it('should format issues', () => {
+    expect(formatPaletteIssue({ type: 'duplicate-tone', tone: 40 })).toBe('Several colors are pinned at tone 40.');
+    expect(formatPaletteIssue({ type: 'tone-out-of-range', tone: 120 })).toBe('Tone 120 is out of range (0-100).');
+    expect(formatPaletteIssue({ type: 'lightness-order', tones: [30, 45.04] })).toBe(
+      'The colors pinned at tones 30 and 45.0 are not ordered by lightness.',
+    );
+    expect(formatPaletteIssue({ type: 'non-monotonic', tone: 35 })).toBe('The lightness decreases at tone 35.');
   });
 });

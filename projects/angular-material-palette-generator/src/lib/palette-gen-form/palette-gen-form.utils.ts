@@ -1,4 +1,5 @@
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { PaletteIssue } from '../palette-gen-engine/palette-gen-engine.types';
 import { PaletteGenFormAnchor, PaletteGenFormValue } from './palette-gen-form.types';
 import { hexColorValidator, toneValidator } from './palette-gen-form.validator';
 
@@ -16,6 +17,9 @@ export const getPaletteGenForm = () =>
   });
 
 export type PaletteGenForm = ReturnType<typeof getPaletteGenForm>;
+
+/** Add an empty anchor (the form stays invalid until its color is set). */
+export const addPaletteGenFormAnchor = (form: PaletteGenForm) => form.controls.anchors.push(getPaletteGenAnchorForm());
 
 /**
  * Set the value of the form, adding or removing anchor controls as needed.
@@ -60,3 +64,40 @@ export const paletteGenFormValuesEqual = (a: PaletteGenFormValue, b: PaletteGenF
   a.neutral === b.neutral &&
   a.anchors.length === b.anchors.length &&
   a.anchors.every((anchor, i) => paletteGenFormAnchorsEqual(anchor, b.anchors[i]));
+
+/** Sort anchors: anchors pinned at their own tone first, then anchors pinned at a tone, by tone. */
+const sortPaletteGenFormAnchors = (anchors: PaletteGenFormAnchor[]) =>
+  [...anchors].sort((a, b) => (a.tone ?? -1) - (b.tone ?? -1));
+
+/**
+ * Pin the color at the given tone or, if a color is already pinned at this tone, unpin it.
+ * The last anchor of the palette can not be unpinned.
+ */
+export const togglePaletteGenFormAnchor = (
+  formValue: PaletteGenFormValue,
+  tone: number,
+  color: string,
+): PaletteGenFormValue => {
+  const anchors = formValue.anchors.filter((anchor) => anchor.tone !== tone);
+
+  if (anchors.length === formValue.anchors.length) {
+    return { ...formValue, anchors: sortPaletteGenFormAnchors([...anchors, { color, tone }]) };
+  }
+  return anchors.length === 0 ? formValue : { ...formValue, anchors };
+};
+
+/** Tones of anchors pinned at their own tone are not integers. */
+const formatTone = (tone: number) => (Number.isInteger(tone) ? `${tone}` : tone.toFixed(1));
+
+export const formatPaletteIssue = (issue: PaletteIssue): string => {
+  switch (issue.type) {
+    case 'duplicate-tone':
+      return `Several colors are pinned at tone ${issue.tone}.`;
+    case 'tone-out-of-range':
+      return `Tone ${issue.tone} is out of range (0-100).`;
+    case 'lightness-order':
+      return `The colors pinned at tones ${issue.tones.map(formatTone).join(' and ')} are not ordered by lightness.`;
+    case 'non-monotonic':
+      return `The lightness decreases at tone ${issue.tone}.`;
+  }
+};

@@ -36,4 +36,15 @@ $gap: 1.5rem;
   &__tone {
     flex: 0 0 5.5rem;
   }
+
+  &__remove {
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+  }
+
+  &__issues {
+    margin: 0;
+    padding-left: 1.25rem;
+    color: var(--mat-sys-error);
+  }
 }
