@@ -28,6 +28,19 @@
         <mat-label>Tone</mat-label>
         <mat-select [formControl]="anchor.controls.tone" placeholder="Auto">
           <mat-option [value]="null">Auto</mat-option>
+
+          <!-- Display the current tone of the anchor even if it is no longer a tone of the palette -->
+          @let unavailableTone = unavailableTones()[anchorIndex];
+          @if (unavailableTone !== null) {
+            <mat-option
+              class="pg-palette-gen-form__unavailable-tone"
+              [value]="unavailableTone"
+              disabled
+              [attr.aria-label]="unavailableTone + ' (not in palette)'"
+            >
+              {{ unavailableTone }}
+            </mat-option>
+          }
           @for (tone of tones(); track tone) {
             <mat-option [value]="tone" [disabled]="tone !== anchorTones()[anchorIndex] && anchorTones().includes(tone)">
               {{ tone }}
