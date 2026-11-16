@@ -4,7 +4,7 @@ import { parsePaletteGenFormValue, validatePaletteGenFormValue } from './palette
 import { PaletteGenFormValueSnapshot } from './palette-gen-snapshots/palette-gen-snapshots.types';
 import { FORM_VALUE_MAP_DEFAULT, PALETTE_FORM_CONTROL_SIZE_DEFAULT } from './palette-gen.config';
 import { PaletteGenData, PaletteGenState } from './palette-gen.types';
-import { buildPaletteGenData, buildSassMapStringified } from './palette-gen.utils';
+import { buildPaletteGenData, buildSassFileStringified } from './palette-gen.utils';
 import { PaletteMode, PaletteName } from './palette-matching/palette-matching.types';
 import { PALETTE_MODES, PALETTE_NAMES } from './palette-matching/palette-matching.utils';
 
@@ -76,15 +76,14 @@ export class PaletteGenService {
     effect(() => this.storeFormValueSnapshotsMap());
   }
 
-  sassMapsToClipboard() {
-    const text = Object.entries(this.dataMap)
-      .map(([paletteName, data]) => {
-        const paletteMap = buildSassMapStringified(this.formValueMap[paletteName as PaletteName](), data().list);
-        return `${paletteName}: (\n${paletteMap}),`;
-      })
-      .join('\n');
+  sassFileToClipboard() {
+    const formValueMap = Object.fromEntries(
+      PALETTE_NAMES.map((paletteName) => [paletteName, this.formValueMap[paletteName]()]),
+    ) as Record<PaletteName, PaletteGenFormValue>;
 
-    this.document.defaultView?.navigator.clipboard?.writeText(text);
+    this.document.defaultView?.navigator.clipboard?.writeText(
+      buildSassFileStringified(formValueMap, this.paletteMode()),
+    );
   }
 
   // ----- FormValueMap storage -----
