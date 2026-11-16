@@ -45,12 +45,32 @@ describe('validatePaletteGenFormValue', () => {
     ['an invalid color', { anchors: [{ color: 'foo', tone: null }], neutral: false }],
     ['a tone out of range', { anchors: [{ color: '#005cbb', tone: 120 }], neutral: false }],
     ['a decimal tone', { anchors: [{ color: '#005cbb', tone: 40.5 }], neutral: false }],
+    ['a tone that is not a tone of the palette', { anchors: [{ color: '#005cbb', tone: 52 }], neutral: false }],
+    ['a tone of the neutral palette only', { anchors: [{ color: '#005cbb', tone: 12 }], neutral: false }],
     ['a missing key', { anchors: [{ color: '#005cbb' }], neutral: false }],
     ['an unknown key', { anchors: [{ color: '#005cbb', tone: null }], neutral: false, reverse: false }],
     ['the previous cubic-bezier format', { color: '#005cbb', start: 0, end: 100, params: {}, neutral: false }],
     ['null', null],
   ])('should reject %s', (_, value) => {
     expect(validatePaletteGenFormValue(value)).toBeNull();
+  });
+});
+
+describe('tone validation', () => {
+  it('should accept the tones of the palette', () => {
+    expect(validatePaletteGenFormValue({ anchors: [{ color: '#5e5e62', tone: 12 }], neutral: true })).not.toBeNull();
+  });
+
+  it('should revalidate the tones when the palette becomes (or stops being) neutral', () => {
+    const form = getPaletteGenForm();
+    setPaletteGenFormValue(form, { anchors: [{ color: '#5e5e62', tone: 12 }], neutral: true });
+    expect(form.valid).toBe(true);
+
+    form.controls.neutral.setValue(false);
+    expect(form.controls.anchors.at(0).controls.tone.valid).toBe(false);
+
+    form.controls.neutral.setValue(true);
+    expect(form.valid).toBe(true);
   });
 });
 

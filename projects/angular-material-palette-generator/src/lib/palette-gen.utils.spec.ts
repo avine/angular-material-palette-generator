@@ -1,12 +1,11 @@
 import { PaletteGenFormValue } from './palette-gen-form/palette-gen-form.types';
 import { importTypedFormValue } from './palette-gen-import/palette-gen-import.utils';
-import { FORM_VALUE_MAP_DEFAULT, MATERIAL_PALETTE_PERCENTAGES_MAP } from './palette-gen.config';
 import {
-  buildPaletteGenData,
   buildPaletteGenFormValue,
-  buildSassFileStringified,
-  buildSassMapStringified,
-} from './palette-gen.utils';
+  FORM_VALUE_MAP_DEFAULT,
+  MATERIAL_PALETTE_PERCENTAGES_MAP,
+} from './palette-gen.config';
+import { buildPaletteGenData, buildSassFileStringified, buildSassMapStringified } from './palette-gen.utils';
 import { PaletteName } from './palette-matching/palette-matching.types';
 
 describe('buildPaletteGenFormValue', () => {

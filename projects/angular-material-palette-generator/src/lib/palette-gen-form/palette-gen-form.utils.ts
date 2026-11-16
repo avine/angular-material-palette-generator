@@ -1,20 +1,28 @@
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PaletteIssue } from '../palette-gen-engine/palette-gen-engine.types';
 import { PaletteGenFormAnchor, PaletteGenFormValue } from './palette-gen-form.types';
-import { hexColorValidator, toneValidator } from './palette-gen-form.validator';
+import { hexColorValidator, paletteToneValidator } from './palette-gen-form.validator';
 
 const getPaletteGenAnchorForm = () =>
   new FormGroup({
     color: new FormControl('', { nonNullable: true, validators: [Validators.required, hexColorValidator] }),
-    tone: new FormControl<number | null>(null, { validators: [toneValidator] }),
+    tone: new FormControl<number | null>(null, { validators: [paletteToneValidator] }),
   });
 
-export const getPaletteGenForm = () =>
-  new FormGroup({
+export const getPaletteGenForm = () => {
+  const form = new FormGroup({
     // Note: `Validators.minLength` ignores empty arrays, while `Validators.required` rejects them
     anchors: new FormArray([getPaletteGenAnchorForm()], { validators: [Validators.required] }),
     neutral: new FormControl(false, { nonNullable: true }),
   });
+
+  // The available tones depend on the `neutral` control
+  form.controls.neutral.valueChanges.subscribe(() =>
+    form.controls.anchors.controls.forEach(({ controls }) => controls.tone.updateValueAndValidity()),
+  );
+
+  return form;
+};
 
 export type PaletteGenForm = ReturnType<typeof getPaletteGenForm>;
 

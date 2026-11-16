@@ -67,8 +67,8 @@ The computation uses the OKLCH color space, but exported colors are hex colors.
 ## Usage
 
 - **Pin a color**: click the pin icon next to a tone to pin its current color, then edit the color in the form. Click
-  the pin icon again to unpin it. You can also add or remove colors in the form, and set their tone (leave the tone
-  empty to pin a color at its own tone).
+  the pin icon again to unpin it. You can also add or remove colors in the form, and choose their tone among the
+  tones of the palette (or "Auto" to pin a color at its own tone).
 - **Inspect a color**: hover (or focus) the hex color of a tone to display its tone, saturation and hue.
 - **Fix the issues**: the form lists the problems of the palette, for example two colors pinned at the same tone, or
   colors whose lightness is not in the same order as their tones.

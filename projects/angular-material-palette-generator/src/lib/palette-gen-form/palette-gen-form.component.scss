@@ -34,7 +34,7 @@ $gap: 1.5rem;
   }
 
   &__tone {
-    flex: 0 0 5.5rem;
+    flex: 0 0 6.5rem;
   }
 
   &__remove {
@@ -43,8 +43,20 @@ $gap: 1.5rem;
   }
 
   &__issues {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.75rem;
+    border-radius: var(--mat-sys-corner-small);
+    background-color: var(--mat-sys-error-container);
+    color: var(--mat-sys-on-error-container);
+  }
+
+  &__issues-title {
+    margin: 0 0 0.25rem;
+  }
+
+  &__issues-list {
     margin: 0;
     padding-left: 1.25rem;
-    color: var(--mat-sys-error);
   }
 }

@@ -1,4 +1,5 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { getPaletteTones } from '../palette-gen.config';
 
 export const HEX_COLOR_REGEXP = /^#?([0-9abcdef]{3}|[0-9abcdef]{6})$/i;
 
@@ -9,10 +10,12 @@ export const hexColorValidator = (control: AbstractControl): ValidationErrors | 
 
 export const TONE_ERROR_KEY = 'tone';
 
-/** Accept `null` (tone not set) or an integer between 0 and 100. */
-export const toneValidator = (control: AbstractControl): ValidationErrors | null => {
-  const value = control.value as unknown;
-  return value === null || (Number.isInteger(value) && (value as number) >= 0 && (value as number) <= 100)
-    ? null
-    : { [TONE_ERROR_KEY]: true };
+/**
+ * Accept `null` (color pinned at its own tone) or one of the tones of the palette.
+ * The tones depend on the `neutral` control of the root form, which must revalidate this control when it changes.
+ */
+export const paletteToneValidator = (control: AbstractControl): ValidationErrors | null => {
+  const tone = control.value as number | null;
+  const neutral = control.root.get('neutral')?.value === true;
+  return tone === null || getPaletteTones(neutral).includes(tone) ? null : { [TONE_ERROR_KEY]: true };
 };
