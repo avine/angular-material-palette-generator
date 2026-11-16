@@ -1,15 +1,9 @@
 import { buildPalette } from './palette-gen-engine/palette-gen-engine';
 import { PaletteGenFormValue } from './palette-gen-form/palette-gen-form.types';
-import { MATERIAL_PALETTE_PERCENTAGES_MAP } from './palette-gen.config';
+import { getPaletteTones } from './palette-gen.config';
 import { PaletteGenData, PaletteGenDataListItem } from './palette-gen.types';
 import { PaletteMode, PaletteName } from './palette-matching/palette-matching.types';
 import { PALETTE_NAMES } from './palette-matching/palette-matching.utils';
-
-/** Form value of a palette going through a key color, pinned at its own tone. */
-export const buildPaletteGenFormValue = (color: string, neutral = false): PaletteGenFormValue => ({
-  anchors: [{ color, tone: null }],
-  neutral,
-});
 
 const normalizeHexColor = (color: string) => (color.startsWith('#') ? color : `#${color}`);
 
@@ -21,7 +15,7 @@ export const buildPaletteGenData = (formValue: PaletteGenFormValue | undefined):
 
   const { tones, issues } = buildPalette(
     anchors.map(({ color, tone }) => ({ color: normalizeHexColor(color), tone: tone ?? undefined })),
-    MATERIAL_PALETTE_PERCENTAGES_MAP[neutral ? 'neutral' : 'default'],
+    getPaletteTones(neutral),
   );
 
   const list = tones.map(({ tone, color, anchored }) => ({ percentage: tone, color, anchored }));

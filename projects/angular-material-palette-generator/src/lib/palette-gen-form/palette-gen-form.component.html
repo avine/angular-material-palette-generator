@@ -10,7 +10,7 @@
 }
 
 <form [formGroup]="form" class="pg-palette-gen-form__form">
-  @for (anchor of form.controls.anchors.controls; track $index) {
+  @for (anchor of form.controls.anchors.controls; track $index; let anchorIndex = $index) {
     <div class="pg-palette-gen-form__anchor">
       <mat-form-field appearance="outline" class="pg-palette-gen-form__color">
         <mat-label>Color</mat-label>
@@ -18,9 +18,17 @@
         <mat-error>Invalid</mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="pg-palette-gen-form__tone">
+      <!-- Note: `mat-select` displays no option for the `null` value, hence the "Auto" placeholder -->
+      <mat-form-field appearance="outline" floatLabel="always" class="pg-palette-gen-form__tone">
         <mat-label>Tone</mat-label>
-        <input [formControl]="anchor.controls.tone" matInput type="number" min="0" max="100" placeholder="Auto" />
+        <mat-select [formControl]="anchor.controls.tone" placeholder="Auto">
+          <mat-option [value]="null">Auto</mat-option>
+          @for (tone of tones(); track tone) {
+            <mat-option [value]="tone" [disabled]="tone !== anchorTones()[anchorIndex] && anchorTones().includes(tone)">
+              {{ tone }}
+            </mat-option>
+          }
+        </mat-select>
         <mat-error>Invalid</mat-error>
       </mat-form-field>
 
@@ -31,7 +39,7 @@
         [disabled]="form.controls.anchors.length === 1"
         aria-label="Remove color"
         matTooltip="Remove color"
-        (click)="removeAnchor($index)"
+        (click)="removeAnchor(anchorIndex)"
       >
         <mat-icon>close</mat-icon>
       </button>
