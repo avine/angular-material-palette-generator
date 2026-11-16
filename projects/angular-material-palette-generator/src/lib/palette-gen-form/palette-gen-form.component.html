@@ -52,11 +52,14 @@
   </button>
 
   @if (issues().length) {
-    <ul class="pg-palette-gen-form__issues gbl-body-small" role="alert">
-      @for (issue of issues(); track $index) {
-        <li>{{ issue }}</li>
-      }
-    </ul>
+    <div class="pg-palette-gen-form__issues" role="alert">
+      <p class="pg-palette-gen-form__issues-title gbl-title-small">Palette issues</p>
+      <ul class="pg-palette-gen-form__issues-list gbl-body-small">
+        @for (issue of issues(); track $index) {
+          <li>{{ issue }}</li>
+        }
+      </ul>
+    </div>
   }
 
   <mat-checkbox [formControl]="form.controls.neutral">Neutral</mat-checkbox>
