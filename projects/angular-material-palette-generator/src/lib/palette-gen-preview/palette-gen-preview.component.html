@@ -7,7 +7,14 @@
   >
     <div class="pg-palette-gen-preview__info">
       <span class="pg-palette-gen-preview__percent">{{ listItem.percentage }}:</span>
-      {{ listItem.color }}
+      <span
+        class="pg-palette-gen-preview__color"
+        tabindex="0"
+        [matTooltip]="listItem.color | colorDetails"
+        matTooltipPosition="above"
+        matTooltipClass="pg-palette-gen-preview__tooltip"
+        >{{ listItem.color }}</span
+      >
 
       @if (!mirrorView()) {
         @let pinLabel = (listItem.anchored ? 'Unpin color at tone ' : 'Pin color at tone ') + listItem.percentage;

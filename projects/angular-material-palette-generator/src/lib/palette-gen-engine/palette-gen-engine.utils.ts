@@ -151,3 +151,10 @@ export const toHex = (color: string | Oklch): string =>
     format: 'hex',
     collapse: false,
   });
+
+/** Describe a color with the values used by the engine, e.g. `L* 79.9 · Saturation 92% · Hue 27°`. */
+export const formatColorDetails = (color: string): string => {
+  const oklch = getOklch(color);
+  const hue = Number.isNaN(oklch[2]) ? '-' : `${Math.round(normalizeHue(oklch[2]))}°`;
+  return `L* ${getTone(color).toFixed(1)} · Saturation ${Math.round(getRelativeChroma(oklch) * 100)}% · Hue ${hue}`;
+};

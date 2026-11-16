@@ -19,6 +19,7 @@ import { buildPaletteGenData, buildSassMapStringified } from '../palette-gen.uti
 import { PaletteMatchingConfig } from '../palette-matching/pipes/palette-matching-config.types';
 import { PaletteMatchingPercentageToTokensPipe } from '../palette-matching/pipes/palette-matching-percentage-to-tokens.pipe';
 import { PaletteMatchingTokensToMirrorColorPipe } from '../palette-matching/pipes/palette-matching-tokens-to-mirror-color.pipe';
+import { ColorDetailsPipe } from './color-details.pipe';
 
 @Component({
   selector: 'pg-palette-gen-preview',
@@ -31,6 +32,7 @@ import { PaletteMatchingTokensToMirrorColorPipe } from '../palette-matching/pipe
     PaletteMatchingTokensToMirrorColorPipe,
     PreferBlackForgroundColorPipe,
     WcagContrastRatioCompliancePipe,
+    ColorDetailsPipe,
   ],
   templateUrl: './palette-gen-preview.component.html',
   styleUrl: './palette-gen-preview.component.scss',

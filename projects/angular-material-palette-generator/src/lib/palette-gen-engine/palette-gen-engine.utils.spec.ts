@@ -1,5 +1,6 @@
 import { ColorSpace, inGamut, OKLCH, sRGB } from 'colorjs.io/fn';
 import {
+  formatColorDetails,
   getMaxChroma,
   getOklch,
   getRelativeChroma,
@@ -165,5 +166,15 @@ describe('colors', () => {
     expect(toHex('#abc')).toBe('#aabbcc');
     expect(toHex('#ABCDEF')).toBe('#abcdef');
     expect(toHex([0, 0, 0])).toBe('#000000');
+  });
+});
+
+describe('formatColorDetails', () => {
+  it('should describe a color with its tone, relative chroma and hue', () => {
+    expect(formatColorDetails('#fbb5ac')).toBe('L* 79.9 · Saturation 92% · Hue 27°');
+  });
+
+  it('should not display a hue for achromatic colors', () => {
+    expect(formatColorDetails('#808080')).toBe('L* 53.6 · Saturation 0% · Hue -');
   });
 });

@@ -25,6 +25,21 @@
     font-style: normal;
   }
 
+  &__color {
+    margin-left: 1ch;
+    border-radius: 0.25rem;
+
+    &:focus-visible {
+      outline: 2px solid var(--mat-sys-primary);
+      outline-offset: 2px;
+    }
+  }
+
+  &__tooltip .mat-mdc-tooltip-surface {
+    max-width: none;
+    white-space: nowrap;
+  }
+
   &__pin {
     --mat-icon-button-state-layer-size: 1.75rem;
     --mat-icon-button-icon-size: 1.125rem;
