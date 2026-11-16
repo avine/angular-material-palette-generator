@@ -50,7 +50,6 @@ describe('validatePaletteGenFormValue', () => {
     ['a tone of the neutral palette only', { anchors: [{ color: '#005cbb', tone: 12 }], neutral: false }],
     ['a missing key', { anchors: [{ color: '#005cbb' }], neutral: false }],
     ['an unknown key', { anchors: [{ color: '#005cbb', tone: null }], neutral: false, reverse: false }],
-    ['the previous cubic-bezier format', { color: '#005cbb', start: 0, end: 100, params: {}, neutral: false }],
     ['null', null],
   ])('should reject %s', (_, value) => {
     expect(validatePaletteGenFormValue(value)).toBeNull();

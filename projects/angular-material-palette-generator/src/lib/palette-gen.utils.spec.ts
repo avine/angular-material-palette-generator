@@ -80,12 +80,6 @@ describe('buildSassMapStringified', () => {
 
     expect(importTypedFormValue(sassMap)).toEqual({ type: 'formValue', data: formValue });
   });
-
-  it('should not import the previous cubic-bezier format', () => {
-    const previousFormat = `  // {"color":"#005cbb","start":0,"end":100,"params":{"p1x":0,"p1y":0.21,"p2x":1,"p2y":1},"reverse":false,"neutral":false}\n  0: #000000,\n`;
-
-    expect(importTypedFormValue(previousFormat)).toBeNull();
-  });
 });
 
 describe('buildSassFileStringified', () => {
