@@ -25,6 +25,55 @@
     font-style: normal;
   }
 
+  &__color {
+    margin-left: 1ch;
+    border-radius: 0.25rem;
+
+    &:focus-visible {
+      outline: 2px solid var(--mat-sys-primary);
+      outline-offset: 2px;
+    }
+  }
+
+  &__tooltip .mat-mdc-tooltip-surface {
+    max-width: none;
+    white-space: nowrap;
+  }
+
+  &__pin {
+    --mat-icon-button-state-layer-size: 1.75rem;
+    --mat-icon-button-icon-size: 1.125rem;
+
+    width: var(--mat-icon-button-state-layer-size) !important;
+    height: var(--mat-icon-button-state-layer-size) !important;
+    padding: 0 !important;
+    margin: -0.25rem 0 -0.25rem 0.25rem;
+    vertical-align: middle;
+    color: var(--mat-sys-on-surface-variant) !important;
+    opacity: 0.4;
+    transition: opacity ease 150ms;
+
+    mat-icon {
+      width: var(--mat-icon-button-icon-size);
+      height: var(--mat-icon-button-icon-size);
+      font-size: var(--mat-icon-button-icon-size);
+    }
+
+    &:hover,
+    &:focus-visible {
+      opacity: 1;
+    }
+
+    &--active {
+      color: var(--mat-sys-primary) !important;
+      opacity: 1;
+
+      mat-icon {
+        font-variation-settings: 'FILL' 1;
+      }
+    }
+  }
+
   &__percent {
     display: inline-block;
     width: 3rem;

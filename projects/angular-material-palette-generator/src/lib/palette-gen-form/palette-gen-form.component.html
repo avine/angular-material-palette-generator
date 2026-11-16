@@ -10,20 +10,75 @@
 }
 
 <form [formGroup]="form" class="pg-palette-gen-form__form">
-  <mat-form-field appearance="outline" class="pg-palette-gen-form__color">
-    <mat-label>Color</mat-label>
-    <input [formControl]="form.controls.color" matInput placeholder="#666666" />
-    <mat-error>Invalid</mat-error>
-  </mat-form-field>
+  @for (anchor of form.controls.anchors.controls; track $index; let anchorIndex = $index) {
+    <div class="pg-palette-gen-form__anchor">
+      <mat-form-field appearance="outline" class="pg-palette-gen-form__color">
+        <mat-label>Color</mat-label>
+        <input
+          [formControl]="anchor.controls.color"
+          matInput
+          placeholder="#666666"
+          (blur)="normalizeColor(anchorIndex)"
+        />
+        <mat-error>Invalid</mat-error>
+      </mat-form-field>
 
-  <mat-slider min="0" max="100" step="1" discrete class="pg-palette-gen-form__range">
-    <input [formControl]="form.controls.start" matSliderStartThumb />
-    <input [formControl]="form.controls.end" matSliderEndThumb />
-  </mat-slider>
+      <!-- Note: `mat-select` displays no option for the `null` value, hence the "Auto" placeholder -->
+      <mat-form-field appearance="outline" floatLabel="always" class="pg-palette-gen-form__tone">
+        <mat-label>Tone</mat-label>
+        <mat-select [formControl]="anchor.controls.tone" placeholder="Auto">
+          <mat-option [value]="null">Auto</mat-option>
 
-  <pg-cubic-bezier-control [formControl]="form.controls.params" [canvasSize]="service.controlSize()" />
+          <!-- Display the current tone of the anchor even if it is no longer a tone of the palette -->
+          @let unavailableTone = unavailableTones()[anchorIndex];
+          @if (unavailableTone !== null) {
+            <mat-option
+              class="pg-palette-gen-form__unavailable-tone"
+              [value]="unavailableTone"
+              disabled
+              [attr.aria-label]="unavailableTone + ' (not in palette)'"
+            >
+              {{ unavailableTone }}
+            </mat-option>
+          }
+          @for (tone of tones(); track tone) {
+            <mat-option [value]="tone" [disabled]="tone !== anchorTones()[anchorIndex] && anchorTones().includes(tone)">
+              {{ tone }}
+            </mat-option>
+          }
+        </mat-select>
+        <mat-error>Invalid</mat-error>
+      </mat-form-field>
 
-  <mat-checkbox [formControl]="form.controls.reverse">Reverse</mat-checkbox>
+      <button
+        class="pg-palette-gen-form__remove"
+        type="button"
+        matIconButton
+        [disabled]="form.controls.anchors.length === 1"
+        aria-label="Remove color"
+        matTooltip="Remove color"
+        (click)="removeAnchor(anchorIndex)"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  }
+
+  <button type="button" matButton (click)="addAnchor()">
+    <mat-icon>add</mat-icon>
+    Add color
+  </button>
+
+  @if (issues().length) {
+    <div class="pg-palette-gen-form__issues" role="alert">
+      <p class="pg-palette-gen-form__issues-title gbl-title-small">Palette issues</p>
+      <ul class="pg-palette-gen-form__issues-list gbl-body-small">
+        @for (issue of issues(); track $index) {
+          <li>{{ issue }}</li>
+        }
+      </ul>
+    </div>
+  }
 
   <mat-checkbox [formControl]="form.controls.neutral">Neutral</mat-checkbox>
 </form>

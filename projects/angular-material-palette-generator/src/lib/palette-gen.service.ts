@@ -1,11 +1,10 @@
-
-import { computed, effect, inject, Injectable, Signal, signal, WritableSignal, DOCUMENT } from '@angular/core';
+import { computed, DOCUMENT, effect, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { PaletteGenFormValue } from './palette-gen-form/palette-gen-form.types';
-import { getPaletteGenForm } from './palette-gen-form/palette-gen-form.utils';
+import { parsePaletteGenFormValue, validatePaletteGenFormValue } from './palette-gen-form/palette-gen-form.utils';
 import { PaletteGenFormValueSnapshot } from './palette-gen-snapshots/palette-gen-snapshots.types';
 import { FORM_VALUE_MAP_DEFAULT, PALETTE_FORM_CONTROL_SIZE_DEFAULT } from './palette-gen.config';
 import { PaletteGenData, PaletteGenState } from './palette-gen.types';
-import { buildPaletteGenData, buildSassMapStringified } from './palette-gen.utils';
+import { buildPaletteGenData, buildSassFileStringified } from './palette-gen.utils';
 import { PaletteMode, PaletteName } from './palette-matching/palette-matching.types';
 import { PALETTE_MODES, PALETTE_NAMES } from './palette-matching/palette-matching.utils';
 
@@ -77,15 +76,14 @@ export class PaletteGenService {
     effect(() => this.storeFormValueSnapshotsMap());
   }
 
-  sassMapsToClipboard() {
-    const text = Object.entries(this.dataMap)
-      .map(([paletteName, data]) => {
-        const paletteMap = buildSassMapStringified(this.formValueMap[paletteName as PaletteName](), data().list);
-        return `${paletteName}: (\n${paletteMap}),`;
-      })
-      .join('\n');
+  sassFileToClipboard() {
+    const formValueMap = Object.fromEntries(
+      PALETTE_NAMES.map((paletteName) => [paletteName, this.formValueMap[paletteName]()]),
+    ) as Record<PaletteName, PaletteGenFormValue>;
 
-    this.document.defaultView?.navigator.clipboard?.writeText(text);
+    this.document.defaultView?.navigator.clipboard?.writeText(
+      buildSassFileStringified(formValueMap, this.paletteMode()),
+    );
   }
 
   // ----- FormValueMap storage -----
@@ -100,10 +98,10 @@ export class PaletteGenService {
     try {
       const formValueMap: Record<PaletteName, PaletteGenFormValue> = JSON.parse(value);
 
-      const form = getPaletteGenForm();
       Object.entries(formValueMap).forEach(([paletteName, formValue]) => {
-        form.setValue(formValue); // Validate each `formValue`
-
+        if (!validatePaletteGenFormValue(formValue)) {
+          throw new Error(`Invalid form value for palette "${paletteName}"`);
+        }
         this.formValueMap[paletteName as PaletteName].set(formValue);
       });
     } catch (err) {
@@ -135,9 +133,10 @@ export class PaletteGenService {
     try {
       const formValueSnapshotsMap: Record<PaletteName, PaletteGenFormValueSnapshot[]> = JSON.parse(value);
 
-      const form = getPaletteGenForm();
       Object.entries(formValueSnapshotsMap).forEach(([paletteName, snapshots]) => {
-        snapshots.forEach((snapshot) => form.setValue(JSON.parse(snapshot.value) as PaletteGenFormValue)); // Validate each `snapshot`
+        if (!snapshots.every((snapshot) => parsePaletteGenFormValue(snapshot.value))) {
+          throw new Error(`Invalid snapshot for palette "${paletteName}"`);
+        }
 
         this.formValueSnapshotsMap[paletteName as PaletteName].set(snapshots);
       });

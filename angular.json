@@ -78,22 +78,8 @@
           },
           "defaultConfiguration": "development"
         },
-        "extract-i18n": {
-          "builder": "@angular/build:extract-i18n"
-        },
         "test": {
-          "builder": "@angular/build:karma",
-          "options": {
-            "tsConfig": "tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
-            "styles": ["src/styles.scss"]
-          }
+          "builder": "@angular/build:unit-test"
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
@@ -130,9 +116,6 @@
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
-          "options": {
-            "project": "projects/angular-material-palette-generator/ng-package.json"
-          },
           "configurations": {
             "production": {
               "tsConfig": "projects/angular-material-palette-generator/tsconfig.lib.prod.json"
@@ -144,10 +127,9 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "tsConfig": "projects/angular-material-palette-generator/tsconfig.spec.json",
-            "polyfills": []
+            "tsConfig": "projects/angular-material-palette-generator/tsconfig.spec.json"
           }
         },
         "lint": {
@@ -164,6 +146,7 @@
     }
   },
   "cli": {
+    "packageManager": "npm",
     "schematicCollections": ["angular-eslint"]
   },
   "schematics": {

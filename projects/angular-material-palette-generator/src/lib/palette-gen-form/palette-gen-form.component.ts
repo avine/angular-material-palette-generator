@@ -1,20 +1,29 @@
 import { TitleCasePipe } from '@angular/common';
-import { booleanAttribute, Component, effect, inject, input, ViewEncapsulation } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { booleanAttribute, Component, computed, effect, inject, input, ViewEncapsulation } from '@angular/core';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSliderModule } from '@angular/material/slider';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { filter, startWith } from 'rxjs';
-import { CubicBezierControlComponent } from '../cubic-bezier-control/cubic-bezier-control.component';
+import { getPaletteTones } from '../palette-gen.config';
 import { PaletteGenService } from '../palette-gen.service';
 import { PaletteName } from '../palette-matching/palette-matching.types';
 import { PALETTE_NAMES } from '../palette-matching/palette-matching.utils';
 import { PaletteGenFormValue } from './palette-gen-form.types';
-import { getPaletteGenForm, paletteGenFormValuesEqual } from './palette-gen-form.utils';
+import {
+  addPaletteGenFormAnchor,
+  formatPaletteIssue,
+  getPaletteGenForm,
+  getUnavailableTone,
+  paletteGenFormValuesEqual,
+  setPaletteGenFormValue,
+} from './palette-gen-form.utils';
+import { normalizeHexColor } from './palette-gen-form.validator';
 
 @Component({
   selector: 'pg-palette-gen-form',
@@ -25,13 +34,13 @@ import { getPaletteGenForm, paletteGenFormValuesEqual } from './palette-gen-form
   imports: [
     TitleCasePipe,
     ReactiveFormsModule,
+    MatButtonModule,
     MatCheckboxModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
     MatSelectModule,
-    MatSliderModule,
-    CubicBezierControlComponent,
+    MatTooltipModule,
   ],
   templateUrl: './palette-gen-form.component.html',
   styleUrl: './palette-gen-form.component.scss',
@@ -45,6 +54,35 @@ export class PaletteGenFormComponent {
   hidePaletteNamesSelector = input(false, { transform: booleanAttribute });
 
   protected form = getPaletteGenForm();
+
+  private formValue = toSignal(this.form.valueChanges.pipe(startWith(this.form.value)), { requireSync: true });
+
+  /** Tones available for the anchors (the tones of the palette). */
+  protected tones = computed(() => getPaletteTones(this.formValue().neutral ?? false));
+
+  /** Tone of each anchor (`null` for anchors pinned at their own tone). */
+  protected anchorTones = computed(() => (this.formValue().anchors ?? []).map((anchor) => anchor?.tone ?? null));
+
+  /** Tone of each anchor that is not one of the tones of the palette (`null` for the other anchors). */
+  protected unavailableTones = computed(() => this.anchorTones().map((tone) => getUnavailableTone(tone, this.tones())));
+
+  protected issues = computed(() => this.service.dataMap[this.service.paletteName()]().issues.map(formatPaletteIssue));
+
+  protected addAnchor() {
+    addPaletteGenFormAnchor(this.form);
+  }
+
+  protected normalizeColor(index: number) {
+    const { color } = this.form.controls.anchors.at(index).controls;
+    const normalized = normalizeHexColor(color.value);
+    if (normalized !== color.value) {
+      color.setValue(normalized);
+    }
+  }
+
+  protected removeAnchor(index: number) {
+    this.form.controls.anchors.removeAt(index);
+  }
 
   constructor() {
     this.handleFormStatusChanges(); // Note: must be executed after `this.restore()`
@@ -67,7 +105,7 @@ export class PaletteGenFormComponent {
     effect(() => {
       const formValue = this.service.formValue()();
       if (formValue && !paletteGenFormValuesEqual(formValue, this.form.value as PaletteGenFormValue)) {
-        this.form.setValue(formValue);
+        setPaletteGenFormValue(this.form, formValue);
         this.form.updateValueAndValidity();
       }
     });

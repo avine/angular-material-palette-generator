@@ -17,13 +17,51 @@ $gap: 1.5rem;
     margin-bottom: $gap;
   }
 
-  &__color {
-    margin: 0 0 -20px 0 !important; // Remove the area of the `<mat-error>`
-    width: 100% !important;
+  &__anchor {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
   }
 
-  &__range {
-    margin: 0 !important; // Remove the `8px` margin
-    width: 100% !important;
+  &__color,
+  &__tone {
+    margin: 0 0 -20px 0 !important; // Remove the area of the `<mat-error>`
+  }
+
+  &__color {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  &__tone {
+    flex: 0 0 6.5rem;
+  }
+
+  // Note: rendered in the overlay of the `mat-select`, outside of the component host
+  &__unavailable-tone {
+    text-decoration: line-through;
+  }
+
+  &__remove {
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+  }
+
+  &__issues {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.75rem;
+    border-radius: var(--mat-sys-corner-small);
+    background-color: var(--mat-sys-error-container);
+    color: var(--mat-sys-on-error-container);
+  }
+
+  &__issues-title {
+    margin: 0 0 0.25rem;
+  }
+
+  &__issues-list {
+    margin: 0;
+    padding-left: 1.25rem;
   }
 }

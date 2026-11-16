@@ -1,17 +1,18 @@
 // @ts-check
 const eslint = require('@eslint/js');
+const { defineConfig } = require('eslint/config');
 const tseslint = require('typescript-eslint');
 const angular = require('angular-eslint');
-const eslintPluginPrettierRecommended = require('eslint-plugin-prettier/recommended');
+const eslintConfigPrettier = require('eslint-config-prettier/flat');
 
-module.exports = tseslint.config(
+module.exports = defineConfig([
   {
     files: ['**/*.ts'],
     extends: [
       eslint.configs.recommended,
-      ...tseslint.configs.recommended,
-      ...tseslint.configs.stylistic,
-      ...angular.configs.tsRecommended,
+      tseslint.configs.recommended,
+      tseslint.configs.stylistic,
+      angular.configs.tsRecommended,
     ],
     processor: angular.processInlineTemplates,
     rules: {
@@ -31,17 +32,15 @@ module.exports = tseslint.config(
           style: 'kebab-case',
         },
       ],
-      // Note: the following rule is an addon (by default, type definitions use `interface`, but we prefer to use `type`)
-      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+      // TODO: evaluate if this should be removed...
+      '@angular-eslint/prefer-on-push-component-change-detection': 'off',
+      '@typescript-eslint/consistent-type-definitions': 'off',
     },
   },
   {
     files: ['**/*.html'],
-    extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
+    extends: [angular.configs.templateRecommended, angular.configs.templateAccessibility],
     rules: {},
   },
-  eslintPluginPrettierRecommended,
-  {
-    rules: { 'prettier/prettier': 'warn' },
-  },
-);
+  eslintConfigPrettier,
+]);
