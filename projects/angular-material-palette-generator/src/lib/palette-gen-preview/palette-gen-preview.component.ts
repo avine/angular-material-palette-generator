@@ -14,11 +14,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { PreferBlackForgroundColorPipe } from '../constrast-ratio/prefer-black-forground-color.pipe';
 import { WcagContrastRatioCompliancePipe } from '../constrast-ratio/wcag-contrast-ratio-compliance.pipe';
 import { PaletteGenFormValue } from '../palette-gen-form/palette-gen-form.types';
-import { PaletteGenData } from '../palette-gen.types';
+import { PaletteGenData, PaletteGenDataListItem } from '../palette-gen.types';
 import { buildPaletteGenData, buildSassMapStringified } from '../palette-gen.utils';
 import { PaletteMatchingConfig } from '../palette-matching/pipes/palette-matching-config.types';
 import { PaletteMatchingPercentageToTokensPipe } from '../palette-matching/pipes/palette-matching-percentage-to-tokens.pipe';
 import { PaletteMatchingTokensToMirrorColorPipe } from '../palette-matching/pipes/palette-matching-tokens-to-mirror-color.pipe';
+import { ColorDetailsPipe } from './color-details.pipe';
 
 @Component({
   selector: 'pg-palette-gen-preview',
@@ -31,6 +32,7 @@ import { PaletteMatchingTokensToMirrorColorPipe } from '../palette-matching/pipe
     PaletteMatchingTokensToMirrorColorPipe,
     PreferBlackForgroundColorPipe,
     WcagContrastRatioCompliancePipe,
+    ColorDetailsPipe,
   ],
   templateUrl: './palette-gen-preview.component.html',
   styleUrl: './palette-gen-preview.component.scss',
@@ -44,6 +46,9 @@ export class PaletteGenPreviewComponent {
   formValue = input<PaletteGenFormValue>();
 
   action = output<void>();
+
+  /** Emitted when the user pins (or unpins) the color of a tone. */
+  anchorToggle = output<PaletteGenDataListItem>();
 
   compact = input(false);
 

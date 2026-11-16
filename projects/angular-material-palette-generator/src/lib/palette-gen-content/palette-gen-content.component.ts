@@ -6,12 +6,14 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PaletteGenFormValue } from '../palette-gen-form/palette-gen-form.types';
+import { togglePaletteGenFormAnchor } from '../palette-gen-form/palette-gen-form.utils';
 import { PaletteGenOverviewComponent } from '../palette-gen-overview/palette-gen-overview.component';
 import { PaletteGenPreviewComponent } from '../palette-gen-preview/palette-gen-preview.component';
 import { PaletteGenRendererDirective } from '../palette-gen-renderer/palette-gen-renderer.directive';
 import { PaletteGenSelectorAfterDirective } from '../palette-gen-selector/palette-gen-selector-after.directive';
 import { PaletteGenSelectorComponent } from '../palette-gen-selector/palette-gen-selector.component';
 import { PaletteGenService } from '../palette-gen.service';
+import { PaletteGenDataListItem } from '../palette-gen.types';
 import { PaletteMatchingConfig } from '../palette-matching/pipes/palette-matching-config.types';
 
 @Component({
@@ -53,6 +55,12 @@ export class PaletteGenContentComponent {
 
   protected unsetMirror() {
     this.formValueMirror.set(undefined);
+  }
+
+  // ----- Anchors -----
+
+  protected toggleAnchor({ percentage, color }: PaletteGenDataListItem) {
+    this.service.formValue().update((formValue) => togglePaletteGenFormAnchor(formValue, percentage, color));
   }
 
   constructor() {

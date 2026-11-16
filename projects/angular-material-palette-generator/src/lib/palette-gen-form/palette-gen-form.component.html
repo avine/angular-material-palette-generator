@@ -10,20 +10,46 @@
 }
 
 <form [formGroup]="form" class="pg-palette-gen-form__form">
-  <mat-form-field appearance="outline" class="pg-palette-gen-form__color">
-    <mat-label>Color</mat-label>
-    <input [formControl]="form.controls.color" matInput placeholder="#666666" />
-    <mat-error>Invalid</mat-error>
-  </mat-form-field>
+  @for (anchor of form.controls.anchors.controls; track $index) {
+    <div class="pg-palette-gen-form__anchor">
+      <mat-form-field appearance="outline" class="pg-palette-gen-form__color">
+        <mat-label>Color</mat-label>
+        <input [formControl]="anchor.controls.color" matInput placeholder="#666666" />
+        <mat-error>Invalid</mat-error>
+      </mat-form-field>
 
-  <mat-slider min="0" max="100" step="1" discrete class="pg-palette-gen-form__range">
-    <input [formControl]="form.controls.start" matSliderStartThumb />
-    <input [formControl]="form.controls.end" matSliderEndThumb />
-  </mat-slider>
+      <mat-form-field appearance="outline" class="pg-palette-gen-form__tone">
+        <mat-label>Tone</mat-label>
+        <input [formControl]="anchor.controls.tone" matInput type="number" min="0" max="100" placeholder="Auto" />
+        <mat-error>Invalid</mat-error>
+      </mat-form-field>
 
-  <pg-cubic-bezier-control [formControl]="form.controls.params" [canvasSize]="service.controlSize()" />
+      <button
+        class="pg-palette-gen-form__remove"
+        type="button"
+        matIconButton
+        [disabled]="form.controls.anchors.length === 1"
+        aria-label="Remove color"
+        matTooltip="Remove color"
+        (click)="removeAnchor($index)"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  }
 
-  <mat-checkbox [formControl]="form.controls.reverse">Reverse</mat-checkbox>
+  <button type="button" matButton (click)="addAnchor()">
+    <mat-icon>add</mat-icon>
+    Add color
+  </button>
+
+  @if (issues().length) {
+    <ul class="pg-palette-gen-form__issues gbl-body-small" role="alert">
+      @for (issue of issues(); track $index) {
+        <li>{{ issue }}</li>
+      }
+    </ul>
+  }
 
   <mat-checkbox [formControl]="form.controls.neutral">Neutral</mat-checkbox>
 </form>

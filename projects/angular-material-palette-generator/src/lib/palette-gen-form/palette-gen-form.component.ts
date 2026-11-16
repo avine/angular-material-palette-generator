@@ -1,20 +1,26 @@
 import { TitleCasePipe } from '@angular/common';
-import { booleanAttribute, Component, effect, inject, input, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, Component, computed, effect, inject, input, ViewEncapsulation } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSliderModule } from '@angular/material/slider';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { filter, startWith } from 'rxjs';
-import { CubicBezierControlComponent } from '../cubic-bezier-control/cubic-bezier-control.component';
 import { PaletteGenService } from '../palette-gen.service';
 import { PaletteName } from '../palette-matching/palette-matching.types';
 import { PALETTE_NAMES } from '../palette-matching/palette-matching.utils';
 import { PaletteGenFormValue } from './palette-gen-form.types';
-import { getPaletteGenForm, paletteGenFormValuesEqual } from './palette-gen-form.utils';
+import {
+  addPaletteGenFormAnchor,
+  formatPaletteIssue,
+  getPaletteGenForm,
+  paletteGenFormValuesEqual,
+  setPaletteGenFormValue,
+} from './palette-gen-form.utils';
 
 @Component({
   selector: 'pg-palette-gen-form',
@@ -25,13 +31,13 @@ import { getPaletteGenForm, paletteGenFormValuesEqual } from './palette-gen-form
   imports: [
     TitleCasePipe,
     ReactiveFormsModule,
+    MatButtonModule,
     MatCheckboxModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
     MatSelectModule,
-    MatSliderModule,
-    CubicBezierControlComponent,
+    MatTooltipModule,
   ],
   templateUrl: './palette-gen-form.component.html',
   styleUrl: './palette-gen-form.component.scss',
@@ -45,6 +51,16 @@ export class PaletteGenFormComponent {
   hidePaletteNamesSelector = input(false, { transform: booleanAttribute });
 
   protected form = getPaletteGenForm();
+
+  protected issues = computed(() => this.service.dataMap[this.service.paletteName()]().issues.map(formatPaletteIssue));
+
+  protected addAnchor() {
+    addPaletteGenFormAnchor(this.form);
+  }
+
+  protected removeAnchor(index: number) {
+    this.form.controls.anchors.removeAt(index);
+  }
 
   constructor() {
     this.handleFormStatusChanges(); // Note: must be executed after `this.restore()`
@@ -67,7 +83,7 @@ export class PaletteGenFormComponent {
     effect(() => {
       const formValue = this.service.formValue()();
       if (formValue && !paletteGenFormValuesEqual(formValue, this.form.value as PaletteGenFormValue)) {
-        this.form.setValue(formValue);
+        setPaletteGenFormValue(this.form, formValue);
         this.form.updateValueAndValidity();
       }
     });
