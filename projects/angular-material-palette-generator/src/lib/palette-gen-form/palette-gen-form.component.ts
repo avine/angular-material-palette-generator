@@ -19,6 +19,7 @@ import {
   addPaletteGenFormAnchor,
   formatPaletteIssue,
   getPaletteGenForm,
+  getUnavailableTone,
   paletteGenFormValuesEqual,
   setPaletteGenFormValue,
 } from './palette-gen-form.utils';
@@ -61,6 +62,9 @@ export class PaletteGenFormComponent {
 
   /** Tone of each anchor (`null` for anchors pinned at their own tone). */
   protected anchorTones = computed(() => (this.formValue().anchors ?? []).map((anchor) => anchor?.tone ?? null));
+
+  /** Tone of each anchor that is not one of the tones of the palette (`null` for the other anchors). */
+  protected unavailableTones = computed(() => this.anchorTones().map((tone) => getUnavailableTone(tone, this.tones())));
 
   protected issues = computed(() => this.service.dataMap[this.service.paletteName()]().issues.map(formatPaletteIssue));
 

@@ -2,6 +2,7 @@ import { PaletteGenFormValue } from './palette-gen-form.types';
 import {
   formatPaletteIssue,
   getPaletteGenForm,
+  getUnavailableTone,
   paletteGenFormValuesEqual,
   parsePaletteGenFormValue,
   setPaletteGenFormValue,
@@ -132,5 +133,19 @@ describe('formatPaletteIssue', () => {
       'The colors pinned at tones 30 and 45.0 are not ordered by lightness.',
     );
     expect(formatPaletteIssue({ type: 'non-monotonic', tone: 35 })).toBe('The lightness decreases at tone 35.');
+  });
+});
+
+describe('getUnavailableTone', () => {
+  const tones = [0, 10, 20, 100];
+
+  it('should return the tone when it is not one of the tones of the palette', () => {
+    expect(getUnavailableTone(4, tones)).toBe(4);
+  });
+
+  it('should return null for a tone of the palette or a color pinned at its own tone', () => {
+    expect(getUnavailableTone(10, tones)).toBeNull();
+    expect(getUnavailableTone(0, tones)).toBeNull();
+    expect(getUnavailableTone(null, tones)).toBeNull();
   });
 });

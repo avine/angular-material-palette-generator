@@ -37,6 +37,11 @@ $gap: 1.5rem;
     flex: 0 0 6.5rem;
   }
 
+  // Note: rendered in the overlay of the `mat-select`, outside of the component host
+  &__unavailable-tone {
+    text-decoration: line-through;
+  }
+
   &__remove {
     flex-shrink: 0;
     margin-top: 0.25rem;

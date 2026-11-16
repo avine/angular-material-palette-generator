@@ -26,6 +26,13 @@ export const getPaletteGenForm = () => {
 
 export type PaletteGenForm = ReturnType<typeof getPaletteGenForm>;
 
+/**
+ * Return the tone of an anchor if it is not one of the tones of the palette (e.g. tone `4` when the palette is no
+ * longer neutral), `null` otherwise.
+ */
+export const getUnavailableTone = (tone: number | null, tones: readonly number[]): number | null =>
+  tone !== null && !tones.includes(tone) ? tone : null;
+
 /** Add an empty anchor (the form stays invalid until its color is set). */
 export const addPaletteGenFormAnchor = (form: PaletteGenForm) => form.controls.anchors.push(getPaletteGenAnchorForm());
 
