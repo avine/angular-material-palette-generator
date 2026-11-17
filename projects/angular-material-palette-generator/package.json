@@ -24,12 +24,12 @@
     "@angular/core": "^22.0.0",
     "@angular/forms": "^22.0.0",
     "@angular/material": "^22.0.0",
-    "colorjs.io": "^0.7.1",
-    "rxjs": "^7.8.0",
-    "wcag-contrast-utils": "^1.0.2"
+    "rxjs": "^7.8.0"
   },
   "dependencies": {
-    "tslib": "^2.3.0"
+    "colorjs.io": "^0.7.1",
+    "tslib": "^2.3.0",
+    "wcag-contrast-utils": "^1.0.2"
   },
   "sideEffects": false
 }

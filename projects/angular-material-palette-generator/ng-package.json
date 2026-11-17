@@ -3,5 +3,6 @@
   "dest": "../../dist/angular-material-palette-generator",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "allowedNonPeerDependencies": ["colorjs.io", "wcag-contrast-utils"]
 }
