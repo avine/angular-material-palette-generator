@@ -155,7 +155,21 @@ export class App {
 }
 ```
 
-The overlay applies the palettes to the whole page (`<body>`) while it is enabled.
+The overlay shares the palettes with the whole page as soon as it is enabled (see below).
+
+### Page sharing
+
+The "Toggle page sharing" button, available in both the full-page tool and the overlay, applies the generated
+`--mat-sys-*` tokens to the whole page, on the root element (`<html>`). Your page background and text colors follow, as
+long as they are defined from these tokens, as recommended by the
+[Angular Material theming guide](https://material.angular.dev/guide/theming):
+
+```css
+body {
+  background: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+}
+```
 
 ### Preview on a specific element
 
@@ -163,6 +177,16 @@ Import `PaletteGenRendererDirective` to apply the generated `--mat-sys-*` tokens
 
 ```html
 <section pgPaletteGenRenderer>...</section>
+```
+
+The directive only sets the tokens. To give the element the palette's background and text colors, style it from these
+tokens:
+
+```css
+section {
+  background: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+}
 ```
 
 ## License

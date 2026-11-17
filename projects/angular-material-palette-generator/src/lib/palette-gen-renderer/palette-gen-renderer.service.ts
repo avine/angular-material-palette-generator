@@ -7,12 +7,15 @@ import {
   Injectable,
   Injector,
   RendererFactory2,
+  RendererStyleFlags2,
   signal,
   Signal,
 } from '@angular/core';
 import { PaletteGenService } from '../palette-gen.service';
 import { PALETTE_PERCENTAGE_MATCHING_MAP } from '../palette-matching/palette-matching.config';
 import { PaletteName } from '../palette-matching/palette-matching.types';
+
+type PaletteGenStyle = Record<string, string>;
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +29,7 @@ export class PaletteGenRendererService {
 
   protected service = inject(PaletteGenService);
 
-  private tokens: Record<PaletteName, Signal<string>> = {
+  private tokens: Record<PaletteName, Signal<PaletteGenStyle>> = {
     primary: this.getComputedTokens('primary'),
     secondary: this.getComputedTokens('secondary'),
     tertiary: this.getComputedTokens('tertiary'),
@@ -35,25 +38,26 @@ export class PaletteGenRendererService {
     error: this.getComputedTokens('error'),
   };
 
-  private getComputedTokens(paletteName: PaletteName) {
+  private getComputedTokens(paletteName: PaletteName): Signal<PaletteGenStyle> {
     return computed(() => {
       const { colorMap } = this.service.dataMap[paletteName]();
-      return Object.entries(PALETTE_PERCENTAGE_MATCHING_MAP[paletteName][this.service.paletteMode()])
-        .map(([token, percentage]) => `--mat-sys-${token}: ${colorMap[percentage]}`)
-        .join('; ');
+      return Object.fromEntries(
+        Object.entries(PALETTE_PERCENTAGE_MATCHING_MAP[paletteName][this.service.paletteMode()]).map(
+          ([token, percentage]) => [`--mat-sys-${token}`, colorMap[percentage]],
+        ),
+      );
     });
   }
 
-  getStyle() {
-    return [
-      this.tokens.primary(),
-      this.tokens.secondary(),
-      this.tokens.tertiary(),
-      this.tokens.neutral(),
-      this.tokens['neutral-variant'](),
-      this.tokens.error(),
-      'background-color: var(--mat-sys-surface)',
-    ].join('; ');
+  getStyle(): PaletteGenStyle {
+    return {
+      ...this.tokens.primary(),
+      ...this.tokens.secondary(),
+      ...this.tokens.tertiary(),
+      ...this.tokens.neutral(),
+      ...this.tokens['neutral-variant'](),
+      ...this.tokens.error(),
+    };
   }
 
   private _isPageSharingActive = signal(false);
@@ -66,9 +70,13 @@ export class PaletteGenRendererService {
     if (this.effectRef) {
       return;
     }
+    // Apply the tokens on `<html>` (and not `<body>`) so that custom properties declared on `:root`
+    // that reference them (e.g. `--my-color: var(--mat-sys-primary)`) resolve against the overridden values.
     this.effectRef = effect(
       () => {
-        this.renderer.setProperty(this.document.body, 'style', this.getStyle());
+        for (const [property, value] of Object.entries(this.getStyle())) {
+          this.renderer.setStyle(this.document.documentElement, property, value, RendererStyleFlags2.DashCase);
+        }
       },
       { injector: this.injector },
     );
@@ -80,7 +88,10 @@ export class PaletteGenRendererService {
     if (!this.effectRef) {
       return;
     }
-    this.renderer.setProperty(this.document.body, 'style', null);
+    // Remove only the tokens (same keys in light and dark modes), leaving any other inline style untouched.
+    for (const property of Object.keys(this.getStyle())) {
+      this.renderer.removeStyle(this.document.documentElement, property, RendererStyleFlags2.DashCase);
+    }
     this.effectRef.destroy();
     this.effectRef = undefined;
 

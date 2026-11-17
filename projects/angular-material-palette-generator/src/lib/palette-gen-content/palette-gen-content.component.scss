@@ -18,6 +18,11 @@
   }
 
   &__renderer {
+    // Default to the generated `surface` (the most common context, like `body`) rather than inheriting
+    // the page theme colors. Project the content with its real container if it sits on another surface.
+    background: var(--mat-sys-surface);
+    color: var(--mat-sys-on-surface);
+
     border-radius: 0.5rem;
     padding: 1.5rem;
   }
