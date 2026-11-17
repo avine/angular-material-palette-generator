@@ -2,9 +2,9 @@ import { Component, computed, effect, input, output, viewChildren, ViewEncapsula
 import { CubicBezierControlColorsDirective } from './cubic-bezier-control-colors.directive';
 
 @Component({
-  selector: 'pg-cubic-bezier-control-colors',
+  selector: 'cubic-bezier-control-colors',
   host: {
-    class: '.pg-cubic-bezier-control-colors',
+    class: 'cubic-bezier-control-colors',
     '[attr.role]': '"presentation"',
   },
   imports: [CubicBezierControlColorsDirective],

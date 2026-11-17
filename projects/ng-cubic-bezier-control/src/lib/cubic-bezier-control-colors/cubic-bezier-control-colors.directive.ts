@@ -1,7 +1,7 @@
 import { afterRenderEffect, Directive, ElementRef, inject, input, signal } from '@angular/core';
 
 @Directive({
-  selector: '[pgCubicBezierControlColors]',
+  selector: '[cubicBezierControlColors]',
   host: {
     '[style.color]': '"var(" + cssVarName() + ")"',
   },
@@ -9,7 +9,7 @@ import { afterRenderEffect, Directive, ElementRef, inject, input, signal } from 
 export class CubicBezierControlColorsDirective {
   private host: HTMLElement = inject(ElementRef).nativeElement;
 
-  cssVarName = input.required<string>({ alias: 'pgCubicBezierControlColors' });
+  cssVarName = input.required<string>({ alias: 'cubicBezierControlColors' });
 
   /** Trigger signal: whenever its value changes, the color is read again (e.g. on theme change). */
   refreshOn = input<unknown>();

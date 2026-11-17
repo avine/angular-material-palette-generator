@@ -1,9 +1,9 @@
-<canvas #canvas [width]="canvasSize()" [height]="canvasSize()" class="pg-cubic-bezier-control__canvas"></canvas>
+<canvas #canvas [width]="canvasSize()" [height]="canvasSize()" class="cubic-bezier-control__canvas"></canvas>
 
 <div
-  class="pg-cubic-bezier-control__point"
+  class="cubic-bezier-control__point"
   cdkDrag
-  cdkDragBoundary=".pg-cubic-bezier-control"
+  cdkDragBoundary=".cubic-bezier-control"
   [cdkDragDisabled]="disabled()"
   (cdkDragMoved)="updateParam('p1')"
   #p1
@@ -11,17 +11,17 @@
   <button
     [matTooltip]="params() | cubicBezierParams: 'p1'"
     matTooltipPosition="left"
-    [pgCubicBezierControlRipple]="!disabled()"
-    (pgCubicBezierControlDirection)="moveParams('p1', $event)"
+    [cubicBezierControlRipple]="!disabled()"
+    (cubicBezierControlDirection)="moveParams('p1', $event)"
   >
     p1
   </button>
 </div>
 
 <div
-  class="pg-cubic-bezier-control__point"
+  class="cubic-bezier-control__point"
   cdkDrag
-  cdkDragBoundary=".pg-cubic-bezier-control"
+  cdkDragBoundary=".cubic-bezier-control"
   [cdkDragDisabled]="disabled()"
   (cdkDragMoved)="updateParam('p2')"
   #p2
@@ -29,14 +29,14 @@
   <button
     [matTooltip]="params() | cubicBezierParams: 'p2'"
     matTooltipPosition="right"
-    [pgCubicBezierControlRipple]="!disabled()"
-    (pgCubicBezierControlDirection)="moveParams('p2', $event)"
+    [cubicBezierControlRipple]="!disabled()"
+    (cubicBezierControlDirection)="moveParams('p2', $event)"
   >
     p2
   </button>
 </div>
 
-<pg-cubic-bezier-control-colors
+<cubic-bezier-control-colors
   [cssVarConfig]="cssVarConfig"
   [refreshOn]="refreshColorsOn()"
   (colorMapChange)="colorMap.set($event)"

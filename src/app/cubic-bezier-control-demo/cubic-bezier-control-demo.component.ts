@@ -1,6 +1,6 @@
 import { Component, computed, inject, signal, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { CubicBezierControlComponent, CubicBezierParams } from 'angular-material-palette-generator';
+import { CubicBezierControlComponent, CubicBezierParams } from 'ng-cubic-bezier-control';
 import { ThemeService } from '../shared/theme';
 
 @Component({

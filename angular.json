@@ -143,6 +143,42 @@
           }
         }
       }
+    },
+    "ng-cubic-bezier-control": {
+      "projectType": "library",
+      "root": "projects/ng-cubic-bezier-control",
+      "sourceRoot": "projects/ng-cubic-bezier-control/src",
+      "prefix": "cubic-bezier",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-cubic-bezier-control/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ng-cubic-bezier-control/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/ng-cubic-bezier-control/tsconfig.spec.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ng-cubic-bezier-control/**/*.ts",
+              "projects/ng-cubic-bezier-control/**/*.html"
+            ],
+            "eslintConfig": "projects/ng-cubic-bezier-control/eslint.config.js"
+          }
+        }
+      }
     }
   },
   "cli": {

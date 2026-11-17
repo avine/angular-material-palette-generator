@@ -14,7 +14,8 @@
     "target": "ES2022",
     "module": "preserve",
     "paths": {
-      "angular-material-palette-generator": ["./projects/angular-material-palette-generator/src/public-api.ts"]
+      "angular-material-palette-generator": ["./projects/angular-material-palette-generator/src/public-api.ts"],
+      "ng-cubic-bezier-control": ["./projects/ng-cubic-bezier-control/src/public-api.ts"]
     }
   },
   "angularCompilerOptions": {
@@ -28,6 +29,9 @@
     { "path": "./tsconfig.spec.json" },
 
     { "path": "./projects/angular-material-palette-generator/tsconfig.lib.json" },
-    { "path": "./projects/angular-material-palette-generator/tsconfig.spec.json" }
+    { "path": "./projects/angular-material-palette-generator/tsconfig.spec.json" },
+
+    { "path": "./projects/ng-cubic-bezier-control/tsconfig.lib.json" },
+    { "path": "./projects/ng-cubic-bezier-control/tsconfig.spec.json" }
   ]
 }

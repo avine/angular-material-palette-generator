@@ -2,7 +2,7 @@ import { booleanAttribute, Directive, inject, input } from '@angular/core';
 import { MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleGlobalOptions, RippleRef } from '@angular/material/core';
 
 @Directive({
-  selector: '[pgCubicBezierControlRipple]',
+  selector: '[cubicBezierControlRipple]',
   hostDirectives: [MatRipple],
   host: {
     '(focus)': 'launch()',
@@ -17,7 +17,7 @@ export class CubicBezierControlRippleDirective {
 
   private rippleRef?: RippleRef;
 
-  enabled = input(true, { transform: booleanAttribute, alias: 'pgCubicBezierControlRipple' });
+  enabled = input(true, { transform: booleanAttribute, alias: 'cubicBezierControlRipple' });
 
   constructor() {
     this.matRipple.disabled = true; // Prevent the first self-triggered ripple

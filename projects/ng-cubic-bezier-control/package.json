@@ -1,0 +1,35 @@
+{
+  "name": "ng-cubic-bezier-control",
+  "version": "22.0.0",
+  "description": "Angular Material form control to edit a cubic Bézier curve.",
+  "author": "Stéphane Francel <stephane.francel@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/avine/angular-material-palette-generator.git",
+    "directory": "projects/ng-cubic-bezier-control"
+  },
+  "homepage": "https://github.com/avine/angular-material-palette-generator/tree/main/projects/ng-cubic-bezier-control#readme",
+  "bugs": {
+    "url": "https://github.com/avine/angular-material-palette-generator/issues"
+  },
+  "keywords": [
+    "angular",
+    "material",
+    "cubic-bezier",
+    "bezier",
+    "easing",
+    "curve",
+    "form-control"
+  ],
+  "peerDependencies": {
+    "@angular/cdk": "^22.0.0",
+    "@angular/core": "^22.0.0",
+    "@angular/forms": "^22.0.0",
+    "@angular/material": "^22.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false
+}

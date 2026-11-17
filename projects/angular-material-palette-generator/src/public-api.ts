@@ -1,7 +1,3 @@
-export * from './lib/cubic-bezier/cubic-bezier.types';
-
-export * from './lib/cubic-bezier-control/cubic-bezier-control.component';
-
 export * from './lib/palette-gen-container/palette-gen-container.component';
 
 export * from './lib/palette-gen-content/palette-gen-content.component';
