@@ -59,6 +59,7 @@
   class="pg-palette-gen-preview__action"
   [class.pg-palette-gen-preview__action--mirror]="mirrorView()"
   matIconButton
+  aria-label="Copy Sass map to clipboard"
   matTooltip="Copy Sass map to clipboard"
   [matTooltipPosition]="mirrorView() ? 'right' : 'left'"
   (click)="sassMapToClipboard()"

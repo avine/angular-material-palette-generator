@@ -21,6 +21,10 @@
     width: var(--pg-palette-gen-container-control-size);
   }
 
+  &__to-clipboard {
+    margin-top: 0.75rem;
+  }
+
   &__footer {
     grid-area: footer;
 
@@ -46,5 +50,9 @@
     grid-area: actions;
     display: flex;
     gap: 1rem;
+  }
+
+  &__action--active {
+    --mat-icon-button-icon-color: var(--mat-sys-primary);
   }
 }

@@ -10,7 +10,18 @@
   <mat-drawer position="end" [mode]="isDesktop() ? 'side' : 'over'" [(opened)]="drawerOpened">
     <div class="pg-palette-gen-container__aside">
       <pg-palette-gen-form />
+      <hr />
       <pg-palette-gen-import />
+
+      <button
+        type="button"
+        matButton
+        class="pg-palette-gen-container__to-clipboard"
+        (click)="service.sassFileToClipboard()"
+      >
+        <mat-icon>integration_instructions</mat-icon>
+        Copy Sass file to clipboard
+      </button>
     </div>
   </mat-drawer>
 </mat-drawer-container>
@@ -23,16 +34,26 @@
   }
 
   <div class="pg-palette-gen-container__actions">
+    @let active = rendererService.isPageSharingActive();
     <button
       matIconButton
       aria-label="Toggle page sharing"
       matTooltip="Toggle page sharing"
+      [class.pg-palette-gen-container__action--active]="active"
+      [aria-pressed]="active"
       (click)="rendererService.togglePageSharing()"
     >
-      <mat-icon>{{ rendererService.isPageSharingActive() ? 'stop_screen_share' : 'screen_share' }}</mat-icon>
+      <mat-icon>{{ active ? 'stop_screen_share' : 'screen_share' }}</mat-icon>
     </button>
 
-    <button matIconButton aria-label="Toggle sidebar" matTooltip="Toggle sidebar" (click)="toggleDrawer()">
+    <button
+      matIconButton
+      aria-label="Toggle sidebar"
+      matTooltip="Toggle sidebar"
+      [class.pg-palette-gen-container__action--active]="drawerOpened()"
+      [aria-pressed]="drawerOpened()"
+      (click)="toggleDrawer()"
+    >
       <mat-icon>tune</mat-icon>
     </button>
   </div>

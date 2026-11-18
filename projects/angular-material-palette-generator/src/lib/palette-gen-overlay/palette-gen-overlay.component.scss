@@ -64,6 +64,10 @@
     }
   }
 
+  &__to-clipboard {
+    margin-top: 0.75rem;
+  }
+
   &__tools-footer {
     grid-area: tools-footer;
     padding: 0 1.5rem 1rem 1.5rem;
@@ -78,5 +82,9 @@
     &--active {
       transform: rotateY(180deg);
     }
+  }
+
+  &__action--active {
+    --mat-icon-button-icon-color: var(--mat-sys-primary);
   }
 }

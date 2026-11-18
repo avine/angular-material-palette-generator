@@ -26,7 +26,18 @@
     <div class="pg-palette-gen-overlay__tools">
       <div class="pg-palette-gen-overlay__tools-inner">
         <pg-palette-gen-form />
+        <hr />
         <pg-palette-gen-import />
+
+        <button
+          type="button"
+          matButton
+          class="pg-palette-gen-overlay__to-clipboard"
+          (click)="service.sassFileToClipboard()"
+        >
+          <mat-icon>integration_instructions</mat-icon>
+          Copy Sass file to clipboard
+        </button>
       </div>
     </div>
 
@@ -40,13 +51,16 @@
         </mat-icon>
       </button>
 
+      @let active = rendererService.isPageSharingActive();
       <button
         matIconButton
         aria-label="Toggle page sharing"
         matTooltip="Toggle page sharing"
+        [class.pg-palette-gen-overlay__action--active]="active"
+        [aria-pressed]="active"
         (click)="rendererService.togglePageSharing()"
       >
-        <mat-icon>{{ rendererService.isPageSharingActive() ? 'stop_screen_share' : 'screen_share' }}</mat-icon>
+        <mat-icon>{{ active ? 'stop_screen_share' : 'screen_share' }}</mat-icon>
       </button>
 
       <!--<button matIconButton aria-label="View on GitHub" matTooltip="View on GitHub">
